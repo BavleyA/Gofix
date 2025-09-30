@@ -16,4 +16,19 @@ class AppImageStrings {
   static const successRegistration = 'assets/images/successRegisteredUnderReviewImage.png';
   static const businessDetailsIcon = 'assets/images/BuisnessDetailsImageInSellerRegister.png';
   static const onlinePresenceIcon = 'assets/images/OnlinePresenceImageInSellerRegistration.png';
+
+  // dark theme image
+
+  static const appLogoDark = 'assets/images/AppIconDark.png';
+  static const profileIconDark = 'assets/images/profileIconDark.png';
+  static const documentIconDark = 'assets/images/documentFrameDark.png';
+  static const nationalIdIconDark = 'assets/images/nationalIdImageDark.png';
+  static const criminalRecordCertificateIconDark = 'assets/images/criminalRecordDark.png';
+  static const vehicleLicenseIconDark = 'assets/images/vehicleLicenseImageDark.png';
+  static const driverLicenseIconDark = 'assets/images/drivingLicenseImageDark.png';
+  static const businessDetailsIconDark = 'assets/images/businessDetailsImageDark.png';
+  static const onlinePresenceIconDark = 'assets/images/onlinePresenceDark.png';
+
+
+
 }
