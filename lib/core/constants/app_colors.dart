@@ -29,5 +29,32 @@ class AppColors{
   static const Color shadowLight = Color(0xFFBDBDBD);
 
 
+  //Dark theme colors
+
+  static const Color backgroundDark = Color(0xFF0F1C2E);
+
+
+  static const Color textFieldBackgroundDark = Color(0xFF22344D);
+  static const Color strokeDisabled = Color(0xFF2F3E52);
+  static const Color strokeEnabled = Color(0xFF4A6FA1);
+
+
+  static const Color selectedContainer = Color(0xFF4A6FA1);
+  static const Color documentContainer = Color(0xFF4A6FA1);
+  static const Color disabledContainer = Color(0xFF1E293B);
+
+
+  static const Color mainButton = Color(0xFF4A6FA1);
+  static const Color backArrow = Color(0xFF4A6FA1);
+
+
+  static const Color primaryTextDark = Color(0xFFE2E8F0);
+  static const Color secondaryTextDark = Color(0xFFCBD5E1);
+  static const Color placeholderTextDark = Color(0xFF9DB2CE);
+
+
+  static const Color warningRed = Color(0xFFF87171);
+  static const Color verifyNumberField = Color(0xFF2F3E52);
+
 
 }
