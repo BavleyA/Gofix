@@ -20,7 +20,7 @@ class AppTextFormFieldTheme {
     floatingLabelStyle:
         const TextStyle().copyWith(color: Colors.black.withOpacity(0.8), fontSize: 14),
     border: OutlineInputBorder().copyWith(
-      borderRadius: BorderRadius.circular(8.0),
+      borderRadius: BorderRadius.circular(10.0),
       borderSide: const BorderSide(color: Colors.grey, width: 1.5),
     ),
     focusedBorder: OutlineInputBorder().copyWith(
@@ -52,7 +52,7 @@ class AppTextFormFieldTheme {
     errorStyle:
         const TextStyle().copyWith(color: Colors.red, fontStyle: FontStyle.normal),
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8.0),
+      borderRadius: BorderRadius.circular(10.0),
       borderSide: const BorderSide(color: Colors.grey, width: 1.5),
     ),
     focusedBorder: OutlineInputBorder(

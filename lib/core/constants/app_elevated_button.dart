@@ -12,7 +12,7 @@ class AppElevatedButtonTheme {
       disabledBackgroundColor: Colors.grey,
       disabledForegroundColor: Colors.grey,
       side: const BorderSide(
-        color: Colors.blue,
+        color: AppColors.primary,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
@@ -34,7 +34,7 @@ class AppElevatedButtonTheme {
       disabledBackgroundColor: Colors.grey,
       disabledForegroundColor: Colors.grey,
       side: const BorderSide(
-        color: Colors.blue,
+        color: AppColors.mainButton,
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
