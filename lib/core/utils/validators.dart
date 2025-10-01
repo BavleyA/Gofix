@@ -20,4 +20,14 @@ class Validator{
     }
     return null;
   }
+  static String? validatePhone(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Phone number cannot be empty';
+    }
+    final phoneRegex = RegExp(r'^(010|011|012|015)[0-9]{8}$');
+    if (!phoneRegex.hasMatch(value)) {
+      return 'Invalid Egyptian phone number';
+    }
+    return null;
+  }
 }
