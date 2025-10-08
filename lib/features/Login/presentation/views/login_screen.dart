@@ -59,13 +59,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       CustomTextFormField(
                           dark: dark,
-                          labelText: AppStrings.phoneNumberHint,
-                          keyboardType: TextInputType.phone,
+                          labelText: AppStrings.emailHint,
+                          keyboardType: TextInputType.emailAddress,
                           // hintText: AppStrings.phoneNumberHint,
-                          controller: phoneController,
+                          controller: emailController,
                           onChanged: (value){},
-                          validator: (value) => Validator.validatePhone(value),
-                          icon: Icons.phone,
+                          validator: (value) => Validator.validateEmail(value),
+                          icon: Icons.email,
                       ),
 
                       const SizedBox(height: 16),
