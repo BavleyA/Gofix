@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/app_text_style.dart';
+import '../../../VerifyOTP/presentation/views/sign_up_screen.dart';
 
-class AlreadyHaveAnAccount extends StatelessWidget {
-  const AlreadyHaveAnAccount({
+class DontHaveanAccount extends StatelessWidget {
+  const DontHaveanAccount({
     super.key,
     required this.dark,
   });
@@ -19,11 +20,15 @@ class AlreadyHaveAnAccount extends StatelessWidget {
         Align(
           alignment: Alignment.center,
           child: Text(
-            AppStrings.alreadyHaveAccountText,
+            AppStrings.dontHaveAccountText,
             style: dark ? AppTextTheme.darkTextTheme.bodyLarge : AppTextTheme.lightTextTheme.bodyLarge,
           ),
         ),
-        TextButton(onPressed: (){},
+        TextButton(onPressed: (){
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => SignUpScreen(),
+              ));
+        },
             child: Text(
               'SignUp',
               style: dark

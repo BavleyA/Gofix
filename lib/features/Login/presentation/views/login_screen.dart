@@ -3,9 +3,10 @@ import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/core/utils/validators.dart';
-import 'package:gofix/features/Login/presentation/widgets/already_have_an_account.dart';
+import 'package:gofix/features/Login/presentation/widgets/do_not_have_an_account.dart';
 import 'package:gofix/features/Login/presentation/widgets/elevated_button.dart';
 import 'package:gofix/features/Login/presentation/widgets/forget_password.dart';
+import 'package:gofix/features/VerifyOTP/presentation/views/sign_up_screen.dart';
 
 import '../../../../core/constants/app_text_form_field_theme.dart';
 import '../widgets/custom_text_form_field.dart';
@@ -19,6 +20,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  final TextEditingController emailController = TextEditingController();
 
   final TextEditingController phoneController = TextEditingController();
 
@@ -85,12 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       const SizedBox(height: 4,),
 
-
                       ForgetPass(dark: dark),
-
-                      const SizedBox(height: 10,),
-
-                      AlreadyHaveAnAccount(dark: dark),
 
                       const SizedBox(height: 20,),
 
@@ -101,6 +99,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           phone: phoneController.text,
                           password: passwordController.text,
                       ),
+
+                      const SizedBox(height: 10,),
+
+                      DontHaveanAccount(dark: dark),
 
 
                     ],
