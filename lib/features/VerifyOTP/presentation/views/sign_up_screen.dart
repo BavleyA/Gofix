@@ -59,7 +59,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Column(
                     children: [
 
-
                       CustomTextFormField(
                         dark: dark,
                         labelText: AppStrings.fullNameHint,
