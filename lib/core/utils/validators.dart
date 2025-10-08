@@ -20,6 +20,17 @@ class Validator{
     }
     return null;
   }
+
+  static String? validateName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Name cannot be empty';
+    }
+    if (value.length < 2) {
+      return 'Name must be more than 2 characters';
+    }
+    return null;
+  }
+
   static String? validatePhone(String? value) {
     if (value == null || value.isEmpty) {
       return 'Phone number cannot be empty';
