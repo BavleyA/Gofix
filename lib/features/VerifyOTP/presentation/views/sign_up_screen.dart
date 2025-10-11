@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gofix/features/VerifyOTP/presentation/views/verify_otp_screen.dart';
 import 'package:gofix/features/VerifyOTP/presentation/widgets/already_have_an_account.dart';
 import 'package:gofix/features/VerifyOTP/presentation/widgets/sign_up_elevated_button.dart';
 
@@ -110,7 +111,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(height: 20,),
 
                       SignUpElevatedAuthButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          if(_formKey.currentState!.validate()){
+
+                            Navigator.push(context,
+                            MaterialPageRoute(builder: (context)=>PhoneVerificationScreen()),
+                            );
+
+                          }
+                        },
                         dark: dark,
                         text: AppStrings.nextStepText,
                         name: nameController.text,
