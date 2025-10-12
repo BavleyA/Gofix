@@ -1,0 +1,166 @@
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:gofix/core/constants/app_colors.dart';
+import 'package:gofix/core/constants/app_image_strings.dart';
+import 'package:gofix/core/constants/app_strings.dart';
+import 'package:gofix/core/constants/app_text_style.dart';
+import 'package:gofix/core/utils/helper.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/done_requirement_button.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/profile_image.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/upload_image.dart';
+
+class ProfilePictureScreen extends StatefulWidget {
+  const ProfilePictureScreen({super.key});
+
+  @override
+  State<ProfilePictureScreen> createState() => _ProfilePictureScreenState();
+}
+
+class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
+  File? _imageFile;
+  bool _isLoading = false;
+
+  Future<void> _uploadImage(File image) async {
+    setState(() => _isLoading = true);
+    try {
+      await Future.delayed(const Duration(seconds: 2));
+      setState(() => _isLoading = false);
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(AppStrings.success)));
+    } catch (e) {
+      setState(() => _isLoading = false);
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text(AppStrings.failed)));
+    }
+  }
+
+  void _showImagePicker() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      backgroundColor: Colors.white,
+      builder: (_) => ImagePickerSheetWidget(
+        onImageSelected: (file) {
+          setState(() => _imageFile = file);
+          _uploadImage(file);
+        },
+      ),
+    );
+  }
+
+  void _done() {
+    if (_imageFile == null) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text(AppStrings.uploadMsg)));
+      return;
+    }
+    Navigator.pop(context, _imageFile);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final dark = Helper.isDarkMode(context);
+
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(backgroundColor: AppColors.imageCard),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ProfileImageWidget(imageFile: _imageFile,placeholderImage: AppImageStrings.profileIcon,),
+            Padding(
+              padding: const EdgeInsets.all(18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    AppStrings.profilePhoto,
+                    style: dark
+                        ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
+                            color: AppColors.secondaryBlack,
+                          )
+                        : AppTextTheme.lightTextTheme.headlineLarge,
+                  ),
+                  const SizedBox(height: 15),
+
+                  Text(
+                    AppStrings.pfpRequirements,
+                    style: AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                      color: AppColors.texthint,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    AppStrings.pfpRequirementsRole,
+                    style: TextStyle(
+                      color: AppColors.texthint,
+                      fontSize: 14,
+                      height: 1.5,
+                    ),
+                  ),
+
+                  const SizedBox(height: 15),
+
+                  Text(
+                    AppStrings.notAccepted,
+                    style: AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.underline,
+                      color: AppColors.texthint,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    AppStrings.notAcceptedRole,
+                    style: TextStyle(
+                      color: AppColors.texthint,
+                      fontSize: 14,
+                      height: 1.5,
+                    ),
+                  ),
+
+                  const SizedBox(height: 50),
+
+                  DoneReqButton(
+                    text: AppStrings.uploadPhoto,
+                    onPressed: _showImagePicker,
+                    dark: dark,
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  DoneReqButton(
+                    text: AppStrings.done,
+                    onPressed: _done,
+                    dark: dark,
+                  ),
+
+                  if (_isLoading)
+                    const Padding(
+                      padding: EdgeInsets.only(top: 16),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ),
+                  const SizedBox(height: 90),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
