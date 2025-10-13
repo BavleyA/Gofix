@@ -6,7 +6,7 @@ import '../../../../core/constants/app_text_style.dart';
 import '../../../../core/utils/helper.dart';
 
 class PhoneVerificationScreen extends StatefulWidget {
-  const PhoneVerificationScreen({Key? key}) : super(key: key);
+  const PhoneVerificationScreen({super.key});
 
   @override
   State<PhoneVerificationScreen> createState() =>
@@ -18,12 +18,11 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
   int _countdown = 20;
   Timer? _timer;
 
-  final List<TextEditingController> _controllers = List.generate(5,
-        (index) => TextEditingController(),
+  final List<TextEditingController> _controllers = List.generate(
+    5,
+    (index) => TextEditingController(),
   );
-  final List<FocusNode> _focusNodes = List.generate(5,
-        (index) => FocusNode(),
-  );
+  final List<FocusNode> _focusNodes = List.generate(5, (index) => FocusNode());
 
   @override
   void initState() {
@@ -71,9 +70,9 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
     String enteredCode = _controllers.map((c) => c.text).join();
 
     if (enteredCode == '25017') {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Verification successful!')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Verification successful!')));
     } else {
       setState(() {
         _hasError = true;
@@ -94,9 +93,9 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
         _focusNodes[0].requestFocus();
       }
     });
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Code sent!')),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Code sent!')));
   }
 
   bool get _isCodeComplete {
@@ -119,7 +118,9 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: dark ? AppColors.backArrow : AppColors.buttonSecondary,
+                      color: dark
+                          ? AppColors.backArrow
+                          : AppColors.buttonSecondary,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: IconButton(
@@ -146,7 +147,9 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      _isCodeComplete ? 'Verify your phone number' : 'Enter code',
+                      _isCodeComplete
+                          ? 'Verify your phone number'
+                          : 'Enter code',
                       style: dark
                           ? AppTextTheme.darkTextTheme.headlineLarge
                           : AppTextTheme.lightTextTheme.headlineLarge,
@@ -173,13 +176,13 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                           'Change your mobile number?',
                           style: dark
                               ? AppTextTheme.darkTextTheme.bodyLarge?.copyWith(
-                            color: Colors.grey,
-                            decoration: TextDecoration.underline,
-                          )
+                                  color: Colors.grey,
+                                  decoration: TextDecoration.underline,
+                                )
                               : AppTextTheme.lightTextTheme.bodyLarge?.copyWith(
-                            color: Colors.grey,
-                            decoration: TextDecoration.underline,
-                          ),
+                                  color: Colors.grey,
+                                  decoration: TextDecoration.underline,
+                                ),
                         ),
                       ),
                     ],
@@ -206,7 +209,9 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                               color: _hasError
                                   ? Colors.red.withOpacity(0.5)
                                   : _focusNodes[index].hasFocus
-                                  ? (dark ? AppColors.mainButton : AppColors.primary)
+                                  ? (dark
+                                        ? AppColors.mainButton
+                                        : AppColors.primary)
                                   : Colors.transparent,
                               width: 2,
                             ),
@@ -233,7 +238,8 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                               }
                             },
                             onTap: () {
-                              if (_controllers[index].text.isEmpty && index > 0) {
+                              if (_controllers[index].text.isEmpty &&
+                                  index > 0) {
                                 _focusNodes[index - 1].requestFocus();
                               }
                             },
@@ -246,10 +252,7 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                       const SizedBox(height: 16),
                       const Text(
                         'Wrong code, please try again',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 14,
-                        ),
+                        style: TextStyle(color: Colors.red, fontSize: 14),
                       ),
                     ],
 
@@ -267,8 +270,12 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                             'Send code again',
                             style: TextStyle(
                               color: _countdown == 0
-                                  ? (dark ? AppColors.mainButton : AppColors.primary)
-                                  : (dark ? Colors.white.withOpacity(0.5) : Colors.grey),
+                                  ? (dark
+                                        ? AppColors.mainButton
+                                        : AppColors.primary)
+                                  : (dark
+                                        ? Colors.white.withOpacity(0.5)
+                                        : Colors.grey),
                               fontSize: 15,
                               decoration: TextDecoration.underline,
                             ),
@@ -278,7 +285,9 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                         Text(
                           '00:${_countdown.toString().padLeft(2, '0')}',
                           style: TextStyle(
-                            color: dark ? Colors.white.withOpacity(0.5) : Colors.grey,
+                            color: dark
+                                ? Colors.white.withOpacity(0.5)
+                                : Colors.grey,
                             fontSize: 15,
                           ),
                         ),
@@ -294,7 +303,9 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: dark ? AppColors.mainButton : AppColors.buttonPrimary,
+                            backgroundColor: dark
+                                ? AppColors.mainButton
+                                : AppColors.buttonPrimary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -302,12 +313,12 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                           child: Text(
                             'Call me instead',
                             style: dark
-                                ? AppTextTheme.darkTextTheme.titleLarge?.copyWith(
-                              color: AppColors.primaryTextDark,
-                            )
-                                : AppTextTheme.lightTextTheme.titleLarge?.copyWith(
-                              color: AppColors.textPrimary,
-                            ),
+                                ? AppTextTheme.darkTextTheme.titleLarge
+                                      ?.copyWith(
+                                        color: AppColors.primaryTextDark,
+                                      )
+                                : AppTextTheme.lightTextTheme.titleLarge
+                                      ?.copyWith(color: AppColors.textPrimary),
                           ),
                         ),
                       ),
@@ -325,24 +336,28 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                             Text(
                               "I didn't receive a code",
                               style: dark
-                                  ? AppTextTheme.darkTextTheme.titleLarge?.copyWith(
-                                color: AppColors.primaryTextDark,
-                              )
-                                  : AppTextTheme.lightTextTheme.titleLarge?.copyWith(
-                                color: AppColors.textPrimary,
-                              ),
+                                  ? AppTextTheme.darkTextTheme.titleLarge
+                                        ?.copyWith(
+                                          color: AppColors.primaryTextDark,
+                                        )
+                                  : AppTextTheme.lightTextTheme.titleLarge
+                                        ?.copyWith(
+                                          color: AppColors.textPrimary,
+                                        ),
                             ),
                             Text(
                               " Resend",
                               style: dark
-                                  ? AppTextTheme.darkTextTheme.titleLarge?.copyWith(
-                                color: AppColors.mainButton,
-                                decoration: TextDecoration.underline,
-                              )
-                                  : AppTextTheme.lightTextTheme.titleLarge?.copyWith(
-                                color: AppColors.primary,
-                                decoration: TextDecoration.underline,
-                              ),
+                                  ? AppTextTheme.darkTextTheme.titleLarge
+                                        ?.copyWith(
+                                          color: AppColors.mainButton,
+                                          decoration: TextDecoration.underline,
+                                        )
+                                  : AppTextTheme.lightTextTheme.titleLarge
+                                        ?.copyWith(
+                                          color: AppColors.primary,
+                                          decoration: TextDecoration.underline,
+                                        ),
                             ),
                           ],
                         ),
@@ -355,7 +370,9 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                         child: ElevatedButton(
                           onPressed: _onVerify,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: dark ? AppColors.mainButton : AppColors.primary,
+                            backgroundColor: dark
+                                ? AppColors.mainButton
+                                : AppColors.primary,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -363,12 +380,10 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                           child: Text(
                             'Verify',
                             style: dark
-                                ? AppTextTheme.darkTextTheme.titleLarge?.copyWith(
-                              color: Colors.black,
-                            )
-                                : AppTextTheme.lightTextTheme.titleLarge?.copyWith(
-                              color: Colors.white,
-                            ),
+                                ? AppTextTheme.darkTextTheme.titleLarge
+                                      ?.copyWith(color: Colors.black)
+                                : AppTextTheme.lightTextTheme.titleLarge
+                                      ?.copyWith(color: Colors.white),
                           ),
                         ),
                       ),

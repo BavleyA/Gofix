@@ -16,6 +16,7 @@ class AppColors {
   static const Color textSecondary = Color(0xFF757575);
   static const Color textOnPrimary = Color(0xFFFFFFFF);
   static const Color texthint = Color(0xFF86888A);
+  static const Color texthintDark = Color(0xFF94A3B8);
 
   static const Color light = Color(0xFFF5F5F5);
   static const Color dark = Color(0xFF121212);
@@ -35,6 +36,7 @@ class AppColors {
   static const Color docCardBorder = Color(0xFF666666);
   static const Color arrowIcon = Color(0xFF666666);
   static const Color imageCard = Color(0xFFE3E5E8);
+  static const Color imageCardDark = Color(0xFF243B55);
 
   //Dark theme colors
 
@@ -45,6 +47,7 @@ class AppColors {
   static const Color strokeEnabled = Color(0xFF4A6FA1);
 
   static const Color selectedContainer = Color(0xFF4A6FA1);
+  static const Color selectedContainerDark= Color(0xFF4A6FA1);
   static const Color documentContainer = Color(0xFF4A6FA1);
   static const Color disabledContainer = Color(0xFF1E293B);
 

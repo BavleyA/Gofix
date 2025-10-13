@@ -69,18 +69,24 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
     final dark = Helper.isDarkMode(context);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(backgroundColor: AppColors.imageCard),
+      backgroundColor: dark ? AppColors.backgroundDark : AppColors.background,
+      appBar: AppBar(
+        backgroundColor: dark ? AppColors.imageCardDark : AppColors.imageCard,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ProfileImageWidget(imageFile: _imageFile,placeholderImage: AppImageStrings.profileIcon,),
+            ProfileImageWidget(
+              imageFile: _imageFile,
+              placeholderImage: AppImageStrings.profileIcon,
+            ),
             Padding(
               padding: const EdgeInsets.all(18),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // ===== العنوان الرئيسي =====
                   Text(
                     AppStrings.profilePhoto,
                     style: dark
@@ -91,19 +97,26 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                   ),
                   const SizedBox(height: 15),
 
+                  // ===== النصوص التوضيحية =====
                   Text(
                     AppStrings.pfpRequirements,
-                    style: AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline,
-                      color: AppColors.texthint,
-                    ),
+                    style: dark
+                        ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                            color: AppColors.texthintDark,
+                          )
+                        : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                            color: AppColors.texthint,
+                          ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
+                  Text(
                     AppStrings.pfpRequirementsRole,
                     style: TextStyle(
-                      color: AppColors.texthint,
+                      color: dark ? AppColors.texthintDark : AppColors.texthint,
                       fontSize: 14,
                       height: 1.5,
                     ),
@@ -113,17 +126,23 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
 
                   Text(
                     AppStrings.notAccepted,
-                    style: AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline,
-                      color: AppColors.texthint,
-                    ),
+                    style: dark
+                        ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                            color: AppColors.texthintDark,
+                          )
+                        : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                            color: AppColors.texthint,
+                          ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
+                  Text(
                     AppStrings.notAcceptedRole,
                     style: TextStyle(
-                      color: AppColors.texthint,
+                      color: dark ? AppColors.texthintDark : AppColors.texthint,
                       fontSize: 14,
                       height: 1.5,
                     ),
@@ -131,6 +150,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
 
                   const SizedBox(height: 50),
 
+                  // ===== زرار رفع الصورة =====
                   DoneReqButton(
                     text: AppStrings.uploadPhoto,
                     onPressed: _showImagePicker,
@@ -139,6 +159,7 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
 
                   const SizedBox(height: 20),
 
+                  // ===== زرار Done =====
                   DoneReqButton(
                     text: AppStrings.done,
                     onPressed: _done,

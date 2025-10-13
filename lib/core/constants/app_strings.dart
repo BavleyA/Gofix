@@ -53,4 +53,8 @@ class AppStrings {
   static const String uploadMsg = 'Please upload a photo first!';
   static const String nationalIDReq = 'Requirement:';
   static const String nationalIDRole ='• National ID must be valid (not expired).';
+  static const String requiredFieldEmail ='This field is required';
+  static const String requiredFieldBussiness ='Business name is required';
+  static const String requiredFieldCategory ='Category is required';
+  static const String requiredFieldAddress ='Address is required';
 }

@@ -6,6 +6,7 @@ import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/done_requirement_button.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/national_id_uploader.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/requirement_icon_image.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/upload_image.dart';
 
@@ -73,14 +74,19 @@ class _NationalIdScreenState extends State<NationalIdScreen> {
     final dark = Helper.isDarkMode(context);
 
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(backgroundColor: AppColors.imageCard),
+      backgroundColor: dark ? AppColors.backgroundDark : AppColors.background,
+      appBar: AppBar(
+        backgroundColor: dark ? AppColors.imageCardDark : AppColors.imageCard,
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            RequirementImageIcon(),
-
+            RequirementImageIcon(
+              image: dark
+                  ? AppImageStrings.nationalIdIconDark
+                  : AppImageStrings.nationalIdIcon,
+            ),
             Padding(
               padding: const EdgeInsets.all(18),
               child: Column(
@@ -97,35 +103,42 @@ class _NationalIdScreenState extends State<NationalIdScreen> {
                   const SizedBox(height: 15),
                   Text(
                     AppStrings.nationalIDReq,
-                    style: AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.underline,
-                      color: AppColors.texthint,
-                    ),
+                    style: dark
+                        ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                            color: AppColors.texthint,
+                          )
+                        : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                            color: AppColors.texthint,
+                          ),
                   ),
                   const SizedBox(height: 4),
-                  const Text(
+                  Text(
                     AppStrings.nationalIDRole,
                     style: TextStyle(
-                      color: AppColors.texthint,
+                      color: dark ? AppColors.texthintDark : AppColors.texthint,
                       fontSize: 14,
                       height: 1.5,
                     ),
                   ),
                   const SizedBox(height: 20),
 
-                  // ===== FRONT IMAGE =====
-                  _buildImageContainer(
+                  // ===== Front ID =====
+                  NationalIdUploader(
                     label: "Front ID",
                     imageFile: _frontImage,
                     onTap: () => _showImagePickerSheet(true),
+                    dark: dark,
                   ),
 
-                  // ===== BACK IMAGE =====
-                  _buildImageContainer(
+                  NationalIdUploader(
                     label: "Back ID",
                     imageFile: _backImage,
                     onTap: () => _showImagePickerSheet(false),
+                    dark: dark,
                   ),
 
                   const SizedBox(height: 40),
@@ -151,58 +164,6 @@ class _NationalIdScreenState extends State<NationalIdScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  // ===== Container يعرض الصورة أو الزر للرفع =====
-  Widget _buildImageContainer({
-    required String label,
-    required File? imageFile,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        height: 180,
-        margin: const EdgeInsets.symmetric(vertical: 8),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: AppColors.selectedContainer.withOpacity(0.6),
-          ),
-          color: AppColors.docCard,
-        ),
-        child: imageFile == null
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.upload_file,
-                    color: AppColors.primary,
-                    size: 40,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    label,
-                    style: const TextStyle(
-                      color: AppColors.primary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              )
-            : ClipRRect(
-                borderRadius: BorderRadius.circular(16),
-                child: Image.file(
-                  imageFile,
-                  width: double.infinity,
-                  height: 180,
-                  fit: BoxFit.cover,
-                ),
-              ),
       ),
     );
   }
