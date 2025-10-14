@@ -9,14 +9,16 @@ import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/done_requi
 import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/profile_image.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/upload_image.dart';
 
-class ProfilePictureScreen extends StatefulWidget {
-  const ProfilePictureScreen({super.key});
+class TraderProfilePictureScreen extends StatefulWidget {
+  const TraderProfilePictureScreen({super.key});
 
   @override
-  State<ProfilePictureScreen> createState() => _ProfilePictureScreenState();
+  State<TraderProfilePictureScreen> createState() =>
+      _TraderProfilePictureScreenState();
 }
 
-class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
+class _TraderProfilePictureScreenState
+    extends State<TraderProfilePictureScreen> {
   File? _imageFile;
   bool _isLoading = false;
 
@@ -86,7 +88,6 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // ===== العنوان الرئيسي =====
                   Text(
                     AppStrings.profilePhoto,
                     style: dark
@@ -97,7 +98,6 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
                   ),
                   const SizedBox(height: 15),
 
-                  // ===== النصوص التوضيحية =====
                   Text(
                     AppStrings.pfpRequirements,
                     style: dark
@@ -150,7 +150,6 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
 
                   const SizedBox(height: 50),
 
-                  // ===== زرار رفع الصورة =====
                   DoneReqButton(
                     text: AppStrings.uploadPhoto,
                     onPressed: _showImagePicker,
@@ -159,7 +158,6 @@ class _ProfilePictureScreenState extends State<ProfilePictureScreen> {
 
                   const SizedBox(height: 20),
 
-                  // ===== زرار Done =====
                   DoneReqButton(
                     text: AppStrings.done,
                     onPressed: _done,

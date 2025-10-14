@@ -4,9 +4,9 @@ import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/view/bussiness_details_screen.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/view/national_id_screen.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/view/trader_national_id_screen.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/view/onilne_presence_screen.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/view/profile_pic_screen.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/view/trader_profile_pic_screen.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/nubmered_circle.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/required_doc_tile.dart';
 
@@ -62,7 +62,7 @@ class _TraderDocScreenState extends State<TraderDocScreen> {
                         final result = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const ProfilePictureScreen(),
+                            builder: (_) => const TraderProfilePictureScreen(),
                           ),
                         );
 
@@ -89,7 +89,7 @@ class _TraderDocScreenState extends State<TraderDocScreen> {
                         final completed = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const NationalIdScreen(),
+                            builder: (_) => const TraderNationalIdScreen(),
                           ),
                         );
                         if (completed != null) {
@@ -112,18 +112,17 @@ class _TraderDocScreenState extends State<TraderDocScreen> {
                       title: AppStrings.businessDetails,
                       route: '/business-details',
                       onTap: () async {
-  final completed = await Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (_) => const BussinessDetailsScreen(),
-    ),
-  );
+                        final completed = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const BussinessDetailsScreen(),
+                          ),
+                        );
 
-  if (completed == true) {
-    _markStepCompleted(2);
-  }
-},
-
+                        if (completed == true) {
+                          _markStepCompleted(2);
+                        }
+                      },
                     ),
                   ),
                 ],
