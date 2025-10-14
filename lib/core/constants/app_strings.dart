@@ -57,4 +57,5 @@ class AppStrings {
   static const String requiredFieldBussiness ='Business name is required';
   static const String requiredFieldCategory ='Category is required';
   static const String requiredFieldAddress ='Address is required';
+  static const String socialMediaLinksHint='Social Media Links';
 }

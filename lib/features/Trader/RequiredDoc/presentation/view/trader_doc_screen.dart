@@ -5,6 +5,7 @@ import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/view/bussiness_details_screen.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/view/national_id_screen.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/view/onilne_presence_screen.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/view/profile_pic_screen.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/nubmered_circle.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/required_doc_tile.dart';
@@ -142,7 +143,7 @@ class _TraderDocScreenState extends State<TraderDocScreen> {
                         final completed = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const ProfilePictureScreen(),
+                            builder: (_) => const OnlinePresenceScreen(),
                           ),
                         );
                         if (completed != null) {
