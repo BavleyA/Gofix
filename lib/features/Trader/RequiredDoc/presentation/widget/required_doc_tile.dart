@@ -35,7 +35,7 @@ class DocTile extends StatelessWidget {
                 title,
                 style: TextStyle(
                   color: AppColors.dark.withOpacity(0.8),
-                  fontSize: 18,
+                  fontSize: 17,
                   fontWeight: FontWeight.w500,
                 ),
               ),

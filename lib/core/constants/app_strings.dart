@@ -23,7 +23,10 @@ class AppStrings {
   static const String requiredDocuments = 'Required Documents';
   static const String profilePhoto = 'Profile Picture';
   static const String nationalID = 'National ID';
-  static const String criminalRecordCertificate = 'Criminal record certificate';
+  static const String criminalRecordCertificate = 'Criminal Record Certificate';
+  static const String criminalRecordCertificateReq = 'Requirement :';
+  static const String criminalRecordCertificateRole =
+      '• Original and valid.\n• Recently issued (within 3 months).\n• Must match applicant’s details.';
   static const String vehicleLicense = 'Vehicle License';
   static const String driverLicense = 'Driving License';
   static const String businessDetails = 'Business Details';
@@ -52,10 +55,11 @@ class AppStrings {
   static const String failed = 'Failed to upload. Try again.';
   static const String uploadMsg = 'Please upload a photo first!';
   static const String nationalIDReq = 'Requirement:';
-  static const String nationalIDRole ='• National ID must be valid (not expired).';
-  static const String requiredFieldEmail ='This field is required';
-  static const String requiredFieldBussiness ='Business name is required';
-  static const String requiredFieldCategory ='Category is required';
-  static const String requiredFieldAddress ='Address is required';
-  static const String socialMediaLinksHint='Social Media Links';
+  static const String nationalIDRole =
+      '• National ID must be valid (not expired).';
+  static const String requiredFieldEmail = 'This field is required';
+  static const String requiredFieldBussiness = 'Business name is required';
+  static const String requiredFieldCategory = 'Category is required';
+  static const String requiredFieldAddress = 'Address is required';
+  static const String socialMediaLinksHint = 'Social Media Links';
 }

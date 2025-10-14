@@ -6,21 +6,22 @@ import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/done_requirement_button.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/national_id_uploader.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/requirement_icon_image.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/upload_image.dart';
+import 'package:gofix/features/Driver/DriverView/bike/widget/criminal_record_uploader.dart';
 
-class NationalIdScreen extends StatefulWidget {
-  const NationalIdScreen({super.key});
+class BikeCriminalRecordScreen extends StatefulWidget {
+  const BikeCriminalRecordScreen({super.key});
 
   @override
-  State<NationalIdScreen> createState() => _NationalIdScreenState();
+  State<BikeCriminalRecordScreen> createState() =>
+      _BikeCriminalRecordScreenState();
 }
 
-class _NationalIdScreenState extends State<NationalIdScreen> {
-  File? _frontImage;
-  File? _backImage;
+class _BikeCriminalRecordScreenState extends State<BikeCriminalRecordScreen> {
+  File? _criminalRecordImage;
   bool _isLoading = false;
+  bool _isImageMissing = false;
 
   Future<void> _uploadImage(File image) async {
     setState(() => _isLoading = true);
@@ -38,7 +39,7 @@ class _NationalIdScreenState extends State<NationalIdScreen> {
     }
   }
 
-  void _showImagePickerSheet(bool isFront) {
+  void _showImagePickerSheet() {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -47,11 +48,8 @@ class _NationalIdScreenState extends State<NationalIdScreen> {
       builder: (context) => ImagePickerSheetWidget(
         onImageSelected: (File image) {
           setState(() {
-            if (isFront) {
-              _frontImage = image;
-            } else {
-              _backImage = image;
-            }
+            _criminalRecordImage = image;
+            _isImageMissing = false; // الصورة اترفعت، شيل التحذير
           });
           _uploadImage(image);
         },
@@ -60,13 +58,21 @@ class _NationalIdScreenState extends State<NationalIdScreen> {
   }
 
   void _done() {
-    if (_frontImage == null || _backImage == null) {
+    if (_criminalRecordImage == null) {
+      setState(() {
+        _isImageMissing = true;
+      });
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text(AppStrings.uploadMsg)));
       return;
     }
-    Navigator.pop(context, {'front': _frontImage, 'back': _backImage});
+
+    setState(() {
+      _isImageMissing = false;
+    });
+
+    Navigator.pop(context, {'image': _criminalRecordImage});
   }
 
   @override
@@ -84,8 +90,8 @@ class _NationalIdScreenState extends State<NationalIdScreen> {
           children: [
             RequirementImageIcon(
               image: dark
-                  ? AppImageStrings.nationalIdIconDark
-                  : AppImageStrings.nationalIdIcon,
+                  ? AppImageStrings.criminalRecordCertificateIconDark
+                  : AppImageStrings.criminalRecordCertificateIcon,
             ),
             Padding(
               padding: const EdgeInsets.all(18),
@@ -93,7 +99,7 @@ class _NationalIdScreenState extends State<NationalIdScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppStrings.nationalID,
+                    AppStrings.criminalRecordCertificate,
                     style: dark
                         ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
                             color: AppColors.secondaryBlack,
@@ -102,7 +108,7 @@ class _NationalIdScreenState extends State<NationalIdScreen> {
                   ),
                   const SizedBox(height: 15),
                   Text(
-                    AppStrings.nationalIDReq,
+                    AppStrings.criminalRecordCertificateReq,
                     style: dark
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -117,7 +123,7 @@ class _NationalIdScreenState extends State<NationalIdScreen> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    AppStrings.nationalIDRole,
+                    AppStrings.criminalRecordCertificateRole,
                     style: TextStyle(
                       color: dark ? AppColors.texthintDark : AppColors.texthint,
                       fontSize: 14,
@@ -126,19 +132,13 @@ class _NationalIdScreenState extends State<NationalIdScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // ===== Front ID =====
-                  NationalIdUploader(
-                    label: "Front ID",
-                    imageFile: _frontImage,
-                    onTap: () => _showImagePickerSheet(true),
+                  // ===== Criminal Record Image =====
+                  CriminalRecordUploader(
+                    label: "Upload Criminal Record",
+                    imageFile: _criminalRecordImage,
+                    onTap: _showImagePickerSheet,
                     dark: dark,
-                  ),
-
-                  NationalIdUploader(
-                    label: "Back ID",
-                    imageFile: _backImage,
-                    onTap: () => _showImagePickerSheet(false),
-                    dark: dark,
+                    isError: _isImageMissing, // ← هنا الإضافة الجديدة
                   ),
 
                   const SizedBox(height: 40),

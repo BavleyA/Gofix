@@ -3,6 +3,7 @@ import 'package:gofix/core/constants/app_image_strings.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/constants/app_strings.dart';
+import 'package:gofix/features/RoleVehicle/persentation/view/vehicle_screen.dart';
 import 'package:gofix/features/RoleVehicle/persentation/widget/role_elevated_button.dart';
 import 'package:gofix/features/RoleVehicle/persentation/widget/role_option_card.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/view/trader_doc_screen.dart';
@@ -66,7 +67,10 @@ class _RoleScreenState extends State<RoleScreen> {
                 role: selectedRole,
                 onPressed: () {
                   if (selectedRole == AppStrings.driver) {
-                    // Navigator.push(context, MaterialPageRoute(builder: (_) => SellerScreen()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => VehicleScreen()),
+                    );
                   } else if (selectedRole == AppStrings.trader) {
                     Navigator.push(
                       context,

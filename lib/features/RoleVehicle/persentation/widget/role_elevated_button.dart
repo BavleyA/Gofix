@@ -32,8 +32,7 @@ class _ElevatedRoleButtonState extends State<ElevatedRoleButton> {
 
   @override
   Widget build(BuildContext context) {
-    final messageColor =
-        widget.dark ? AppColors.error : AppColors.warningRed;
+    final messageColor = widget.dark ? AppColors.error : AppColors.warningRed;
 
     return Stack(
       alignment: Alignment.center,
@@ -53,7 +52,9 @@ class _ElevatedRoleButtonState extends State<ElevatedRoleButton> {
               AppStrings.nextStepText,
               style: widget.dark
                   ? AppTextTheme.darkTextTheme.displaySmall
-                  : AppTextTheme.lightTextTheme.displaySmall,
+                  : AppTextTheme.lightTextTheme.displaySmall!.copyWith(
+                      color: AppColors.light,
+                    ),
             ),
           ),
         ),
