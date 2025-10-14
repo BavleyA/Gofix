@@ -4,7 +4,7 @@ import 'package:gofix/core/constants/app_image_strings.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/requirement_icon_image.dart';
+import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
 
 class OnlinePresenceScreen extends StatefulWidget {
   const OnlinePresenceScreen({super.key});

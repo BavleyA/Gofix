@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gofix/core/constants/app_colors.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/upload_image.dart';
+import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
 
 class NationalIdUploader extends StatelessWidget {
   final String label;

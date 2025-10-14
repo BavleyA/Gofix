@@ -3,12 +3,12 @@ import 'package:gofix/core/constants/app_colors.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
+import 'package:gofix/features/CommonPages/widgets/nubmered_circle.dart';
+import 'package:gofix/features/CommonPages/widgets/required_doc_tile.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/view/bussiness_details_screen.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/view/trader_national_id_screen.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/view/onilne_presence_screen.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/view/trader_national_id_screen.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/view/trader_profile_pic_screen.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/nubmered_circle.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/required_doc_tile.dart';
 
 class TraderDocScreen extends StatefulWidget {
   const TraderDocScreen({super.key});

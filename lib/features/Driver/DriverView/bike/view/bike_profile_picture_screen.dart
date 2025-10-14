@@ -5,9 +5,9 @@ import 'package:gofix/core/constants/app_image_strings.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/done_requirement_button.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/profile_image.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/upload_image.dart';
+import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
+import 'package:gofix/features/CommonPages/widgets/profile_image.dart';
+import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
 
 class BikeProfilePictureScreen extends StatefulWidget {
   const BikeProfilePictureScreen({super.key});
