@@ -6,20 +6,21 @@ import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/view/under_review_screen.dart';
 import 'package:gofix/features/CommonPages/widgets/nubmered_circle.dart';
 import 'package:gofix/features/CommonPages/widgets/required_doc_tile.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/view/bussiness_details_screen.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/view/onilne_presence_screen.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/view/trader_national_id_screen.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/view/trader_profile_pic_screen.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/view/cars_criminal_record.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/view/cars_driving_licence_screen.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/view/cars_national_id_screen.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/view/cars_profile_picture_screen.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/view/cars_vehicle_licence_screen.dart';
 
-class TraderDocScreen extends StatefulWidget {
-  const TraderDocScreen({super.key});
+class CarsDocScreen extends StatefulWidget {
+  const CarsDocScreen({super.key});
 
   @override
-  State<TraderDocScreen> createState() => _TraderDocScreenState();
+  State<CarsDocScreen> createState() => _CarsDocScreenState();
 }
 
-class _TraderDocScreenState extends State<TraderDocScreen> {
-  final List<bool> _stepsCompleted = [false, false, false, false];
+class _CarsDocScreenState extends State<CarsDocScreen> {
+  final List<bool> _stepsCompleted = [false, false, false, false, false];
 
   void _markStepCompleted(int index) {
     setState(() {
@@ -63,7 +64,7 @@ class _TraderDocScreenState extends State<TraderDocScreen> {
                         final result = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const TraderProfilePictureScreen(),
+                            builder: (_) => const CarsProfilePictureScreen(),
                           ),
                         );
 
@@ -90,7 +91,7 @@ class _TraderDocScreenState extends State<TraderDocScreen> {
                         final completed = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const TraderNationalIdScreen(),
+                            builder: (_) => const CarsNationalIDScreen(),
                           ),
                         );
                         if (completed != null) {
@@ -103,24 +104,23 @@ class _TraderDocScreenState extends State<TraderDocScreen> {
               ),
               const SizedBox(height: 12),
 
-              /// Business Details
+              /// Criminal Record Certificate
               Row(
                 children: [
                   NumberedCircle(number: "3", isCompleted: _stepsCompleted[2]),
                   const SizedBox(width: 12),
                   Expanded(
                     child: DocTile(
-                      title: AppStrings.businessDetails,
-                      route: '/business-details',
+                      title: AppStrings.criminalRecordCertificate,
+                      route: '/criminal-record-certificate',
                       onTap: () async {
                         final completed = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const BussinessDetailsScreen(),
+                            builder: (_) => const CarsCriminalRecordScreen(),
                           ),
                         );
-
-                        if (completed == true) {
+                        if (completed != null && completed['image'] != null) {
                           _markStepCompleted(2);
                         }
                       },
@@ -130,20 +130,20 @@ class _TraderDocScreenState extends State<TraderDocScreen> {
               ),
               const SizedBox(height: 12),
 
-              /// Online Presence
+              /// Vehicle Licence
               Row(
                 children: [
                   NumberedCircle(number: "4", isCompleted: _stepsCompleted[3]),
                   const SizedBox(width: 12),
                   Expanded(
                     child: DocTile(
-                      title: AppStrings.onlinePresence,
-                      route: '/online-presence',
+                      title: AppStrings.vehicleLicense,
+                      route: '/vehicle-licence',
                       onTap: () async {
                         final completed = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => const OnlinePresenceScreen(),
+                            builder: (_) => const CarsVehicleLicenceScreen(),
                           ),
                         );
                         if (completed != null) {
@@ -154,8 +154,35 @@ class _TraderDocScreenState extends State<TraderDocScreen> {
                   ),
                 ],
               ),
+              const SizedBox(height: 12),
 
-              const SizedBox(height: 70),
+              /// Driving Licence
+              Row(
+                children: [
+                  NumberedCircle(number: "5", isCompleted: _stepsCompleted[4]),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: DocTile(
+                      title: AppStrings.driverLicense,
+                      route: '/driving-licence',
+                      onTap: () async {
+                        final completed = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const CarsDrivingLicenceScreen(),
+                          ),
+                        );
+                        if (completed != null) {
+                          _markStepCompleted(4);
+                        }
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+
+              const SizedBox(height: 50),
 
               SizedBox(
                 width: double.infinity,
@@ -169,16 +196,14 @@ class _TraderDocScreenState extends State<TraderDocScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  onPressed: _allStepsCompleted
-                      ? () {
+                  onPressed: _allStepsCompleted ? () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => UnderReviewScreen(),
                             ),
                           );
-                        }
-                      : null,
+                        } : null,
                   child: Text(
                     AppStrings.done,
                     style: const TextStyle(

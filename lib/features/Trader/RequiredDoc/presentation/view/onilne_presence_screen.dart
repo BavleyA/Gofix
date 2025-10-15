@@ -4,7 +4,7 @@ import 'package:gofix/core/constants/app_image_strings.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/requirement_icon_image.dart';
+import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
 
 class OnlinePresenceScreen extends StatefulWidget {
   const OnlinePresenceScreen({super.key});
@@ -58,11 +58,11 @@ class _OnlinePresenceScreenState extends State<OnlinePresenceScreen> {
                     TextFormField(
                       controller: socialMediaLinksController,
                       keyboardType: TextInputType.multiline,
-                      maxLines: null, 
+                      maxLines: null,
                       decoration: InputDecoration(
                         labelText: AppStrings.socialMediaLinksHint,
                         prefixIcon: const Icon(
-                          Icons.public, 
+                          Icons.public,
                           color: AppColors.mainButton,
                         ),
                         filled: true,
@@ -127,7 +127,7 @@ class _OnlinePresenceScreenState extends State<OnlinePresenceScreen> {
                       },
                     ),
 
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 60),
 
                     // ===== Submit Button =====
                     SizedBox(

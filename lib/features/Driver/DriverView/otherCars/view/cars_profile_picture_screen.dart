@@ -5,20 +5,19 @@ import 'package:gofix/core/constants/app_image_strings.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
-import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
-import 'package:gofix/features/CommonPages/widgets/profile_image.dart';
 import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
+import 'package:gofix/features/CommonPages/widgets/profile_image.dart';
+import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
 
-class TraderProfilePictureScreen extends StatefulWidget {
-  const TraderProfilePictureScreen({super.key});
+class CarsProfilePictureScreen extends StatefulWidget {
+  const CarsProfilePictureScreen({super.key});
 
   @override
-  State<TraderProfilePictureScreen> createState() =>
-      _TraderProfilePictureScreenState();
+  State<CarsProfilePictureScreen> createState() =>
+      _CarsProfilePictureScreenState();
 }
 
-class _TraderProfilePictureScreenState
-    extends State<TraderProfilePictureScreen> {
+class _CarsProfilePictureScreenState extends State<CarsProfilePictureScreen> {
   File? _imageFile;
   bool _isLoading = false;
 

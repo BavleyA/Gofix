@@ -2,14 +2,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gofix/core/constants/app_colors.dart';
 
-class CriminalRecordUploader extends StatelessWidget {
+class CarsCriminalRecordUploader extends StatelessWidget {
   final String label;
   final File? imageFile;
   final VoidCallback onTap;
   final bool dark;
   final bool isError;
 
-  const CriminalRecordUploader({
+  const CarsCriminalRecordUploader({
     super.key,
     required this.label,
     required this.imageFile,

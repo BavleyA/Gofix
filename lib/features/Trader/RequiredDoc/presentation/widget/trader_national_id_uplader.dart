@@ -1,15 +1,14 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gofix/core/constants/app_colors.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/upload_image.dart';
 
-class NationalIdUploader extends StatelessWidget {
+class TraderNationalIdUploader extends StatelessWidget {
   final String label;
   final File? imageFile;
   final VoidCallback onTap;
   final bool dark;
 
-  const NationalIdUploader({
+  const TraderNationalIdUploader({
     super.key,
     required this.label,
     required this.imageFile,
@@ -23,7 +22,7 @@ class NationalIdUploader extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        height: 230,
+        height: 180,
         margin: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),

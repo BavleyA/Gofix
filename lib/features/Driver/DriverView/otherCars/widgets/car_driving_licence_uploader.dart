@@ -2,18 +2,20 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gofix/core/constants/app_colors.dart';
 
-class NationalIdUploader extends StatelessWidget {
+class CarDrivingLicenceUploader extends StatelessWidget {
   final String label;
   final File? imageFile;
   final VoidCallback onTap;
   final bool dark;
+  final bool isError;
 
-  const NationalIdUploader({
+  const CarDrivingLicenceUploader({
     super.key,
     required this.label,
     required this.imageFile,
     required this.onTap,
     required this.dark,
+    this.isError = false,
   });
 
   @override
@@ -22,14 +24,17 @@ class NationalIdUploader extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: double.infinity,
-        height: 180,
+        height: 230,
         margin: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: dark
+            color: isError
+                ? Colors.red
+                : dark
                 ? AppColors.selectedContainerDark.withOpacity(0.6)
                 : AppColors.choosenCard.withOpacity(0.6),
+            width: isError ? 2 : 1.5,
           ),
           color: dark ? AppColors.imageCardDark : AppColors.docCard,
         ),

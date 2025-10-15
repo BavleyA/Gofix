@@ -6,30 +6,31 @@ import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
-import 'package:gofix/features/CommonPages/widgets/profile_image.dart';
 import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
+import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/widgets/cars_criminal_record_uploader.dart';
 
-class TraderProfilePictureScreen extends StatefulWidget {
-  const TraderProfilePictureScreen({super.key});
+class CarsCriminalRecordScreen extends StatefulWidget {
+  const CarsCriminalRecordScreen({super.key});
 
   @override
-  State<TraderProfilePictureScreen> createState() =>
-      _TraderProfilePictureScreenState();
+  State<CarsCriminalRecordScreen> createState() =>
+      _CarsCriminalRecordScreenState();
 }
 
-class _TraderProfilePictureScreenState
-    extends State<TraderProfilePictureScreen> {
-  File? _imageFile;
+class _CarsCriminalRecordScreenState extends State<CarsCriminalRecordScreen> {
+  File? _criminalRecordImage;
   bool _isLoading = false;
+  bool _isImageMissing = false;
 
   Future<void> _uploadImage(File image) async {
     setState(() => _isLoading = true);
     try {
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 1));
       setState(() => _isLoading = false);
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(SnackBar(content: Text(AppStrings.success)));
+      ).showSnackBar(const SnackBar(content: Text(AppStrings.success)));
     } catch (e) {
       setState(() => _isLoading = false);
       ScaffoldMessenger.of(
@@ -38,32 +39,40 @@ class _TraderProfilePictureScreenState
     }
   }
 
-  void _showImagePicker() {
+  void _showImagePickerSheet() {
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      useSafeArea: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
-      backgroundColor: Colors.white,
-      builder: (_) => ImagePickerSheetWidget(
-        onImageSelected: (file) {
-          setState(() => _imageFile = file);
-          _uploadImage(file);
+      builder: (context) => ImagePickerSheetWidget(
+        onImageSelected: (File image) {
+          setState(() {
+            _criminalRecordImage = image;
+            _isImageMissing = false;
+          });
+          _uploadImage(image);
         },
       ),
     );
   }
 
   void _done() {
-    if (_imageFile == null) {
+    if (_criminalRecordImage == null) {
+      setState(() {
+        _isImageMissing = true;
+      });
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text(AppStrings.uploadMsg)));
       return;
     }
-    Navigator.pop(context, _imageFile);
+
+    setState(() {
+      _isImageMissing = false;
+    });
+
+    Navigator.pop(context, {'image': _criminalRecordImage});
   }
 
   @override
@@ -79,9 +88,10 @@ class _TraderProfilePictureScreenState
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ProfileImageWidget(
-              imageFile: _imageFile,
-              placeholderImage: AppImageStrings.profileIcon,
+            RequirementImageIcon(
+              image: dark
+                  ? AppImageStrings.criminalRecordCertificateIconDark
+                  : AppImageStrings.criminalRecordCertificateIcon,
             ),
             Padding(
               padding: const EdgeInsets.all(18),
@@ -89,7 +99,7 @@ class _TraderProfilePictureScreenState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppStrings.profilePhoto,
+                    AppStrings.criminalRecordCertificate,
                     style: dark
                         ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
                             color: AppColors.secondaryBlack,
@@ -97,14 +107,13 @@ class _TraderProfilePictureScreenState
                         : AppTextTheme.lightTextTheme.headlineLarge,
                   ),
                   const SizedBox(height: 15),
-
                   Text(
-                    AppStrings.pfpRequirements,
+                    AppStrings.criminalRecordCertificateReq,
                     style: dark
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
-                            color: AppColors.texthintDark,
+                            color: AppColors.texthint,
                           )
                         : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -114,49 +123,25 @@ class _TraderProfilePictureScreenState
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    AppStrings.pfpRequirementsRole,
+                    AppStrings.criminalRecordCertificateRole,
                     style: TextStyle(
                       color: dark ? AppColors.texthintDark : AppColors.texthint,
                       fontSize: 14,
                       height: 1.5,
                     ),
                   ),
-
-                  const SizedBox(height: 15),
-
-                  Text(
-                    AppStrings.notAccepted,
-                    style: dark
-                        ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline,
-                            color: AppColors.texthintDark,
-                          )
-                        : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline,
-                            color: AppColors.texthint,
-                          ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    AppStrings.notAcceptedRole,
-                    style: TextStyle(
-                      color: dark ? AppColors.texthintDark : AppColors.texthint,
-                      fontSize: 14,
-                      height: 1.5,
-                    ),
-                  ),
-
-                  const SizedBox(height: 50),
-
-                  DoneReqButton(
-                    text: AppStrings.uploadPhoto,
-                    onPressed: _showImagePicker,
-                    dark: dark,
-                  ),
-
                   const SizedBox(height: 20),
+
+                  // ===== Criminal Record Image =====
+                  CarsCriminalRecordUploader(
+                    label: "Upload Criminal Record",
+                    imageFile: _criminalRecordImage,
+                    onTap: _showImagePickerSheet,
+                    dark: dark,
+                    isError: _isImageMissing,
+                  ),
+
+                  const SizedBox(height: 40),
 
                   DoneReqButton(
                     text: AppStrings.done,

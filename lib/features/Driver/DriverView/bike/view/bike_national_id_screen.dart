@@ -5,10 +5,10 @@ import 'package:gofix/core/constants/app_image_strings.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/done_requirement_button.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/national_id_uploader.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/requirement_icon_image.dart';
-import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/upload_image.dart';
+import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
+import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
+import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
+import 'package:gofix/features/Driver/DriverView/bike/widget/bike_national_id_uplader.dart';
 
 class BikeNationalIdScreen extends StatefulWidget {
   const BikeNationalIdScreen({super.key});
@@ -21,6 +21,11 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
   File? _frontImage;
   File? _backImage;
   bool _isLoading = false;
+
+  bool _frontError = false;
+  bool _backError = false;
+
+  bool get _allImagesCompleted => _frontImage != null && _backImage != null;
 
   Future<void> _uploadImage(File image) async {
     setState(() => _isLoading = true);
@@ -49,8 +54,10 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
           setState(() {
             if (isFront) {
               _frontImage = image;
+              _frontError = false;
             } else {
               _backImage = image;
+              _backError = false;
             }
           });
           _uploadImage(image);
@@ -60,12 +67,18 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
   }
 
   void _done() {
-    if (_frontImage == null || _backImage == null) {
+    setState(() {
+      _frontError = _frontImage == null;
+      _backError = _backImage == null;
+    });
+
+    if (!_allImagesCompleted) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text(AppStrings.uploadMsg)));
       return;
     }
+
     Navigator.pop(context, {'front': _frontImage, 'back': _backImage});
   }
 
@@ -102,7 +115,7 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
                   ),
                   const SizedBox(height: 15),
                   Text(
-                    AppStrings.nationalIDReq,
+                    AppStrings.requirementTitle,
                     style: dark
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -127,18 +140,20 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
                   const SizedBox(height: 20),
 
                   // ===== Front ID =====
-                  NationalIdUploader(
+                  BikeNationalIdUploader(
                     label: "Front ID",
                     imageFile: _frontImage,
                     onTap: () => _showImagePickerSheet(true),
                     dark: dark,
+                    isError: _frontError,
                   ),
 
-                  NationalIdUploader(
+                  BikeNationalIdUploader(
                     label: "Back ID",
                     imageFile: _backImage,
                     onTap: () => _showImagePickerSheet(false),
                     dark: dark,
+                    isError: _backError,
                   ),
 
                   const SizedBox(height: 40),
