@@ -5,36 +5,30 @@ import 'package:gofix/core/constants/app_image_strings.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
-import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
-import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
 import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
-import 'package:gofix/features/Driver/DriverView/bike/widget/bike_national_id_uplader.dart';
+import 'package:gofix/features/CommonPages/widgets/profile_image.dart';
+import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
 
-class BikeNationalIdScreen extends StatefulWidget {
-  const BikeNationalIdScreen({super.key});
+class CarsProfilePictureScreen extends StatefulWidget {
+  const CarsProfilePictureScreen({super.key});
 
   @override
-  State<BikeNationalIdScreen> createState() => _BikeNationalIdScreenState();
+  State<CarsProfilePictureScreen> createState() =>
+      _CarsProfilePictureScreenState();
 }
 
-class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
-  File? _frontImage;
-  File? _backImage;
+class _CarsProfilePictureScreenState extends State<CarsProfilePictureScreen> {
+  File? _imageFile;
   bool _isLoading = false;
-
-  bool _frontError = false;
-  bool _backError = false;
-
-  bool get _allImagesCompleted => _frontImage != null && _backImage != null;
 
   Future<void> _uploadImage(File image) async {
     setState(() => _isLoading = true);
     try {
-      await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 2));
       setState(() => _isLoading = false);
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text(AppStrings.success)));
+      ).showSnackBar(SnackBar(content: Text(AppStrings.success)));
     } catch (e) {
       setState(() => _isLoading = false);
       ScaffoldMessenger.of(
@@ -43,43 +37,32 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
     }
   }
 
-  void _showImagePickerSheet(bool isFront) {
+  void _showImagePicker() {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (context) => ImagePickerSheetWidget(
-        onImageSelected: (File image) {
-          setState(() {
-            if (isFront) {
-              _frontImage = image;
-              _frontError = false;
-            } else {
-              _backImage = image;
-              _backError = false;
-            }
-          });
-          _uploadImage(image);
+      backgroundColor: Colors.white,
+      builder: (_) => ImagePickerSheetWidget(
+        onImageSelected: (file) {
+          setState(() => _imageFile = file);
+          _uploadImage(file);
         },
       ),
     );
   }
 
   void _done() {
-    setState(() {
-      _frontError = _frontImage == null;
-      _backError = _backImage == null;
-    });
-
-    if (!_allImagesCompleted) {
+    if (_imageFile == null) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text(AppStrings.uploadMsg)));
       return;
     }
-
-    Navigator.pop(context, {'front': _frontImage, 'back': _backImage});
+    Navigator.pop(context, _imageFile);
   }
 
   @override
@@ -95,10 +78,9 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            RequirementImageIcon(
-              image: dark
-                  ? AppImageStrings.nationalIdIconDark
-                  : AppImageStrings.nationalIdIcon,
+            ProfileImageWidget(
+              imageFile: _imageFile,
+              placeholderImage: AppImageStrings.profileIcon,
             ),
             Padding(
               padding: const EdgeInsets.all(18),
@@ -106,7 +88,7 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppStrings.nationalID,
+                    AppStrings.profilePhoto,
                     style: dark
                         ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
                             color: AppColors.secondaryBlack,
@@ -114,13 +96,14 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
                         : AppTextTheme.lightTextTheme.headlineLarge,
                   ),
                   const SizedBox(height: 15),
+
                   Text(
-                    AppStrings.requirementTitle,
+                    AppStrings.pfpRequirements,
                     style: dark
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
-                            color: AppColors.texthint,
+                            color: AppColors.texthintDark,
                           )
                         : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -130,33 +113,49 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    AppStrings.nationalIDRole,
+                    AppStrings.pfpRequirementsRole,
                     style: TextStyle(
                       color: dark ? AppColors.texthintDark : AppColors.texthint,
                       fontSize: 14,
                       height: 1.5,
                     ),
                   ),
+
+                  const SizedBox(height: 15),
+
+                  Text(
+                    AppStrings.notAccepted,
+                    style: dark
+                        ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                            color: AppColors.texthintDark,
+                          )
+                        : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                            color: AppColors.texthint,
+                          ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    AppStrings.notAcceptedRole,
+                    style: TextStyle(
+                      color: dark ? AppColors.texthintDark : AppColors.texthint,
+                      fontSize: 14,
+                      height: 1.5,
+                    ),
+                  ),
+
+                  const SizedBox(height: 50),
+
+                  DoneReqButton(
+                    text: AppStrings.uploadPhoto,
+                    onPressed: _showImagePicker,
+                    dark: dark,
+                  ),
+
                   const SizedBox(height: 20),
-
-                  // ===== Front ID =====
-                  BikeNationalIdUploader(
-                    label: "Front ID",
-                    imageFile: _frontImage,
-                    onTap: () => _showImagePickerSheet(true),
-                    dark: dark,
-                    isError: _frontError,
-                  ),
-
-                  BikeNationalIdUploader(
-                    label: "Back ID",
-                    imageFile: _backImage,
-                    onTap: () => _showImagePickerSheet(false),
-                    dark: dark,
-                    isError: _backError,
-                  ),
-
-                  const SizedBox(height: 40),
 
                   DoneReqButton(
                     text: AppStrings.done,

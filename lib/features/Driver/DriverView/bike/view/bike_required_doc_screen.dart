@@ -3,6 +3,7 @@ import 'package:gofix/core/constants/app_colors.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
+import 'package:gofix/features/CommonPages/view/under_review_screen.dart';
 import 'package:gofix/features/Driver/DriverView/bike/view/bike_criminal_record.dart';
 import 'package:gofix/features/Driver/DriverView/bike/view/bike_national_id_screen.dart';
 import 'package:gofix/features/Driver/DriverView/bike/view/bike_profile_picture_screen.dart';
@@ -17,7 +18,7 @@ class BikeDocScreen extends StatefulWidget {
 }
 
 class _BikeDocScreenState extends State<BikeDocScreen> {
-  final List<bool> _stepsCompleted = [false, false, false, false];
+  final List<bool> _stepsCompleted = [false, false, false];
 
   void _markStepCompleted(int index) {
     setState(() {
@@ -65,6 +66,9 @@ class _BikeDocScreenState extends State<BikeDocScreen> {
                           ),
                         );
 
+                        // if (result == true) {
+                        //   _markStepCompleted(0);
+                        // }
                         if (result != null) {
                           _markStepCompleted(0);
                         }
@@ -101,7 +105,7 @@ class _BikeDocScreenState extends State<BikeDocScreen> {
               ),
               const SizedBox(height: 12),
 
-              /// }riminal Record Certificate
+              /// Criminal Record Certificate
               Row(
                 children: [
                   NumberedCircle(number: "3", isCompleted: _stepsCompleted[2]),
@@ -141,7 +145,16 @@ class _BikeDocScreenState extends State<BikeDocScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  onPressed: _allStepsCompleted ? () {} : null,
+                  onPressed: _allStepsCompleted
+                      ? () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => UnderReviewScreen(),
+                            ),
+                          );
+                        }
+                      : null,
                   child: Text(
                     AppStrings.done,
                     style: const TextStyle(

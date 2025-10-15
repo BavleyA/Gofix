@@ -7,7 +7,7 @@ import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
 import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
-import 'package:gofix/features/Driver/DriverView/bike/widget/criminal_record_uploader.dart';
+import 'package:gofix/features/Driver/DriverView/bike/widget/bike_criminal_record_uploader.dart';
 import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
 
 class BikeCriminalRecordScreen extends StatefulWidget {
@@ -49,7 +49,7 @@ class _BikeCriminalRecordScreenState extends State<BikeCriminalRecordScreen> {
         onImageSelected: (File image) {
           setState(() {
             _criminalRecordImage = image;
-            _isImageMissing = false; // الصورة اترفعت، شيل التحذير
+            _isImageMissing = false;
           });
           _uploadImage(image);
         },
@@ -72,7 +72,8 @@ class _BikeCriminalRecordScreenState extends State<BikeCriminalRecordScreen> {
       _isImageMissing = false;
     });
 
-    Navigator.pop(context, {'image': _criminalRecordImage});
+    Navigator.pop(context, {'image': _criminalRecordImage} );
+    // Navigator.pop(context, true);
   }
 
   @override
@@ -133,12 +134,12 @@ class _BikeCriminalRecordScreenState extends State<BikeCriminalRecordScreen> {
                   const SizedBox(height: 20),
 
                   // ===== Criminal Record Image =====
-                  CriminalRecordUploader(
+                  BikeCriminalRecordUploader(
                     label: "Upload Criminal Record",
                     imageFile: _criminalRecordImage,
                     onTap: _showImagePickerSheet,
                     dark: dark,
-                    isError: _isImageMissing, // ← هنا الإضافة الجديدة
+                    isError: _isImageMissing,
                   ),
 
                   const SizedBox(height: 40),

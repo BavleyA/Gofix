@@ -122,6 +122,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         },
                         dark: dark,
                         text: AppStrings.nextStepText,
+                        
                         name: nameController.text,
                         phone: phoneController.text,
                         password: passwordController.text,

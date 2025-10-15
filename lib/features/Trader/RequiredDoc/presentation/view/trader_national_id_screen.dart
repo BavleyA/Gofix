@@ -6,9 +6,9 @@ import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
-import 'package:gofix/features/CommonPages/widgets/national_id_uploader.dart';
 import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
 import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/trader_national_id_uplader.dart';
 
 class TraderNationalIdScreen extends StatefulWidget {
   const TraderNationalIdScreen({super.key});
@@ -102,7 +102,7 @@ class _TraderNationalIdScreenState extends State<TraderNationalIdScreen> {
                   ),
                   const SizedBox(height: 15),
                   Text(
-                    AppStrings.nationalIDReq,
+                    AppStrings.requirementTitle,
                     style: dark
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -127,14 +127,14 @@ class _TraderNationalIdScreenState extends State<TraderNationalIdScreen> {
                   const SizedBox(height: 20),
 
                   // ===== Front ID =====
-                  NationalIdUploader(
+                  TraderNationalIdUploader(
                     label: "Front ID",
                     imageFile: _frontImage,
                     onTap: () => _showImagePickerSheet(true),
                     dark: dark,
                   ),
 
-                  NationalIdUploader(
+                  TraderNationalIdUploader(
                     label: "Back ID",
                     imageFile: _backImage,
                     onTap: () => _showImagePickerSheet(false),

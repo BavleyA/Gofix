@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gofix/core/constants/app_colors.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/app_text_style.dart';
@@ -27,12 +28,16 @@ class SignUpElevatedAuthButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-          onPressed: onPressed,
-          child: Text(
-            text,
-            style:dark ? AppTextTheme.darkTextTheme.displaySmall : AppTextTheme.lightTextTheme.displaySmall,
-          )),
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: dark
+              ? AppTextTheme.darkTextTheme.displaySmall
+              : AppTextTheme.lightTextTheme.displaySmall!.copyWith(
+                  color: AppColors.light,
+                ),
+        ),
+      ),
     );
   }
 }
-

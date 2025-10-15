@@ -4,6 +4,7 @@ import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/features/Driver/DriverView/bike/view/bike_required_doc_screen.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/view/cars_doc_screen.dart';
 import 'package:gofix/features/RoleVehicle/persentation/widget/role_elevated_button.dart';
 import 'package:gofix/features/RoleVehicle/persentation/widget/role_option_card.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/view/trader_doc_screen.dart';
@@ -91,29 +92,18 @@ class _VehicleScreenState extends State<VehicleScreen> {
               ElevatedRoleButton(
                 dark: dark,
                 role: selectedVehicle,
-                
+
                 onPressed: () {
-                  if (selectedVehicle == AppStrings.vehicleTypeCar) {
-                    // Navigator.push(context, MaterialPageRoute(builder: (_) => VehicleScreen()));
-                  } else if (selectedVehicle == AppStrings.vehicleTypeVan) {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (_) => TraderDocScreen()),
-                    // );
-                  
-                  } else if (selectedVehicle == AppStrings.vehicleTypeMotorcycle) {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (_) => TraderDocScreen()),
-                    // );
-                  }
-                  else
-                  {
+                  if (selectedVehicle == AppStrings.vehicleTypeBike) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (_) => BikeDocScreen()),
                     );
-
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => CarsDocScreen()),
+                    );
                   }
                 },
               ),

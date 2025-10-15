@@ -104,6 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       dark: dark,
                       text: AppStrings.loginTitle,
+                      
                       phone: phoneController.text,
                       password: passwordController.text,
                     ),

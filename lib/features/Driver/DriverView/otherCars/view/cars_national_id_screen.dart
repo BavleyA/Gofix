@@ -8,16 +8,18 @@ import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
 import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
 import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
-import 'package:gofix/features/Driver/DriverView/bike/widget/bike_national_id_uplader.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/widgets/car_national_id_uploader.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/widgets/car_vehicle_licence_uploader.dart';
 
-class BikeNationalIdScreen extends StatefulWidget {
-  const BikeNationalIdScreen({super.key});
+class CarsNationalIDScreen extends StatefulWidget {
+  const CarsNationalIDScreen({super.key});
 
   @override
-  State<BikeNationalIdScreen> createState() => _BikeNationalIdScreenState();
+  State<CarsNationalIDScreen> createState() =>
+      _CarsNationalIDScreenState();
 }
 
-class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
+class _CarsNationalIDScreenState extends State<CarsNationalIDScreen> {
   File? _frontImage;
   File? _backImage;
   bool _isLoading = false;
@@ -140,7 +142,7 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
                   const SizedBox(height: 20),
 
                   // ===== Front ID =====
-                  BikeNationalIdUploader(
+                  CarNationalIDUploader(
                     label: "Front ID",
                     imageFile: _frontImage,
                     onTap: () => _showImagePickerSheet(true),
@@ -148,7 +150,8 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
                     isError: _frontError,
                   ),
 
-                  BikeNationalIdUploader(
+                  // ===== Back ID =====
+                  CarNationalIDUploader(
                     label: "Back ID",
                     imageFile: _backImage,
                     onTap: () => _showImagePickerSheet(false),

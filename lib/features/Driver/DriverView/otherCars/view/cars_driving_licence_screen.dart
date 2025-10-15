@@ -8,16 +8,19 @@ import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
 import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
 import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
-import 'package:gofix/features/Driver/DriverView/bike/widget/bike_national_id_uplader.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/widgets/car_driving_licence_uploader.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/widgets/car_national_id_uploader.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/widgets/car_vehicle_licence_uploader.dart';
 
-class BikeNationalIdScreen extends StatefulWidget {
-  const BikeNationalIdScreen({super.key});
+class CarsDrivingLicenceScreen extends StatefulWidget {
+  const CarsDrivingLicenceScreen({super.key});
 
   @override
-  State<BikeNationalIdScreen> createState() => _BikeNationalIdScreenState();
+  State<CarsDrivingLicenceScreen> createState() =>
+      _CarsDrivingLicenceScreenState();
 }
 
-class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
+class _CarsDrivingLicenceScreenState extends State<CarsDrivingLicenceScreen> {
   File? _frontImage;
   File? _backImage;
   bool _isLoading = false;
@@ -97,8 +100,8 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
           children: [
             RequirementImageIcon(
               image: dark
-                  ? AppImageStrings.nationalIdIconDark
-                  : AppImageStrings.nationalIdIcon,
+                  ? AppImageStrings.driverLicenseIconDark
+                  : AppImageStrings.driverLicenseIcon,
             ),
             Padding(
               padding: const EdgeInsets.all(18),
@@ -106,7 +109,7 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppStrings.nationalID,
+                    AppStrings.driverLicense,
                     style: dark
                         ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
                             color: AppColors.secondaryBlack,
@@ -130,7 +133,7 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    AppStrings.nationalIDRole,
+                    AppStrings.driverLicenseRole,
                     style: TextStyle(
                       color: dark ? AppColors.texthintDark : AppColors.texthint,
                       fontSize: 14,
@@ -139,17 +142,18 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // ===== Front ID =====
-                  BikeNationalIdUploader(
-                    label: "Front ID",
+                  // ===== Front DL =====
+                  CarDrivingLicenceUploader(
+                    label: "Front",
                     imageFile: _frontImage,
                     onTap: () => _showImagePickerSheet(true),
                     dark: dark,
                     isError: _frontError,
                   ),
 
-                  BikeNationalIdUploader(
-                    label: "Back ID",
+                  // ===== Back DL =====
+                  CarDrivingLicenceUploader(
+                    label: "Back",
                     imageFile: _backImage,
                     onTap: () => _showImagePickerSheet(false),
                     dark: dark,

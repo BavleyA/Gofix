@@ -63,6 +63,7 @@ class _BikeProfilePictureScreenState extends State<BikeProfilePictureScreen> {
       return;
     }
     Navigator.pop(context, _imageFile);
+    // Navigator.pop(context, true);
   }
 
   @override

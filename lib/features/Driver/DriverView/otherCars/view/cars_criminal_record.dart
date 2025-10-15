@@ -6,26 +6,22 @@ import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
-import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
 import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
-import 'package:gofix/features/Driver/DriverView/bike/widget/bike_national_id_uplader.dart';
+import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/widgets/cars_criminal_record_uploader.dart';
 
-class BikeNationalIdScreen extends StatefulWidget {
-  const BikeNationalIdScreen({super.key});
+class CarsCriminalRecordScreen extends StatefulWidget {
+  const CarsCriminalRecordScreen({super.key});
 
   @override
-  State<BikeNationalIdScreen> createState() => _BikeNationalIdScreenState();
+  State<CarsCriminalRecordScreen> createState() =>
+      _CarsCriminalRecordScreenState();
 }
 
-class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
-  File? _frontImage;
-  File? _backImage;
+class _CarsCriminalRecordScreenState extends State<CarsCriminalRecordScreen> {
+  File? _criminalRecordImage;
   bool _isLoading = false;
-
-  bool _frontError = false;
-  bool _backError = false;
-
-  bool get _allImagesCompleted => _frontImage != null && _backImage != null;
+  bool _isImageMissing = false;
 
   Future<void> _uploadImage(File image) async {
     setState(() => _isLoading = true);
@@ -43,7 +39,7 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
     }
   }
 
-  void _showImagePickerSheet(bool isFront) {
+  void _showImagePickerSheet() {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -52,13 +48,8 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
       builder: (context) => ImagePickerSheetWidget(
         onImageSelected: (File image) {
           setState(() {
-            if (isFront) {
-              _frontImage = image;
-              _frontError = false;
-            } else {
-              _backImage = image;
-              _backError = false;
-            }
+            _criminalRecordImage = image;
+            _isImageMissing = false;
           });
           _uploadImage(image);
         },
@@ -67,19 +58,21 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
   }
 
   void _done() {
-    setState(() {
-      _frontError = _frontImage == null;
-      _backError = _backImage == null;
-    });
-
-    if (!_allImagesCompleted) {
+    if (_criminalRecordImage == null) {
+      setState(() {
+        _isImageMissing = true;
+      });
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text(AppStrings.uploadMsg)));
       return;
     }
 
-    Navigator.pop(context, {'front': _frontImage, 'back': _backImage});
+    setState(() {
+      _isImageMissing = false;
+    });
+
+    Navigator.pop(context, {'image': _criminalRecordImage});
   }
 
   @override
@@ -97,8 +90,8 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
           children: [
             RequirementImageIcon(
               image: dark
-                  ? AppImageStrings.nationalIdIconDark
-                  : AppImageStrings.nationalIdIcon,
+                  ? AppImageStrings.criminalRecordCertificateIconDark
+                  : AppImageStrings.criminalRecordCertificateIcon,
             ),
             Padding(
               padding: const EdgeInsets.all(18),
@@ -106,7 +99,7 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    AppStrings.nationalID,
+                    AppStrings.criminalRecordCertificate,
                     style: dark
                         ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
                             color: AppColors.secondaryBlack,
@@ -115,7 +108,7 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
                   ),
                   const SizedBox(height: 15),
                   Text(
-                    AppStrings.requirementTitle,
+                    AppStrings.criminalRecordCertificateReq,
                     style: dark
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -130,7 +123,7 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    AppStrings.nationalIDRole,
+                    AppStrings.criminalRecordCertificateRole,
                     style: TextStyle(
                       color: dark ? AppColors.texthintDark : AppColors.texthint,
                       fontSize: 14,
@@ -139,21 +132,13 @@ class _BikeNationalIdScreenState extends State<BikeNationalIdScreen> {
                   ),
                   const SizedBox(height: 20),
 
-                  // ===== Front ID =====
-                  BikeNationalIdUploader(
-                    label: "Front ID",
-                    imageFile: _frontImage,
-                    onTap: () => _showImagePickerSheet(true),
+                  // ===== Criminal Record Image =====
+                  CarsCriminalRecordUploader(
+                    label: "Upload Criminal Record",
+                    imageFile: _criminalRecordImage,
+                    onTap: _showImagePickerSheet,
                     dark: dark,
-                    isError: _frontError,
-                  ),
-
-                  BikeNationalIdUploader(
-                    label: "Back ID",
-                    imageFile: _backImage,
-                    onTap: () => _showImagePickerSheet(false),
-                    dark: dark,
-                    isError: _backError,
+                    isError: _isImageMissing,
                   ),
 
                   const SizedBox(height: 40),

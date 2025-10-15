@@ -58,11 +58,11 @@ class _OnlinePresenceScreenState extends State<OnlinePresenceScreen> {
                     TextFormField(
                       controller: socialMediaLinksController,
                       keyboardType: TextInputType.multiline,
-                      maxLines: null, 
+                      maxLines: null,
                       decoration: InputDecoration(
                         labelText: AppStrings.socialMediaLinksHint,
                         prefixIcon: const Icon(
-                          Icons.public, 
+                          Icons.public,
                           color: AppColors.mainButton,
                         ),
                         filled: true,
@@ -127,7 +127,7 @@ class _OnlinePresenceScreenState extends State<OnlinePresenceScreen> {
                       },
                     ),
 
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 60),
 
                     // ===== Submit Button =====
                     SizedBox(

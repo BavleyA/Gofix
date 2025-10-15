@@ -29,6 +29,7 @@ class AppStrings {
       '• Original and valid.\n• Recently issued (within 3 months).\n• Must match applicant’s details.';
   static const String vehicleLicense = 'Vehicle License';
   static const String driverLicense = 'Driving License';
+  static const String driverLicenseRole = '• Driver’s License must be valid (not expired).';
   static const String businessDetails = 'Business Details';
   static const String onlinePresence = 'Online Presence';
   static const String businessNameHint = 'Business Name';
@@ -39,6 +40,7 @@ class AppStrings {
   static const String done = 'Done';
   static const String upload = 'Upload';
   static const String underReview = 'Under Review';
+  static const String underReviewDetails = 'We’ve received your information ,\nYou will be notified once the review is complete.';
   static const String reviewSubtitle =
       'We’ve received your information , You will be notified once the review is complete.';
   static const String roleTitle = 'Choose your role';
@@ -48,13 +50,15 @@ class AppStrings {
   static const String pfpRequirements = 'Profile Photo Requirements';
   static const String pfpRequirementsRole =
       '• Clear photo showing your full face\n• Plain background preferred\n• No filters or effects';
+  static const String vehicleRequirementsRole =
+      '• Must not be expired.\n• Upload the original document photo, not a scanned copy.';
   static const String notAccepted = 'Not Accepted';
   static const String notAcceptedRole =
       '• Group photos\n• Blurry or dark pictures\n• Photos with sunglasses';
   static const String success = 'Successfully Uploaded!';
   static const String failed = 'Failed to upload. Try again.';
   static const String uploadMsg = 'Please upload a photo first!';
-  static const String nationalIDReq = 'Requirement:';
+  static const String requirementTitle = 'Requirements:';
   static const String nationalIDRole =
       '• National ID must be valid (not expired).';
   static const String requiredFieldEmail = 'This field is required';
