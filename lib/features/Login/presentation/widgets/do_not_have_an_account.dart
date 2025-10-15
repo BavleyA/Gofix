@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gofix/core/constants/app_colors.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/app_text_style.dart';
 import '../../../VerifyOTP/presentation/views/sign_up_screen.dart';
 
 class DontHaveanAccount extends StatelessWidget {
-  const DontHaveanAccount({
-    super.key,
-    required this.dark,
-  });
+  const DontHaveanAccount({super.key, required this.dark});
 
   final bool dark;
 
@@ -21,24 +19,30 @@ class DontHaveanAccount extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             AppStrings.dontHaveAccountText,
-            style: dark ? AppTextTheme.darkTextTheme.bodyLarge : AppTextTheme.lightTextTheme.bodyLarge,
+            style: dark
+                ? AppTextTheme.darkTextTheme.bodyLarge
+                : AppTextTheme.lightTextTheme.bodyLarge,
           ),
         ),
-        TextButton(onPressed: (){
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => SignUpScreen(),
-              ));
-        },
-            child: Text(
-              'SignUp',
-              style: dark
-                  ? AppTextTheme.darkTextTheme.bodyLarge?.copyWith(
-                color: Colors.indigo
-              )
-                  : AppTextTheme.lightTextTheme.bodyLarge?.copyWith(
-                color: Colors.indigo
-              )
-            )
+        TextButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SignUpScreen()),
+            );
+          },
+          child: Text(
+            'SignUp',
+            style: dark
+                ? AppTextTheme.darkTextTheme.bodyLarge?.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.bold,
+                  )
+                : AppTextTheme.lightTextTheme.bodyLarge?.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
+          ),
         ),
       ],
     );
