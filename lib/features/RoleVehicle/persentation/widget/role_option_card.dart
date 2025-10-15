@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gofix/core/constants/app_colors.dart';
+import 'package:gofix/core/utils/helper.dart';
 
 class RoleOptionCard extends StatelessWidget {
   final String title;
@@ -17,18 +18,25 @@ class RoleOptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = Helper.isDarkMode(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(20),
         margin: const EdgeInsets.only(bottom: 15),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.choosenCard : AppColors.unChoosenCard,
+          color: dark
+              ? (isSelected
+                    ? AppColors.selectedContainerDark
+                    : AppColors.disabledContainer)
+              : (isSelected ? AppColors.choosenCard : AppColors.unChoosenCard),
           borderRadius: BorderRadius.circular(12),
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.4),
+                    color: dark
+                        ? const Color(0xFF59779C).withOpacity(0.4)
+                        : Colors.black.withOpacity(0.4),
                     offset: const Offset(2, 4),
                     blurRadius: 6,
                   ),
@@ -43,7 +51,7 @@ class RoleOptionCard extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: isSelected ? AppColors.light : AppColors.dark,
+                color: isSelected ? AppColors.light : AppColors.light,
               ),
             ),
             Image.asset(imagePath, height: 70, fit: BoxFit.contain),

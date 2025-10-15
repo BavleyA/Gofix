@@ -51,7 +51,9 @@ class _ElevatedRoleButtonState extends State<ElevatedRoleButton> {
             child: Text(
               AppStrings.nextStepText,
               style: widget.dark
-                  ? AppTextTheme.darkTextTheme.displaySmall
+                  ? AppTextTheme.darkTextTheme.displaySmall!.copyWith(
+                      color: AppColors.imageCard,
+                    )
                   : AppTextTheme.lightTextTheme.displaySmall!.copyWith(
                       color: AppColors.light,
                     ),
