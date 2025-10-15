@@ -29,7 +29,8 @@ class AppStrings {
       '• Original and valid.\n• Recently issued (within 3 months).\n• Must match applicant’s details.';
   static const String vehicleLicense = 'Vehicle License';
   static const String driverLicense = 'Driving License';
-  static const String driverLicenseRole = '• Driver’s License must be valid (not expired).';
+  static const String driverLicenseRole =
+      '• Driver’s License must be valid (not expired).';
   static const String businessDetails = 'Business Details';
   static const String onlinePresence = 'Online Presence';
   static const String businessNameHint = 'Business Name';
@@ -40,7 +41,8 @@ class AppStrings {
   static const String done = 'Done';
   static const String upload = 'Upload';
   static const String underReview = 'Under Review';
-  static const String underReviewDetails = 'We’ve received your information ,\nYou will be notified once the review is complete.';
+  static const String underReviewDetails =
+      'We’ve received your information ,\nYou will be notified once the review is complete.';
   static const String reviewSubtitle =
       'We’ve received your information , You will be notified once the review is complete.';
   static const String roleTitle = 'Choose your role';
@@ -66,4 +68,16 @@ class AppStrings {
   static const String requiredFieldCategory = 'Category is required';
   static const String requiredFieldAddress = 'Address is required';
   static const String socialMediaLinksHint = 'Social Media Links';
+  static const String verificationSuccessText = 'Verification successful!';
+  static const String verifyText = 'Verify your phone number';
+  static const String verifyseText = 'Verify';
+  static const String enterCodeText = 'Enter code';
+  static const String changeNumText = 'Change your mobile number?';
+  static const String codeSentText =
+      "We've sent an SMS with an activation code to your phone : ";
+  static const String wrongCodeText = 'Wrong code, please try again';
+  static const String sendCodeAgainText = 'Send code again';
+  static const String callInsteadText = 'Call me instead';
+  static const String didntRecieveText = "I didn't receive a code  ";
+  static const String resendText = 'Resend';
 }
