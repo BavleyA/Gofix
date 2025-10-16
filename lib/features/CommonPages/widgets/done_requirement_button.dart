@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofix/core/constants/app_colors.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
+import 'package:gofix/core/utils/helper.dart';
 
 class DoneReqButton extends StatelessWidget {
   final String text;
@@ -18,19 +19,25 @@ class DoneReqButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = Helper.isDarkMode(context);
+
     return SizedBox(
       width: double.infinity,
       height: height,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.buttonPrimary,
+          backgroundColor: dark
+              ? AppColors.mainButton
+              : AppColors.buttonPrimary,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
         onPressed: onPressed,
         child: Text(
           text,
           style: dark
-              ? AppTextTheme.darkTextTheme.displaySmall
+              ? AppTextTheme.darkTextTheme.displaySmall!.copyWith(
+                  color: AppColors.primaryTextDark,
+                )
               : AppTextTheme.lightTextTheme.displaySmall!.copyWith(
                   color: AppColors.light,
                 ),

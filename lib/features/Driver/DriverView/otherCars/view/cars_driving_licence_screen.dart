@@ -7,10 +7,8 @@ import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
 import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
-import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
 import 'package:gofix/features/Driver/DriverView/otherCars/widgets/car_driving_licence_uploader.dart';
-import 'package:gofix/features/Driver/DriverView/otherCars/widgets/car_national_id_uploader.dart';
-import 'package:gofix/features/Driver/DriverView/otherCars/widgets/car_vehicle_licence_uploader.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/widgets/car_upload_image.dart';
 
 class CarsDrivingLicenceScreen extends StatefulWidget {
   const CarsDrivingLicenceScreen({super.key});
@@ -52,7 +50,7 @@ class _CarsDrivingLicenceScreenState extends State<CarsDrivingLicenceScreen> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
-      builder: (context) => ImagePickerSheetWidget(
+      builder: (context) => CarImagePickerSheetWidget(
         onImageSelected: (File image) {
           setState(() {
             if (isFront) {
@@ -90,7 +88,7 @@ class _CarsDrivingLicenceScreenState extends State<CarsDrivingLicenceScreen> {
     final dark = Helper.isDarkMode(context);
 
     return Scaffold(
-      backgroundColor: dark ? AppColors.backgroundDark : AppColors.background,
+     backgroundColor: dark ? AppColors.backgroundDark : AppColors.background,
       appBar: AppBar(
         backgroundColor: dark ? AppColors.imageCardDark : AppColors.imageCard,
       ),
@@ -110,9 +108,9 @@ class _CarsDrivingLicenceScreenState extends State<CarsDrivingLicenceScreen> {
                 children: [
                   Text(
                     AppStrings.driverLicense,
-                    style: dark
+                    style:  dark
                         ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
-                            color: AppColors.secondaryBlack,
+                            color: AppColors.headTextDark,
                           )
                         : AppTextTheme.lightTextTheme.headlineLarge,
                   ),
@@ -123,7 +121,7 @@ class _CarsDrivingLicenceScreenState extends State<CarsDrivingLicenceScreen> {
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
-                            color: AppColors.texthint,
+                            color: AppColors.primaryTextDark,
                           )
                         : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -135,8 +133,9 @@ class _CarsDrivingLicenceScreenState extends State<CarsDrivingLicenceScreen> {
                   Text(
                     AppStrings.driverLicenseRole,
                     style: TextStyle(
-                      color: dark ? AppColors.texthintDark : AppColors.texthint,
-                      fontSize: 14,
+                      color:dark
+                          ? AppColors.primaryTextDark
+                          : AppColors.texthint,
                       height: 1.5,
                     ),
                   ),

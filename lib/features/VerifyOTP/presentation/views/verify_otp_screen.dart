@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gofix/core/constants/app_strings.dart';
 import 'dart:async';
 
 import '../../../../core/constants/app_colors.dart';
@@ -68,11 +69,22 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
 
   void _onVerify() {
     String enteredCode = _controllers.map((c) => c.text).join();
+    final dark = Helper.isDarkMode(context);
 
     if (enteredCode == '25017') {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Verification successful!')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppStrings.verificationSuccessText),
+          backgroundColor: dark
+              ? AppColors.secondaryBlack.withOpacity(0.8)
+              : AppColors.imageCard.withOpacity(0.9),
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 2),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+      );
     } else {
       setState(() {
         _hasError = true;
@@ -109,34 +121,10 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
     final isSmallScreen = size.width < 360;
 
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.all(isSmallScreen ? 12.0 : 16.0),
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: dark
-                          ? AppColors.backArrow
-                          : AppColors.buttonSecondary,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: dark ? Colors.white : Colors.black,
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
             Expanded(
               child: SingleChildScrollView(
                 padding: EdgeInsets.symmetric(
@@ -148,19 +136,31 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                   children: [
                     Text(
                       _isCodeComplete
-                          ? 'Verify your phone number'
-                          : 'Enter code',
+                          ? AppStrings.verifyText
+                          : AppStrings.enterCodeText,
                       style: dark
-                          ? AppTextTheme.darkTextTheme.headlineLarge
-                          : AppTextTheme.lightTextTheme.headlineLarge,
+                          ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
+                              color: AppColors.imageCard,
+                              fontSize: 36,
+                            )
+                          : AppTextTheme.lightTextTheme.headlineLarge!.copyWith(
+                              color: AppColors.secondaryBlack,
+                              fontSize: 36,
+                            ),
                     ),
-                    SizedBox(height: isSmallScreen ? 12 : 16),
+                    SizedBox(height: isSmallScreen ? 10 : 14),
 
                     Text(
-                      "We've sent an SMS with an activation code to your phone +33 2 84 27 84 11",
+                      AppStrings.codeSentText,
                       style: dark
-                          ? AppTextTheme.darkTextTheme.headlineMedium
-                          : AppTextTheme.lightTextTheme.headlineMedium,
+                          ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
+                              color: AppColors.imageCard,
+                              fontSize: 18,
+                            )
+                          : AppTextTheme.lightTextTheme.headlineLarge!.copyWith(
+                              color: AppColors.textSecondaryBlack,
+                              fontSize: 18,
+                            ),
                     ),
 
                     if (!_isCodeComplete) ...[
@@ -173,7 +173,7 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                         ),
                         child: Text(
-                          'Change your mobile number?',
+                          AppStrings.changeNumText,
                           style: dark
                               ? AppTextTheme.darkTextTheme.bodyLarge?.copyWith(
                                   color: Colors.grey,
@@ -188,70 +188,147 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                     ],
                     SizedBox(height: isSmallScreen ? 24 : 32),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: List.generate(5, (index) {
-                        final boxSize = isSmallScreen ? 50.0 : 56.0;
-                        final spacing = isSmallScreen ? 8.0 : 12.0;
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.start,
+                    //   children: List.generate(5, (index) {
+                    //     final boxSize = isSmallScreen ? 50.0 : 56.0;
+                    //     final spacing = isSmallScreen ? 8.0 : 12.0;
 
-                        return Container(
-                          margin: EdgeInsets.only(
-                            right: index < 4 ? spacing : 0,
-                          ),
-                          width: boxSize,
-                          height: boxSize,
-                          decoration: BoxDecoration(
-                            color: dark
-                                ? const Color(0xFF1A2938)
-                                : Colors.grey[200],
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: _hasError
-                                  ? Colors.red.withOpacity(0.5)
-                                  : _focusNodes[index].hasFocus
-                                  ? (dark
-                                        ? AppColors.mainButton
-                                        : AppColors.primary)
-                                  : Colors.transparent,
-                              width: 2,
-                            ),
-                          ),
-                          child: TextField(
-                            controller: _controllers[index],
-                            focusNode: _focusNodes[index],
-                            textAlign: TextAlign.center,
-                            keyboardType: TextInputType.number,
-                            maxLength: 1,
-                            style: TextStyle(
-                              color: dark ? Colors.white : Colors.black,
-                              fontSize: isSmallScreen ? 20 : 24,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            decoration: const InputDecoration(
-                              counterText: '',
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.zero,
-                            ),
-                            onChanged: (value) {
-                              if (value.isEmpty && index > 0) {
-                                _focusNodes[index - 1].requestFocus();
-                              }
-                            },
-                            onTap: () {
-                              if (_controllers[index].text.isEmpty &&
-                                  index > 0) {
-                                _focusNodes[index - 1].requestFocus();
-                              }
-                            },
-                          ),
-                        );
-                      }),
+                    //     return Container(
+                    //       margin: EdgeInsets.only(
+                    //         right: index < 4 ? spacing : 0,
+                    //       ),
+                    //       width: boxSize,
+                    //       height: boxSize,
+                    //       decoration: BoxDecoration(
+                    //         color: dark
+                    //             ? const Color(0xFF1A2938)
+                    //             : Colors.grey[200],
+                    //         borderRadius: BorderRadius.circular(12),
+                    //         border: Border.all(
+                    //           color: _hasError
+                    //               ? Colors.red.withOpacity(0.5)
+                    //               : _focusNodes[index].hasFocus
+                    //               ? (dark
+                    //                     ? AppColors.mainButton
+                    //                     : AppColors.primary)
+                    //               : Colors.transparent,
+                    //           width: 2,
+                    //         ),
+                    //       ),
+                    //       child: TextField(
+                    //         controller: _controllers[index],
+                    //         focusNode: _focusNodes[index],
+                    //         textAlign: TextAlign.center,
+                    //         keyboardType: TextInputType.number,
+                    //         maxLength: 1,
+                    //         style: TextStyle(
+                    //           color: dark ? Colors.white : Colors.black,
+                    //           fontSize: isSmallScreen ? 20 : 24,
+                    //           fontWeight: FontWeight.w600,
+                    //         ),
+                    //         decoration: const InputDecoration(
+                    //           counterText: '',
+                    //           border: InputBorder.none,
+                    //           contentPadding: EdgeInsets.zero,
+                    //         ),
+                    //         onChanged: (value) {
+                    //           if (value.isEmpty && index > 0) {
+                    //             _focusNodes[index - 1].requestFocus();
+                    //           }
+                    //         },
+                    //         onTap: () {
+                    //           if (_controllers[index].text.isEmpty &&
+                    //               index > 0) {
+                    //             _focusNodes[index - 1].requestFocus();
+                    //           }
+                    //         },
+                    //       ),
+                    //     );
+                    //   }),
+                    // ),
+
+                    // if (_hasError) ...[
+                    //   const SizedBox(height: 16),
+                    //   const Text(
+                    //     AppStrings.wrongCodeText,
+                    //     style: TextStyle(color: Colors.red, fontSize: 14),
+                    //   ),
+                    // ],
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(5, (index) {
+                          final boxSize = isSmallScreen ? 50.0 : 56.0;
+                          final spacing = isSmallScreen ? 8.0 : 12.0;
+
+                          final baseColor = dark
+                              ? const Color(0xFF22344D)
+                              : const Color(0xFFFFFFFF);
+                          final borderColor = dark
+                              ? const Color(0xFF2F3E52)
+                              : const Color(0xFFB9C8D6);
+                          final focusedColor = dark
+                              ? const Color(0xFF4A6FA1)
+                              : const Color(0xFF375D84);
+
+                          return Row(
+                            children: [
+                              SizedBox(
+                                width: boxSize,
+                                height: boxSize,
+                                child: TextField(
+                                  controller: _controllers[index],
+                                  focusNode: _focusNodes[index],
+                                  textAlign: TextAlign.center,
+                                  keyboardType: TextInputType.number,
+                                  maxLength: 1,
+                                  style: TextStyle(
+                                    color: dark ? Colors.white : Colors.black,
+                                    fontSize: isSmallScreen ? 20 : 24,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  decoration: InputDecoration(
+                                    counterText: '',
+                                    filled: true,
+                                    fillColor: baseColor,
+                                    contentPadding: EdgeInsets.zero,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                        color: borderColor,
+                                        width: 2,
+                                      ),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                        color: focusedColor,
+                                        width: 2,
+                                      ),
+                                    ),
+                                  ),
+                                  onChanged: (value) {
+                                    if (value.isNotEmpty && index < 4) {
+                                      _focusNodes[index + 1].requestFocus();
+                                    } else if (value.isEmpty && index > 0) {
+                                      _focusNodes[index - 1].requestFocus();
+                                    }
+                                  },
+                                ),
+                              ),
+                              if (index < 4) SizedBox(width: spacing),
+                            ],
+                          );
+                        }),
+                      ),
                     ),
 
                     if (_hasError) ...[
                       const SizedBox(height: 16),
                       const Text(
-                        'Wrong code, please try again',
+                        AppStrings.wrongCodeText,
                         style: TextStyle(color: Colors.red, fontSize: 14),
                       ),
                     ],
@@ -267,7 +344,7 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
                           child: Text(
-                            'Send code again',
+                            AppStrings.sendCodeAgainText,
                             style: TextStyle(
                               color: _countdown == 0
                                   ? (dark
@@ -277,7 +354,7 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                                         ? Colors.white.withOpacity(0.5)
                                         : Colors.grey),
                               fontSize: 15,
-                              decoration: TextDecoration.underline,
+                              // decoration: TextDecoration.underline,
                             ),
                           ),
                         ),
@@ -311,14 +388,12 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                             ),
                           ),
                           child: Text(
-                            'Call me instead',
+                            AppStrings.callInsteadText,
                             style: dark
                                 ? AppTextTheme.darkTextTheme.titleLarge
-                                      ?.copyWith(
-                                        color: AppColors.primaryTextDark,
-                                      )
+                                      ?.copyWith(color: AppColors.light)
                                 : AppTextTheme.lightTextTheme.titleLarge
-                                      ?.copyWith(color: AppColors.textPrimary),
+                                      ?.copyWith(color: AppColors.light),
                           ),
                         ),
                       ),
@@ -334,29 +409,33 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              "I didn't receive a code",
+                              AppStrings.didntRecieveText,
                               style: dark
-                                  ? AppTextTheme.darkTextTheme.titleLarge
-                                        ?.copyWith(
-                                          color: AppColors.primaryTextDark,
+                                  ? AppTextTheme.darkTextTheme.headlineLarge!
+                                        .copyWith(
+                                          color: AppColors.imageCard,
+                                          fontSize: 14,
                                         )
-                                  : AppTextTheme.lightTextTheme.titleLarge
-                                        ?.copyWith(
-                                          color: AppColors.textPrimary,
+                                  : AppTextTheme.lightTextTheme.headlineLarge!
+                                        .copyWith(
+                                          color: AppColors.textSecondaryBlack,
+                                          fontSize: 14,
                                         ),
                             ),
                             Text(
-                              " Resend",
+                              AppStrings.resendText,
                               style: dark
                                   ? AppTextTheme.darkTextTheme.titleLarge
                                         ?.copyWith(
                                           color: AppColors.mainButton,
                                           decoration: TextDecoration.underline,
+                                          fontSize: 14,
                                         )
                                   : AppTextTheme.lightTextTheme.titleLarge
                                         ?.copyWith(
                                           color: AppColors.primary,
                                           decoration: TextDecoration.underline,
+                                          fontSize: 14,
                                         ),
                             ),
                           ],
@@ -378,7 +457,7 @@ class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
                             ),
                           ),
                           child: Text(
-                            'Verify',
+                            AppStrings.verifyseText,
                             style: dark
                                 ? AppTextTheme.darkTextTheme.titleLarge
                                       ?.copyWith(color: Colors.black)

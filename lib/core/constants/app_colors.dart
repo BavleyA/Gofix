@@ -6,7 +6,7 @@ class AppColors {
   static const Color primary = Color(0xFF375D84);
   static const Color secondaryBlack = Color(0xFF4D3E3E);
   static const Color background = Color(0xFFF9FCFF);
-  static const Color surface = Color(0xFFF5F5F5);
+  static const Color surface = Color.fromARGB(255, 218, 181, 181);
   static const Color error = Color(0xFFB00020);
   static const Color success = Color(0xFF4CAF50);
   static const Color warning = Color(0xFFFFC107);
@@ -14,6 +14,7 @@ class AppColors {
 
   static const Color textPrimary = Color(0xFF000000);
   static const Color textSecondary = Color(0xFF757575);
+  static const Color textSecondaryBlack = Color(0xFF4b4c4d);
   static const Color textOnPrimary = Color(0xFFFFFFFF);
   static const Color texthint = Color(0xFF86888A);
   static const Color texthintDark = Color(0xFF94A3B8);
@@ -55,8 +56,10 @@ class AppColors {
   static const Color backArrow = Color(0xFF4A6FA1);
 
   static const Color primaryTextDark = Color(0xFFE2E8F0);
+  static const Color headTextDark = Color(0xFFF1F5F9);
   static const Color secondaryTextDark = Color(0xFFCBD5E1);
   static const Color placeholderTextDark = Color(0xFF9DB2CE);
+  static const Color placeholderTextLight = Color(0xFF808080);
 
   static const Color warningRed = Color(0xFFF87171);
   static const Color verifyNumberField = Color(0xFF2F3E52);

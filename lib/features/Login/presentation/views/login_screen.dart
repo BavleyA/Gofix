@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gofix/core/constants/app_colors.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
@@ -13,7 +14,7 @@ import '../../../../core/constants/app_text_form_field_theme.dart';
 import '../widgets/custom_text_form_field.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -47,8 +48,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     AppStrings.loginTitle,
                     style: dark
-                        ? AppTextTheme.darkTextTheme.headlineLarge
-                        : AppTextTheme.lightTextTheme.headlineLarge,
+                        ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
+                            color: AppColors.imageCard,
+                          )
+                        : AppTextTheme.lightTextTheme.headlineLarge!.copyWith(
+                            color: AppColors.secondaryBlack,
+                          ),
                   ),
                 ],
               ),
@@ -97,14 +102,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => RoleScreen(),
-                          ),
+                          MaterialPageRoute(builder: (context) => RoleScreen()),
                         ); // deleteeeeeeeeeeeeeeeee
                       },
                       dark: dark,
                       text: AppStrings.loginTitle,
-                      
+
                       phone: phoneController.text,
                       password: passwordController.text,
                     ),

@@ -5,9 +5,9 @@ import 'package:gofix/core/constants/app_image_strings.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
-import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
 import 'package:gofix/features/CommonPages/widgets/profile_image.dart';
 import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
+import 'package:gofix/features/Driver/DriverView/bike/widget/bike_upload_image.dart';
 
 class BikeProfilePictureScreen extends StatefulWidget {
   const BikeProfilePictureScreen({super.key});
@@ -38,6 +38,8 @@ class _BikeProfilePictureScreenState extends State<BikeProfilePictureScreen> {
   }
 
   void _showImagePicker() {
+    final dark = Helper.isDarkMode(context);
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -45,8 +47,8 @@ class _BikeProfilePictureScreenState extends State<BikeProfilePictureScreen> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      backgroundColor: Colors.white,
-      builder: (_) => ImagePickerSheetWidget(
+      backgroundColor: dark ? AppColors.backgroundDark : AppColors.light,
+      builder: (_) => BikeImagePickerSheetWidget(
         onImageSelected: (file) {
           setState(() => _imageFile = file);
           _uploadImage(file);
@@ -81,7 +83,9 @@ class _BikeProfilePictureScreenState extends State<BikeProfilePictureScreen> {
           children: [
             ProfileImageWidget(
               imageFile: _imageFile,
-              placeholderImage: AppImageStrings.profileIcon,
+              placeholderImage: dark
+                  ? AppImageStrings.profileIconDark
+                  : AppImageStrings.profileIcon,
             ),
             Padding(
               padding: const EdgeInsets.all(18),
@@ -92,7 +96,7 @@ class _BikeProfilePictureScreenState extends State<BikeProfilePictureScreen> {
                     AppStrings.profilePhoto,
                     style: dark
                         ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
-                            color: AppColors.secondaryBlack,
+                            color: AppColors.headTextDark,
                           )
                         : AppTextTheme.lightTextTheme.headlineLarge,
                   ),
@@ -104,7 +108,7 @@ class _BikeProfilePictureScreenState extends State<BikeProfilePictureScreen> {
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
-                            color: AppColors.texthintDark,
+                            color: AppColors.primaryTextDark,
                           )
                         : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -116,7 +120,9 @@ class _BikeProfilePictureScreenState extends State<BikeProfilePictureScreen> {
                   Text(
                     AppStrings.pfpRequirementsRole,
                     style: TextStyle(
-                      color: dark ? AppColors.texthintDark : AppColors.texthint,
+                      color: dark
+                          ? AppColors.primaryTextDark
+                          : AppColors.texthint,
                       fontSize: 14,
                       height: 1.5,
                     ),
@@ -130,7 +136,7 @@ class _BikeProfilePictureScreenState extends State<BikeProfilePictureScreen> {
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
-                            color: AppColors.texthintDark,
+                            color: AppColors.primaryTextDark,
                           )
                         : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -142,7 +148,9 @@ class _BikeProfilePictureScreenState extends State<BikeProfilePictureScreen> {
                   Text(
                     AppStrings.notAcceptedRole,
                     style: TextStyle(
-                      color: dark ? AppColors.texthintDark : AppColors.texthint,
+                      color: dark
+                          ? AppColors.primaryTextDark
+                          : AppColors.texthint,
                       fontSize: 14,
                       height: 1.5,
                     ),

@@ -36,7 +36,7 @@ class _CarsDocScreenState extends State<CarsDocScreen> {
 
     return Scaffold(
       appBar: AppBar(),
-      backgroundColor: AppColors.background,
+      backgroundColor: dark ? AppColors.backgroundDark : AppColors.background,
       body: Padding(
         padding: const EdgeInsets.all(18),
         child: SingleChildScrollView(
@@ -46,8 +46,12 @@ class _CarsDocScreenState extends State<CarsDocScreen> {
               Text(
                 AppStrings.requiredDocuments,
                 style: dark
-                    ? AppTextTheme.darkTextTheme.headlineLarge
-                    : AppTextTheme.lightTextTheme.headlineLarge,
+                    ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
+                        color: AppColors.imageCard,
+                      )
+                    : AppTextTheme.lightTextTheme.headlineLarge!.copyWith(
+                        color: AppColors.secondaryBlack,
+                      ),
               ),
               const SizedBox(height: 30),
 
@@ -196,14 +200,16 @@ class _CarsDocScreenState extends State<CarsDocScreen> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
-                  onPressed: _allStepsCompleted ? () {
+                  onPressed: _allStepsCompleted
+                      ? () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => UnderReviewScreen(),
                             ),
                           );
-                        } : null,
+                        }
+                      : null,
                   child: Text(
                     AppStrings.done,
                     style: const TextStyle(

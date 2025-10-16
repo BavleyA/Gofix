@@ -34,7 +34,7 @@ class _BikeDocScreenState extends State<BikeDocScreen> {
 
     return Scaffold(
       appBar: AppBar(),
-      backgroundColor: AppColors.background,
+      backgroundColor: dark ? AppColors.backgroundDark : AppColors.background,
       body: Padding(
         padding: const EdgeInsets.all(18),
         child: SingleChildScrollView(
@@ -44,8 +44,12 @@ class _BikeDocScreenState extends State<BikeDocScreen> {
               Text(
                 AppStrings.requiredDocuments,
                 style: dark
-                    ? AppTextTheme.darkTextTheme.headlineLarge
-                    : AppTextTheme.lightTextTheme.headlineLarge,
+                    ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
+                        color: AppColors.imageCard,
+                      )
+                    : AppTextTheme.lightTextTheme.headlineLarge!.copyWith(
+                        color: AppColors.secondaryBlack,
+                      ),
               ),
               const SizedBox(height: 30),
 

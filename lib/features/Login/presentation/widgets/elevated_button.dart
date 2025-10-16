@@ -30,7 +30,9 @@ class ElevatedAuthButton extends StatelessWidget {
         child: Text(
           text,
           style: dark
-              ? AppTextTheme.darkTextTheme.displaySmall
+              ? AppTextTheme.darkTextTheme.displaySmall!.copyWith(
+                  color: AppColors.imageCard,
+                )
               : AppTextTheme.lightTextTheme.displaySmall!.copyWith(
                   color: AppColors.light,
                 ),

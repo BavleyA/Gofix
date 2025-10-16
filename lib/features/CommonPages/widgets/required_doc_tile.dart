@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gofix/core/constants/app_colors.dart';
 import 'package:gofix/core/constants/app_image_strings.dart';
+import 'package:gofix/core/utils/helper.dart';
 
 class DocTile extends StatelessWidget {
   final String title;
@@ -16,13 +17,15 @@ class DocTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dark = Helper.isDarkMode(context);
+
     return InkWell(
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.only(right: 5),
         child: Container(
           decoration: BoxDecoration(
-            color: AppColors.docCard,
+            color: dark ? AppColors.imageCardDark : AppColors.docCard,
             border: const Border(
               bottom: BorderSide(color: AppColors.selectedContainer, width: 2),
             ),
@@ -34,7 +37,9 @@ class DocTile extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                  color: AppColors.dark.withOpacity(0.8),
+                  color: dark
+                      ? AppColors.primaryTextDark
+                      : AppColors.dark.withOpacity(0.8),
                   fontSize: 17,
                   fontWeight: FontWeight.w500,
                 ),

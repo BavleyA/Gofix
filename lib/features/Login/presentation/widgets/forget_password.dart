@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/constants/app_strings.dart';
+import 'package:gofix/features/Login/presentation/views/reset_password_screen.dart';
 import '../../../../core/constants/app_text_style.dart';
 
 class ForgetPass extends StatelessWidget {
-  const ForgetPass({
-    super.key,
-    required this.dark,
-  });
+  const ForgetPass({super.key, required this.dark});
 
   final bool dark;
 
@@ -20,27 +16,28 @@ class ForgetPass extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: TextButton(
             child: Center(
-              child: Text('Forget Password?',
-                style: dark ?
-                AppTextTheme.darkTextTheme.bodyLarge?.copyWith(
-
-                  decorationThickness: 2,
-                  decoration: TextDecoration.underline,
-                  height: 2,
-
-                ) : AppTextTheme.lightTextTheme.bodyLarge?.copyWith(
-
-                  decorationThickness: 2,
-                  decoration: TextDecoration.underline,
-                  height: 2,
-
-                ),
-
-
-
+              child: Text(
+                'Forget Password ?',
+                style:
+                    (dark
+                            ? AppTextTheme.darkTextTheme.bodyLarge
+                            : AppTextTheme.lightTextTheme.bodyLarge)
+                        ?.copyWith(
+                          decoration: TextDecoration.underline,
+                          decorationThickness: 1,
+                          decorationStyle: TextDecorationStyle.solid,
+                          shadows: const [Shadow(color: Colors.transparent)],
+                          height: 1.4,
+                        ),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+
+              Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => ResetPasswordScreen()),
+                    );
+            },
           ),
         ),
       ],

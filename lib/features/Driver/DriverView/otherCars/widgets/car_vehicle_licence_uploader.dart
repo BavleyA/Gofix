@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gofix/core/constants/app_colors.dart';
-import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
 
 class CarVehicleLicenceUploader extends StatelessWidget {
   final String label;
@@ -45,14 +44,16 @@ class CarVehicleLicenceUploader extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.upload_file,
-                    color: dark ? AppColors.dark : AppColors.primary,
+                    color: dark ? AppColors.primaryTextDark : AppColors.primary,
                     size: 40,
                   ),
                   const SizedBox(height: 8),
                   Text(
                     label,
                     style: TextStyle(
-                      color: dark ? AppColors.dark : AppColors.primary,
+                      color: dark
+                          ? AppColors.primaryTextDark
+                          : AppColors.primary,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),

@@ -6,9 +6,9 @@ import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
-import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
+import 'package:gofix/features/Driver/DriverView/bike/widget/bike_criminal_record_uploader.dart';
 import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
-import 'package:gofix/features/Driver/DriverView/otherCars/widgets/cars_criminal_record_uploader.dart';
+import 'package:gofix/features/Driver/DriverView/bike/widget/bike_upload_image.dart';
 
 class CarsCriminalRecordScreen extends StatefulWidget {
   const CarsCriminalRecordScreen({super.key});
@@ -45,7 +45,7 @@ class _CarsCriminalRecordScreenState extends State<CarsCriminalRecordScreen> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
-      builder: (context) => ImagePickerSheetWidget(
+      builder: (context) => BikeImagePickerSheetWidget(
         onImageSelected: (File image) {
           setState(() {
             _criminalRecordImage = image;
@@ -73,6 +73,7 @@ class _CarsCriminalRecordScreenState extends State<CarsCriminalRecordScreen> {
     });
 
     Navigator.pop(context, {'image': _criminalRecordImage});
+    // Navigator.pop(context, true);
   }
 
   @override
@@ -102,7 +103,7 @@ class _CarsCriminalRecordScreenState extends State<CarsCriminalRecordScreen> {
                     AppStrings.criminalRecordCertificate,
                     style: dark
                         ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
-                            color: AppColors.secondaryBlack,
+                            color: AppColors.headTextDark,
                           )
                         : AppTextTheme.lightTextTheme.headlineLarge,
                   ),
@@ -113,7 +114,7 @@ class _CarsCriminalRecordScreenState extends State<CarsCriminalRecordScreen> {
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
-                            color: AppColors.texthint,
+                            color: AppColors.primaryTextDark,
                           )
                         : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -124,11 +125,15 @@ class _CarsCriminalRecordScreenState extends State<CarsCriminalRecordScreen> {
                   const SizedBox(height: 4),
                   Text(
                     AppStrings.criminalRecordCertificateRole,
-                    style: TextStyle(
-                      color: dark ? AppColors.texthintDark : AppColors.texthint,
-                      fontSize: 14,
-                      height: 1.5,
-                    ),
+                    style: dark
+                        ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primaryTextDark,
+                          )
+                        : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.texthint,
+                          ),
                   ),
                   const SizedBox(height: 20),
 

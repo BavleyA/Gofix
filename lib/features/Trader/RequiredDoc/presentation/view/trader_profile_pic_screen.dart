@@ -7,7 +7,7 @@ import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
 import 'package:gofix/features/CommonPages/widgets/profile_image.dart';
-import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/trader_upload_image.dart';
 
 class TraderProfilePictureScreen extends StatefulWidget {
   const TraderProfilePictureScreen({super.key});
@@ -39,6 +39,8 @@ class _TraderProfilePictureScreenState
   }
 
   void _showImagePicker() {
+    final dark = Helper.isDarkMode(context);
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -46,8 +48,8 @@ class _TraderProfilePictureScreenState
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      backgroundColor: Colors.white,
-      builder: (_) => ImagePickerSheetWidget(
+      backgroundColor: dark ? AppColors.backgroundDark : AppColors.light,
+      builder: (_) => TraderImagePickerSheetWidget(
         onImageSelected: (file) {
           setState(() => _imageFile = file);
           _uploadImage(file);
@@ -81,7 +83,9 @@ class _TraderProfilePictureScreenState
           children: [
             ProfileImageWidget(
               imageFile: _imageFile,
-              placeholderImage: AppImageStrings.profileIcon,
+              placeholderImage: dark
+                  ? AppImageStrings.profileIconDark
+                  : AppImageStrings.profileIcon,
             ),
             Padding(
               padding: const EdgeInsets.all(18),
@@ -92,7 +96,7 @@ class _TraderProfilePictureScreenState
                     AppStrings.profilePhoto,
                     style: dark
                         ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
-                            color: AppColors.secondaryBlack,
+                            color: AppColors.headTextDark,
                           )
                         : AppTextTheme.lightTextTheme.headlineLarge,
                   ),
@@ -104,7 +108,7 @@ class _TraderProfilePictureScreenState
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
-                            color: AppColors.texthintDark,
+                            color: AppColors.primaryTextDark,
                           )
                         : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -116,7 +120,9 @@ class _TraderProfilePictureScreenState
                   Text(
                     AppStrings.pfpRequirementsRole,
                     style: TextStyle(
-                      color: dark ? AppColors.texthintDark : AppColors.texthint,
+                      color: dark
+                          ? AppColors.primaryTextDark
+                          : AppColors.texthint,
                       fontSize: 14,
                       height: 1.5,
                     ),
@@ -130,7 +136,7 @@ class _TraderProfilePictureScreenState
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
-                            color: AppColors.texthintDark,
+                            color: AppColors.primaryTextDark,
                           )
                         : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -142,7 +148,9 @@ class _TraderProfilePictureScreenState
                   Text(
                     AppStrings.notAcceptedRole,
                     style: TextStyle(
-                      color: dark ? AppColors.texthintDark : AppColors.texthint,
+                      color: dark
+                          ? AppColors.primaryTextDark
+                          : AppColors.texthint,
                       fontSize: 14,
                       height: 1.5,
                     ),

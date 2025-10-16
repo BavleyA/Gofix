@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gofix/core/constants/app_colors.dart';
 import 'package:gofix/core/constants/app_image_strings.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
@@ -33,8 +34,12 @@ class _RoleScreenState extends State<RoleScreen> {
               Text(
                 AppStrings.roleTitle,
                 style: dark
-                    ? AppTextTheme.darkTextTheme.headlineLarge
-                    : AppTextTheme.lightTextTheme.headlineLarge,
+                    ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
+                        color: AppColors.imageCard,
+                      )
+                    : AppTextTheme.lightTextTheme.headlineLarge!.copyWith(
+                        color: AppColors.secondaryBlack,
+                      ),
               ),
               const SizedBox(height: 20),
 
