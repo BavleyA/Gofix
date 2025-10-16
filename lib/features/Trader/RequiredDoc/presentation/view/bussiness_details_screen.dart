@@ -5,6 +5,7 @@ import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/business_input_field.dart';
 
 class BussinessDetailsScreen extends StatefulWidget {
   const BussinessDetailsScreen({super.key});
@@ -44,7 +45,9 @@ class _BussinessDetailsScreenState extends State<BussinessDetailsScreen> {
               child: Text(
                 AppStrings.businessDetails,
                 style: dark
-                    ? AppTextTheme.darkTextTheme.headlineLarge
+                    ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
+                        color: AppColors.headTextDark,
+                      )
                     : AppTextTheme.lightTextTheme.headlineLarge,
               ),
             ),
@@ -54,34 +57,12 @@ class _BussinessDetailsScreenState extends State<BussinessDetailsScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    // ===== Email =====
-                    TextFormField(
+                    BuisenessReusableTextField(
                       controller: emailController,
+                      labelText: AppStrings.emailHint,
+                      prefixIcon: Icons.email,
                       keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText: AppStrings.emailHint,
-                        prefixIcon: Icon(
-                          Icons.email,
-                          color: AppColors.mainButton,
-                        ),
-                        filled: true,
-                        fillColor: dark
-                            ? AppColors.textFieldBackgroundDark
-                            : AppColors.light,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: dark ? Colors.grey[600]! : Colors.grey,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: AppColors.mainButton,
-                            width: 2,
-                          ),
-                        ),
-                      ),
+                      dark: dark,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return AppStrings.requiredFieldEmail;
@@ -91,33 +72,11 @@ class _BussinessDetailsScreenState extends State<BussinessDetailsScreen> {
                     ),
                     const SizedBox(height: 16),
 
-                    // ===== Business Name =====
-                    TextFormField(
+                    BuisenessReusableTextField(
                       controller: nameController,
-                      decoration: InputDecoration(
-                        labelText: AppStrings.businessNameHint,
-                        prefixIcon: const Icon(
-                          Icons.business,
-                          color: AppColors.mainButton,
-                        ),
-                        filled: true,
-                        fillColor: dark
-                            ? AppColors.textFieldBackgroundDark
-                            : AppColors.light,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: dark ? Colors.grey[600]! : Colors.grey,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: AppColors.mainButton,
-                            width: 2,
-                          ),
-                        ),
-                      ),
+                      labelText: AppStrings.businessNameHint,
+                      prefixIcon: Icons.business,
+                      dark: dark,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return AppStrings.requiredFieldBussiness;
@@ -127,33 +86,11 @@ class _BussinessDetailsScreenState extends State<BussinessDetailsScreen> {
                     ),
                     const SizedBox(height: 16),
 
-                    // ===== Category =====
-                    TextFormField(
+                    BuisenessReusableTextField(
                       controller: categoryController,
-                      decoration: InputDecoration(
-                        labelText: AppStrings.businessCategoryHint,
-                        prefixIcon: const Icon(
-                          Icons.category,
-                          color: AppColors.mainButton,
-                        ),
-                        filled: true,
-                        fillColor: dark
-                            ? AppColors.textFieldBackgroundDark
-                            : AppColors.light,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: dark ? Colors.grey[600]! : Colors.grey,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: AppColors.mainButton,
-                            width: 2,
-                          ),
-                        ),
-                      ),
+                      labelText: AppStrings.businessCategoryHint,
+                      prefixIcon: Icons.category,
+                      dark: dark,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return AppStrings.requiredFieldCategory;
@@ -163,33 +100,11 @@ class _BussinessDetailsScreenState extends State<BussinessDetailsScreen> {
                     ),
                     const SizedBox(height: 16),
 
-                    // ===== Address =====
-                    TextFormField(
+                    BuisenessReusableTextField(
                       controller: addressController,
-                      decoration: InputDecoration(
-                        labelText: AppStrings.businessAddressHint,
-                        prefixIcon: const Icon(
-                          Icons.location_on,
-                          color: AppColors.mainButton,
-                        ),
-                        filled: true,
-                        fillColor: dark
-                            ? AppColors.textFieldBackgroundDark
-                            : AppColors.light,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: dark ? Colors.grey[600]! : Colors.grey,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: AppColors.mainButton,
-                            width: 2,
-                          ),
-                        ),
-                      ),
+                      labelText: AppStrings.businessAddressHint,
+                      prefixIcon: Icons.location_on,
+                      dark: dark,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return AppStrings.requiredFieldAddress;
@@ -220,20 +135,19 @@ class _BussinessDetailsScreenState extends State<BussinessDetailsScreen> {
                             final category = categoryController.text;
                             final address = addressController.text;
 
-                            // امسحي الداتا بعد الحفظ
                             emailController.clear();
                             nameController.clear();
                             categoryController.clear();
                             addressController.clear();
 
-                            // ✅ نرجع true علشان الصفحة اللي قبلها تعرف إن الخطوة خلصت
                             Navigator.pop(context, true);
                           }
                         },
                         child: Text(
                           AppStrings.done,
                           style: dark
-                              ? AppTextTheme.darkTextTheme.displaySmall
+                              ? AppTextTheme.darkTextTheme.displaySmall!
+                                    .copyWith(color: AppColors.imageCard)
                               : AppTextTheme.lightTextTheme.displaySmall!
                                     .copyWith(color: AppColors.light),
                         ),

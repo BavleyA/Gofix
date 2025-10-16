@@ -5,9 +5,9 @@ import 'package:gofix/core/constants/app_image_strings.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
-import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
 import 'package:gofix/features/CommonPages/widgets/profile_image.dart';
 import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/widgets/car_upload_image.dart';
 
 class CarsProfilePictureScreen extends StatefulWidget {
   const CarsProfilePictureScreen({super.key});
@@ -38,6 +38,8 @@ class _CarsProfilePictureScreenState extends State<CarsProfilePictureScreen> {
   }
 
   void _showImagePicker() {
+    final dark = Helper.isDarkMode(context);
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -45,8 +47,8 @@ class _CarsProfilePictureScreenState extends State<CarsProfilePictureScreen> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      backgroundColor: Colors.white,
-      builder: (_) => ImagePickerSheetWidget(
+      backgroundColor: dark ? AppColors.backgroundDark : AppColors.light,
+      builder: (_) => CarImagePickerSheetWidget(
         onImageSelected: (file) {
           setState(() => _imageFile = file);
           _uploadImage(file);
@@ -70,7 +72,7 @@ class _CarsProfilePictureScreenState extends State<CarsProfilePictureScreen> {
     final dark = Helper.isDarkMode(context);
 
     return Scaffold(
-      backgroundColor: dark ? AppColors.backgroundDark : AppColors.background,
+       backgroundColor: dark ? AppColors.backgroundDark : AppColors.background,
       appBar: AppBar(
         backgroundColor: dark ? AppColors.imageCardDark : AppColors.imageCard,
       ),
@@ -80,7 +82,9 @@ class _CarsProfilePictureScreenState extends State<CarsProfilePictureScreen> {
           children: [
             ProfileImageWidget(
               imageFile: _imageFile,
-              placeholderImage: AppImageStrings.profileIcon,
+             placeholderImage: dark
+                  ? AppImageStrings.profileIconDark
+                  : AppImageStrings.profileIcon,
             ),
             Padding(
               padding: const EdgeInsets.all(18),
@@ -91,7 +95,7 @@ class _CarsProfilePictureScreenState extends State<CarsProfilePictureScreen> {
                     AppStrings.profilePhoto,
                     style: dark
                         ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
-                            color: AppColors.secondaryBlack,
+                            color: AppColors.headTextDark,
                           )
                         : AppTextTheme.lightTextTheme.headlineLarge,
                   ),
@@ -103,7 +107,7 @@ class _CarsProfilePictureScreenState extends State<CarsProfilePictureScreen> {
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
-                            color: AppColors.texthintDark,
+                            color: AppColors.primaryTextDark,
                           )
                         : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -115,8 +119,9 @@ class _CarsProfilePictureScreenState extends State<CarsProfilePictureScreen> {
                   Text(
                     AppStrings.pfpRequirementsRole,
                     style: TextStyle(
-                      color: dark ? AppColors.texthintDark : AppColors.texthint,
-                      fontSize: 14,
+ color: dark
+                          ? AppColors.primaryTextDark
+                          : AppColors.texthint,                      fontSize: 14,
                       height: 1.5,
                     ),
                   ),
@@ -129,7 +134,7 @@ class _CarsProfilePictureScreenState extends State<CarsProfilePictureScreen> {
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
-                            color: AppColors.texthintDark,
+                            color: AppColors.primaryTextDark,
                           )
                         : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -141,8 +146,9 @@ class _CarsProfilePictureScreenState extends State<CarsProfilePictureScreen> {
                   Text(
                     AppStrings.notAcceptedRole,
                     style: TextStyle(
-                      color: dark ? AppColors.texthintDark : AppColors.texthint,
-                      fontSize: 14,
+ color: dark
+                          ? AppColors.primaryTextDark
+                          : AppColors.texthint,                      fontSize: 14,
                       height: 1.5,
                     ),
                   ),

@@ -37,7 +37,9 @@ class _RoleScreenState extends State<RoleScreen> {
                     ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
                         color: AppColors.imageCard,
                       )
-                    : AppTextTheme.lightTextTheme.headlineLarge,
+                    : AppTextTheme.lightTextTheme.headlineLarge!.copyWith(
+                        color: AppColors.secondaryBlack,
+                      ),
               ),
               const SizedBox(height: 20),
 

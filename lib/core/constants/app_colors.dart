@@ -56,6 +56,7 @@ class AppColors {
   static const Color backArrow = Color(0xFF4A6FA1);
 
   static const Color primaryTextDark = Color(0xFFE2E8F0);
+  static const Color headTextDark = Color(0xFFF1F5F9);
   static const Color secondaryTextDark = Color(0xFFCBD5E1);
   static const Color placeholderTextDark = Color(0xFF9DB2CE);
   static const Color placeholderTextLight = Color(0xFF808080);

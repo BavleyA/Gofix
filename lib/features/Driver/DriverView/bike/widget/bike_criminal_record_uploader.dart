@@ -2,14 +2,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gofix/core/constants/app_colors.dart';
 
-class BikeCriminalRecordUploader extends StatelessWidget {
+class CarsCriminalRecordUploader extends StatelessWidget {
   final String label;
   final File? imageFile;
   final VoidCallback onTap;
   final bool dark;
   final bool isError;
 
-  const BikeCriminalRecordUploader({
+  const CarsCriminalRecordUploader({
     super.key,
     required this.label,
     required this.imageFile,
@@ -48,14 +48,18 @@ class BikeCriminalRecordUploader extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.upload_file,
-                          color: dark ? AppColors.dark : AppColors.primary,
+                          color: dark
+                              ? AppColors.primaryTextDark
+                              : AppColors.primary,
                           size: 40,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           label,
                           style: TextStyle(
-                            color: dark ? AppColors.dark : AppColors.primary,
+                            color: dark
+                                ? AppColors.primaryTextDark
+                                : AppColors.primary,
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),

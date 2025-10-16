@@ -2,12 +2,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:gofix/core/constants/app_colors.dart';
 
-class BikeNationalIdUploader extends StatelessWidget {
+class BikeNationalIdUploader extends StatefulWidget {
   final String label;
   final File? imageFile;
   final VoidCallback onTap;
   final bool dark;
-  final bool isError;
+  final bool showError; 
 
   const BikeNationalIdUploader({
     super.key,
@@ -15,43 +15,58 @@ class BikeNationalIdUploader extends StatelessWidget {
     required this.imageFile,
     required this.onTap,
     required this.dark,
-    this.isError = false,
+    this.showError = false, 
+    
   });
 
   @override
+  State<BikeNationalIdUploader> createState() =>
+      _BikeNationalIdUploaderState();
+}
+
+class _BikeNationalIdUploaderState extends State<BikeNationalIdUploader> {
+  @override
   Widget build(BuildContext context) {
+    Color borderColor;
+
+
+    if (widget.showError && widget.imageFile == null) {
+      borderColor = Colors.red;
+    } else {
+      borderColor = widget.dark
+          ? AppColors.selectedContainerDark.withOpacity(0.6)
+          : AppColors.choosenCard.withOpacity(0.6);
+    }
+
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.onTap,
       child: Container(
         width: double.infinity,
-        height: 230,
+        height: 180,
         margin: const EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isError
-                ? Colors.red
-                : dark
-                ? AppColors.selectedContainerDark.withOpacity(0.6)
-                : AppColors.choosenCard.withOpacity(0.6),
-            width: isError ? 2 : 1.5,
-          ),
-          color: dark ? AppColors.imageCardDark : AppColors.docCard,
+          border: Border.all(color: borderColor, width: 2),
+          color: widget.dark ? AppColors.imageCardDark : AppColors.docCard,
         ),
-        child: imageFile == null
+        child: widget.imageFile == null
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     Icons.upload_file,
-                    color: dark ? AppColors.dark : AppColors.primary,
+                    color: widget.dark
+                        ? AppColors.primaryTextDark
+                        : AppColors.primary,
                     size: 40,
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    label,
+                    widget.label,
                     style: TextStyle(
-                      color: dark ? AppColors.dark : AppColors.primary,
+                      color: widget.dark
+                          ? AppColors.primaryTextDark
+                          : AppColors.primary,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -61,7 +76,7 @@ class BikeNationalIdUploader extends StatelessWidget {
             : ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: Image.file(
-                  imageFile!,
+                  widget.imageFile!,
                   width: double.infinity,
                   height: 180,
                   fit: BoxFit.cover,

@@ -68,6 +68,7 @@ class AppStrings {
   static const String requiredFieldCategory = 'Category is required';
   static const String requiredFieldAddress = 'Address is required';
   static const String socialMediaLinksHint = 'Social Media Links';
+  static const String websiteOnlineStoreLink= 'Website / Online Store Link';
   static const String verificationSuccessText = 'Verification successful!';
   static const String verifyText = 'Verify your phone number';
   static const String verifyseText = 'Verify';
@@ -80,4 +81,5 @@ class AppStrings {
   static const String callInsteadText = 'Call me instead';
   static const String didntRecieveText = "I didn't receive a code  ";
   static const String resendText = 'Resend';
+  static const String resetPasswordText = 'Reset Password';
 }

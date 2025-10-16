@@ -5,6 +5,7 @@ import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/business_input_field.dart';
 
 class OnlinePresenceScreen extends StatefulWidget {
   const OnlinePresenceScreen({super.key});
@@ -54,77 +55,35 @@ class _OnlinePresenceScreenState extends State<OnlinePresenceScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    // ===== Social Media Links =====
-                    TextFormField(
-                      controller: socialMediaLinksController,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      decoration: InputDecoration(
-                        labelText: AppStrings.socialMediaLinksHint,
-                        prefixIcon: const Icon(
-                          Icons.public,
-                          color: AppColors.mainButton,
-                        ),
-                        filled: true,
-                        fillColor: dark
-                            ? AppColors.textFieldBackgroundDark
-                            : AppColors.light,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: dark ? Colors.grey[600]! : Colors.grey,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: AppColors.mainButton,
-                            width: 2,
-                          ),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return AppStrings.requiredFieldEmail;
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 16),
-
                     // ===== Website page =====
-                    TextFormField(
-                      controller: WebsiteOnlineStoreLinkController,
-                      decoration: InputDecoration(
-                        labelText: AppStrings.businessNameHint,
-                        prefixIcon: const Icon(
-                          Icons.business,
-                          color: AppColors.mainButton,
-                        ),
-                        filled: true,
-                        fillColor: dark
-                            ? AppColors.textFieldBackgroundDark
-                            : AppColors.light,
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: dark ? Colors.grey[600]! : Colors.grey,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide(
-                            color: AppColors.mainButton,
-                            width: 2,
-                          ),
-                        ),
-                      ),
+                    BuisenessReusableTextField(
+                      controller: socialMediaLinksController,
+                      labelText: AppStrings.socialMediaLinksHint,
+                      prefixIcon: Icons.link,
+                      dark: dark,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return AppStrings.requiredFieldBussiness;
                         }
                         return null;
                       },
+                      keyboardType: TextInputType.multiline,
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    BuisenessReusableTextField(
+                      controller: WebsiteOnlineStoreLinkController,
+                      labelText: AppStrings.websiteOnlineStoreLink,
+                      prefixIcon: Icons.language,
+                      dark: dark,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return AppStrings.requiredFieldBussiness;
+                        }
+                        return null;
+                      },
+                      keyboardType: TextInputType.url,
                     ),
 
                     const SizedBox(height: 60),
@@ -158,7 +117,8 @@ class _OnlinePresenceScreenState extends State<OnlinePresenceScreen> {
                         child: Text(
                           AppStrings.done,
                           style: dark
-                              ? AppTextTheme.darkTextTheme.displaySmall
+                              ? AppTextTheme.darkTextTheme.displaySmall!
+                                    .copyWith(color: AppColors.imageCard)
                               : AppTextTheme.lightTextTheme.displaySmall!
                                     .copyWith(color: AppColors.light),
                         ),

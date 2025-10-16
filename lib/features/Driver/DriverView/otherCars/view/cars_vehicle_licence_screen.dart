@@ -7,7 +7,7 @@ import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
 import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
-import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
+import 'package:gofix/features/Driver/DriverView/otherCars/widgets/car_upload_image.dart';
 import 'package:gofix/features/Driver/DriverView/otherCars/widgets/car_vehicle_licence_uploader.dart';
 
 class CarsVehicleLicenceScreen extends StatefulWidget {
@@ -50,7 +50,7 @@ class _CarsVehicleLicenceScreenState extends State<CarsVehicleLicenceScreen> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
-      builder: (context) => ImagePickerSheetWidget(
+      builder: (context) => CarImagePickerSheetWidget(
         onImageSelected: (File image) {
           setState(() {
             if (isFront) {
@@ -110,7 +110,7 @@ class _CarsVehicleLicenceScreenState extends State<CarsVehicleLicenceScreen> {
                     AppStrings.vehicleLicense,
                     style: dark
                         ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
-                            color: AppColors.secondaryBlack,
+                            color: AppColors.headTextDark,
                           )
                         : AppTextTheme.lightTextTheme.headlineLarge,
                   ),
@@ -121,7 +121,7 @@ class _CarsVehicleLicenceScreenState extends State<CarsVehicleLicenceScreen> {
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
-                            color: AppColors.texthint,
+                            color: AppColors.primaryTextDark,
                           )
                         : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -133,7 +133,9 @@ class _CarsVehicleLicenceScreenState extends State<CarsVehicleLicenceScreen> {
                   Text(
                     AppStrings.vehicleRequirementsRole,
                     style: TextStyle(
-                      color: dark ? AppColors.texthintDark : AppColors.texthint,
+                      color: dark
+                          ? AppColors.primaryTextDark
+                          : AppColors.texthint,
                       fontSize: 14,
                       height: 1.5,
                     ),

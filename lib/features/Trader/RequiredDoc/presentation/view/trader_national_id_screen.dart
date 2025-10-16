@@ -7,8 +7,8 @@ import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
 import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
-import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
 import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/trader_national_id_uplader.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/trader_upload_image.dart';
 
 class TraderNationalIdScreen extends StatefulWidget {
   const TraderNationalIdScreen({super.key});
@@ -21,6 +21,7 @@ class _TraderNationalIdScreenState extends State<TraderNationalIdScreen> {
   File? _frontImage;
   File? _backImage;
   bool _isLoading = false;
+  bool showError = false;
 
   Future<void> _uploadImage(File image) async {
     setState(() => _isLoading = true);
@@ -44,7 +45,7 @@ class _TraderNationalIdScreenState extends State<TraderNationalIdScreen> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
-      builder: (context) => ImagePickerSheetWidget(
+      builder: (context) => TraderImagePickerSheetWidget(
         onImageSelected: (File image) {
           setState(() {
             if (isFront) {
@@ -52,6 +53,7 @@ class _TraderNationalIdScreenState extends State<TraderNationalIdScreen> {
             } else {
               _backImage = image;
             }
+            showError = false;
           });
           _uploadImage(image);
         },
@@ -61,11 +63,13 @@ class _TraderNationalIdScreenState extends State<TraderNationalIdScreen> {
 
   void _done() {
     if (_frontImage == null || _backImage == null) {
+      setState(() => showError = true);
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text(AppStrings.uploadMsg)));
       return;
     }
+
     Navigator.pop(context, {'front': _frontImage, 'back': _backImage});
   }
 
@@ -96,7 +100,7 @@ class _TraderNationalIdScreenState extends State<TraderNationalIdScreen> {
                     AppStrings.nationalID,
                     style: dark
                         ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
-                            color: AppColors.secondaryBlack,
+                            color: AppColors.headTextDark,
                           )
                         : AppTextTheme.lightTextTheme.headlineLarge,
                   ),
@@ -107,7 +111,7 @@ class _TraderNationalIdScreenState extends State<TraderNationalIdScreen> {
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
-                            color: AppColors.texthint,
+                            color: AppColors.primaryTextDark,
                           )
                         : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -119,7 +123,9 @@ class _TraderNationalIdScreenState extends State<TraderNationalIdScreen> {
                   Text(
                     AppStrings.nationalIDRole,
                     style: TextStyle(
-                      color: dark ? AppColors.texthintDark : AppColors.texthint,
+                      color: dark
+                          ? AppColors.primaryTextDark
+                          : AppColors.texthint,
                       fontSize: 14,
                       height: 1.5,
                     ),
@@ -132,13 +138,16 @@ class _TraderNationalIdScreenState extends State<TraderNationalIdScreen> {
                     imageFile: _frontImage,
                     onTap: () => _showImagePickerSheet(true),
                     dark: dark,
+                    showError: showError,
                   ),
 
+                  // ===== Back ID =====
                   TraderNationalIdUploader(
                     label: "Back ID",
                     imageFile: _backImage,
                     onTap: () => _showImagePickerSheet(false),
                     dark: dark,
+                    showError: showError,
                   ),
 
                   const SizedBox(height: 40),

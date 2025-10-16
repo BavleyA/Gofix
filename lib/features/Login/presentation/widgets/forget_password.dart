@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gofix/features/Login/presentation/views/reset_password_screen.dart';
 import '../../../../core/constants/app_text_style.dart';
 
 class ForgetPass extends StatelessWidget {
@@ -30,7 +31,13 @@ class ForgetPass extends StatelessWidget {
                         ),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+
+              Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => ResetPasswordScreen()),
+                    );
+            },
           ),
         ),
       ],

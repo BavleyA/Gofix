@@ -7,27 +7,21 @@ import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/widgets/done_requirement_button.dart';
 import 'package:gofix/features/CommonPages/widgets/requirement_icon_image.dart';
-import 'package:gofix/features/CommonPages/widgets/upload_image.dart';
-import 'package:gofix/features/Driver/DriverView/otherCars/widgets/car_national_id_uploader.dart';
-import 'package:gofix/features/Driver/DriverView/otherCars/widgets/car_vehicle_licence_uploader.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/trader_national_id_uplader.dart';
+import 'package:gofix/features/Trader/RequiredDoc/presentation/widget/trader_upload_image.dart';
 
 class CarsNationalIDScreen extends StatefulWidget {
   const CarsNationalIDScreen({super.key});
 
   @override
-  State<CarsNationalIDScreen> createState() =>
-      _CarsNationalIDScreenState();
+  State<CarsNationalIDScreen> createState() => _CarsNationalIDScreenState();
 }
 
 class _CarsNationalIDScreenState extends State<CarsNationalIDScreen> {
   File? _frontImage;
   File? _backImage;
   bool _isLoading = false;
-
-  bool _frontError = false;
-  bool _backError = false;
-
-  bool get _allImagesCompleted => _frontImage != null && _backImage != null;
+  bool showError = false;
 
   Future<void> _uploadImage(File image) async {
     setState(() => _isLoading = true);
@@ -51,16 +45,15 @@ class _CarsNationalIDScreenState extends State<CarsNationalIDScreen> {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
       ),
-      builder: (context) => ImagePickerSheetWidget(
+      builder: (context) => TraderImagePickerSheetWidget(
         onImageSelected: (File image) {
           setState(() {
             if (isFront) {
               _frontImage = image;
-              _frontError = false;
             } else {
               _backImage = image;
-              _backError = false;
             }
+            showError = false;
           });
           _uploadImage(image);
         },
@@ -69,12 +62,8 @@ class _CarsNationalIDScreenState extends State<CarsNationalIDScreen> {
   }
 
   void _done() {
-    setState(() {
-      _frontError = _frontImage == null;
-      _backError = _backImage == null;
-    });
-
-    if (!_allImagesCompleted) {
+    if (_frontImage == null || _backImage == null) {
+      setState(() => showError = true);
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text(AppStrings.uploadMsg)));
@@ -111,7 +100,7 @@ class _CarsNationalIDScreenState extends State<CarsNationalIDScreen> {
                     AppStrings.nationalID,
                     style: dark
                         ? AppTextTheme.darkTextTheme.headlineLarge!.copyWith(
-                            color: AppColors.secondaryBlack,
+                            color: AppColors.headTextDark,
                           )
                         : AppTextTheme.lightTextTheme.headlineLarge,
                   ),
@@ -122,7 +111,7 @@ class _CarsNationalIDScreenState extends State<CarsNationalIDScreen> {
                         ? AppTextTheme.darkTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
-                            color: AppColors.texthint,
+                            color: AppColors.primaryTextDark,
                           )
                         : AppTextTheme.lightTextTheme.bodyLarge!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -134,7 +123,9 @@ class _CarsNationalIDScreenState extends State<CarsNationalIDScreen> {
                   Text(
                     AppStrings.nationalIDRole,
                     style: TextStyle(
-                      color: dark ? AppColors.texthintDark : AppColors.texthint,
+                      color: dark
+                          ? AppColors.primaryTextDark
+                          : AppColors.texthint,
                       fontSize: 14,
                       height: 1.5,
                     ),
@@ -142,21 +133,21 @@ class _CarsNationalIDScreenState extends State<CarsNationalIDScreen> {
                   const SizedBox(height: 20),
 
                   // ===== Front ID =====
-                  CarNationalIDUploader(
+                  TraderNationalIdUploader(
                     label: "Front ID",
                     imageFile: _frontImage,
                     onTap: () => _showImagePickerSheet(true),
                     dark: dark,
-                    isError: _frontError,
+                    showError: showError,
                   ),
 
                   // ===== Back ID =====
-                  CarNationalIDUploader(
+                  TraderNationalIdUploader(
                     label: "Back ID",
                     imageFile: _backImage,
                     onTap: () => _showImagePickerSheet(false),
                     dark: dark,
-                    isError: _backError,
+                    showError: showError,
                   ),
 
                   const SizedBox(height: 40),

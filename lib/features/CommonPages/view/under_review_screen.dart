@@ -19,7 +19,8 @@ class UnderReviewScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(18.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 width: 250,
@@ -27,7 +28,7 @@ class UnderReviewScreen extends StatelessWidget {
                 child: Image.asset(AppImageStrings.successRegistration),
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 7),
 
               Text(
                 AppStrings.underReview,
@@ -36,14 +37,13 @@ class UnderReviewScreen extends StatelessWidget {
                             ? AppTextTheme.darkTextTheme.headlineLarge
                             : AppTextTheme.lightTextTheme.headlineLarge)!
                         .copyWith(
-                          fontSize: 42,
+                          fontSize: 38,
                           color: dark ? AppColors.light : AppColors.mainButton,
                         ),
                 textAlign: TextAlign.center,
               ),
 
-              const SizedBox(height: 7),
-
+              const SizedBox(height: 30),
               Text(
                 AppStrings.underReviewDetails,
                 style:
