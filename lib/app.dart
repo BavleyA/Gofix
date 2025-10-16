@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gofix/core/constants/app_elevated_button.dart';
 import 'package:gofix/core/constants/app_text_form_field_theme.dart';
 import 'package:gofix/features/Login/presentation/views/login_screen.dart';
+import 'package:gofix/features/Login/presentation/views/login_screen_view.dart';
 
 import 'SharedConfig/theme/theme.dart';
 
@@ -16,7 +17,8 @@ class App extends StatelessWidget {
       theme: AppTheme.lightTheme.copyWith(
         inputDecorationTheme: AppTextFormFieldTheme.lightInputDecorationTheme,
 
-        elevatedButtonTheme: AppElevatedButtonTheme.lightElevatedButtonThemeData,
+        elevatedButtonTheme:
+            AppElevatedButtonTheme.lightElevatedButtonThemeData,
       ),
       darkTheme: AppTheme.darkTheme.copyWith(
         inputDecorationTheme: AppTextFormFieldTheme.darkInputDecorationTheme,
@@ -24,8 +26,7 @@ class App extends StatelessWidget {
         elevatedButtonTheme: AppElevatedButtonTheme.darkElevatedButtonThemeData,
       ),
 
-
-      home: LoginScreen(),
+      home: LoginView(),
     );
   }
 }

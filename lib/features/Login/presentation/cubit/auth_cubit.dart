@@ -1,0 +1,27 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gofix/core/services/local_storage_services.dart';
+import 'package:gofix/features/Login/Data/Models/Services/auth_services.dart';
+
+part 'auth_state.dart';
+
+class AuthCubit extends Cubit<AuthState> {
+  final AuthService authService;
+
+  AuthCubit(this.authService) : super(AuthInitial());
+
+  Future<void> login(String email, String password) async {
+    emit(AuthLoading());
+    try {
+      final data = await authService.login(email: email, password: password);
+
+      final token = data['token'] ?? data['accessToken'];
+      if (token != null) {
+        await LocalStorageService.saveToken(token);
+      }
+
+      emit(AuthSuccess(data));
+    } catch (e) {
+      emit(AuthFailure(e.toString()));
+    }
+  }
+}
