@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gofix/core/constants/app_colors.dart';
@@ -19,7 +21,6 @@ class SignUpScreen extends StatefulWidget {
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-
 class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -29,13 +30,45 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   bool isPassword = true;
 
+  // String getFriendlyErrorMessage(String rawMessage) {
+  //   if (rawMessage.contains(
+  //     'Another user with the same email is already exists',
+  //   )) {
+  //     return 'An account with this email already exists.\nPlease log in or verify your OTP.';
+  //   } else {
+  //     return 'Something went wrong, please try again';
+  //   }
+  // }
+
   String getFriendlyErrorMessage(String rawMessage) {
-    if (rawMessage.contains(
-      'Another user with the same email is already exists',
-    )) {
-      return 'Another user with the same email is already exists';
-    } else {
-      return 'Something went wrong, please try again';
+    try {
+      // نحاول نحلل الـ JSON اللي جاي من السيرفر
+      final errorData = jsonDecode(rawMessage);
+
+      // لو فيه key اسمه "errors" (وده اللي بيكون في أغلب ردود الـ API)
+      if (errorData['errors'] != null && errorData['errors'] is List) {
+        // نرجع الرسائل زي ما هي، مفصولة بسطر جديد
+        return errorData['errors'].join('\n');
+      }
+
+      // لو فيه key اسمه "message" نرجعه
+      if (errorData['message'] != null) {
+        return errorData['message'];
+      }
+
+      // لو فيه key اسمه "title" أو "detail" نرجعه
+      if (errorData['title'] != null) {
+        return errorData['title'];
+      }
+      if (errorData['detail'] != null) {
+        return errorData['detail'];
+      }
+
+      // لو مفيش حاجة من دول نرجع الرسالة الخام
+      return rawMessage;
+    } catch (e) {
+      // لو الرسالة مش بصيغة JSON نرجعها زي ما هي
+      return rawMessage;
     }
   }
 
@@ -60,7 +93,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const PhoneVerificationScreen(),
+                  builder: (_) => const EmailVerificationScreen(),
                 ),
               );
             });
