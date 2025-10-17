@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gofix/core/constants/app_colors.dart';
+import 'package:gofix/core/routes/app_routes.dart';
 import 'package:gofix/features/Login/presentation/views/login_screen.dart';
+import 'package:gofix/features/Login/presentation/views/login_screen_view.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/app_text_style.dart';
@@ -27,10 +30,12 @@ class AlreadyHaveanAccount extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LoginScreen()),
-            );
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => LoginView()),
+            // );
+
+            GoRouter.of(context).go(Routes.login);
           },
           child: Text(
             'Login',

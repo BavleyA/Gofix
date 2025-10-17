@@ -4,7 +4,8 @@ import 'package:gofix/app.dart';
 void main() {
 
 
-  runApp(const App());
+  runApp(const App(),);
+  
 
 }
 

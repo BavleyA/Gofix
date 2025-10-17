@@ -24,4 +24,33 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthFailure(e.toString()));
     }
   }
+
+
+ Future<void> register({
+  required String email,
+  required String fullName,
+  required String password,
+}) async {
+  emit(AuthLoading());
+  try {
+    final data = await authService.register(
+      email: email,
+      fullName: fullName,
+      password: password,
+    );
+
+    final token = data['token'] ?? data['accessToken'];
+    if (token != null) {
+      await LocalStorageService.saveToken(token);
+    }
+
+    emit(AuthSuccess(data));
+  } catch (e) {
+    emit(AuthFailure(e.toString()));
+  }
+}
+
+
+
+
 }
