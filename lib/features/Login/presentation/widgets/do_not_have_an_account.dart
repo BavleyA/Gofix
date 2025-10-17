@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gofix/core/constants/app_colors.dart';
+import 'package:gofix/core/routes/app_routes.dart';
+import 'package:gofix/features/VerifyOTP/presentation/views/sign_up_Screen_view.dart';
 
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/constants/app_text_style.dart';
@@ -26,10 +29,11 @@ class DontHaveanAccount extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SignUpScreen()),
-            );
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => SignUpView()),
+            // );
+            GoRouter.of(context).go(Routes.signup);
           },
           child: Text(
             'SignUp',

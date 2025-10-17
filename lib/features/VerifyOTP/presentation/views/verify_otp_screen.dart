@@ -6,15 +6,15 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_text_style.dart';
 import '../../../../core/utils/helper.dart';
 
-class PhoneVerificationScreen extends StatefulWidget {
-  const PhoneVerificationScreen({super.key});
+class EmailVerificationScreen extends StatefulWidget {
+  const EmailVerificationScreen({super.key});
 
   @override
-  State<PhoneVerificationScreen> createState() =>
-      _PhoneVerificationScreenState();
+  State<EmailVerificationScreen> createState() =>
+      _EmailVerificationScreenState();
 }
 
-class _PhoneVerificationScreenState extends State<PhoneVerificationScreen> {
+class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
   bool _hasError = false;
   int _countdown = 20;
   Timer? _timer;
