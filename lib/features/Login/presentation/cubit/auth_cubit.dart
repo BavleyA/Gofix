@@ -9,21 +9,54 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit(this.authService) : super(AuthInitial());
 
-  Future<void> login(String email, String password) async {
-    emit(AuthLoading());
-    try {
-      final data = await authService.login(email: email, password: password);
+  // Future<void> login(String email, String password) async {
+  //   emit(AuthLoading());
+  //   try {
+  //     final data = await authService.login(email: email, password: password);
 
-      final token = data['token'] ?? data['accessToken'];
-      if (token != null) {
-        await LocalStorageService.saveToken(token);
+  //     final token = data['token'] ?? data['accessToken'];
+  //     if (token != null) {
+  //       await LocalStorageService.saveToken(token);
+  //     }
+
+  //     emit(AuthSuccess(data));
+  //   } catch (e) {
+  //     emit(AuthFailure(e.toString()));
+  //   }
+  // }
+
+
+Future<void> login(String email, String password) async {
+  emit(AuthLoading());
+  try {
+    final data = await authService.login(email: email, password: password);
+
+    final token = data['token'] ?? data['accessToken'];
+    if (token != null) {
+      await LocalStorageService.saveToken(token);
+    }
+
+    emit(AuthSuccess(data));
+  } catch (e) {
+    print('👀 Exception caught in Cubit: $e');
+
+    // لو الخطأ جاي من السيرفر بصيغة JSON (Map)
+    if (e is Map<String, dynamic>) {
+      if (e['errors'] != null && e['errors'] is List) {
+        final errorList = e['errors'] as List;
+        emit(AuthFailure(errorList.join(', ')));
+      } else if (e['message'] != null) {
+        emit(AuthFailure(e['message']));
+      } else if (e['title'] != null) {
+        emit(AuthFailure(e['title']));
+      } else {
+        emit(AuthFailure('Unknown error occurred.'));
       }
-
-      emit(AuthSuccess(data));
-    } catch (e) {
+    } else {
       emit(AuthFailure(e.toString()));
     }
   }
+}
 
 
  Future<void> register({

@@ -4,29 +4,62 @@ import 'package:http/http.dart' as http;
 class AuthService {
   final String baseUrl = "http://gofix.runasp.net/Api/Auth";
 
-  Future<Map<String, dynamic>> login({
-    required String email,
-    required String password,
-  }) async {
-    final url = Uri.parse('$baseUrl/login');
+  // Future<Map<String, dynamic>> login({
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   final url = Uri.parse('$baseUrl/login');
 
-    try {
-      final response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'email': email, 'password': password}),
-      );
+  //   try {
+  //     final response = await http.post(
+  //       url,
+  //       headers: {'Content-Type': 'application/json'},
+  //       body: jsonEncode({'email': email, 'password': password}),
+  //     );
 
-      if (response.statusCode == 200) {
-        return jsonDecode(response.body);
-      } else {
-        final error = jsonDecode(response.body);
-        throw Exception(error['message'] ?? 'Login failed');
-      }
-    } catch (e) {
-      throw Exception('Error during login: $e');
+  //     if (response.statusCode == 200) {
+  //       return jsonDecode(response.body);
+  //     } else {
+  //       final error = jsonDecode(response.body);
+  //       throw Exception(error['message'] ?? 'Login failed');
+  //     }
+  //   } catch (e) {
+  //     throw Exception('Error during login: $e');
+  //   }
+  // }
+
+
+
+
+Future<Map<String, dynamic>> login({
+  required String email,
+  required String password,
+}) async {
+  final url = Uri.parse('http://gofix.runasp.net/Api/Auth/login');
+
+  try {
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'email': email, 'password': password}),
+    );
+
+    print('📡 Login API Response (${response.statusCode}): ${response.body}');
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      // ❗ نرجع الخطأ الحقيقي بدل ما نغلفه في Exception عادية
+      final errorData = jsonDecode(response.body);
+      print('🚨 API Error Response: $errorData');
+      throw errorData; // <-- نرمي JSON نفسه مش String
     }
+  } catch (e) {
+    print('⚠️ Exception during login: $e');
+    rethrow; // <-- نعيد رمي الخطأ زي ما هو عشان الكيوبت يتعامل معاه
   }
+}
+
 
   Future<Map<String, dynamic>> register({
     required String email,
