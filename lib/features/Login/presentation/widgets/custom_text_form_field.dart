@@ -44,7 +44,7 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       controller: widget.controller,
       keyboardType: widget.keyboardType,
       obscureText: _obscureText,
-      autovalidateMode: AutovalidateMode.onUserInteraction, // 👈 الحل هنا
+      autovalidateMode: AutovalidateMode.onUserInteraction, 
       style: TextStyle(
         color: widget.dark ? AppColors.light : AppColors.placeholderTextLight,
       ),

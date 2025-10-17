@@ -49,14 +49,13 @@ Future<Map<String, dynamic>> login({
     if (response.statusCode == 200) {
       return jsonDecode(response.body);
     } else {
-      // ❗ نرجع الخطأ الحقيقي بدل ما نغلفه في Exception عادية
       final errorData = jsonDecode(response.body);
       print('🚨 API Error Response: $errorData');
-      throw errorData; // <-- نرمي JSON نفسه مش String
+      throw errorData; 
     }
   } catch (e) {
     print('⚠️ Exception during login: $e');
-    rethrow; // <-- نعيد رمي الخطأ زي ما هو عشان الكيوبت يتعامل معاه
+    rethrow;
   }
 }
 

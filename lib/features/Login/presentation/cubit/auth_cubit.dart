@@ -40,7 +40,6 @@ Future<void> login(String email, String password) async {
   } catch (e) {
     print('👀 Exception caught in Cubit: $e');
 
-    // لو الخطأ جاي من السيرفر بصيغة JSON (Map)
     if (e is Map<String, dynamic>) {
       if (e['errors'] != null && e['errors'] is List) {
         final errorList = e['errors'] as List;

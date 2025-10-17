@@ -36,90 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: BlocConsumer<AuthCubit, AuthState>(
-        // listener: (context, state) {
-        //   if (state is AuthSuccess) {
-        //     showCustomDialog(
-        //       context,
-        //       title: 'Success',
-        //       message: 'You Have Logged In Successfully!',
-        //       color: Colors.green,
-        //       isSuccess: true,
-        //     );
-
-        //     Future.delayed(const Duration(seconds: 2), () {
-        //       Navigator.pushReplacement(
-        //         context,
-        //         MaterialPageRoute(builder: (_) => const RoleScreen()),
-        //       );
-        //     });
-        //   } else if (state is AuthFailure) {
-        //     String userMessage;
-
-        //     // if (state.message.contains('Invalid email/password') ||
-        //     //     state.message.contains('User.InvalidCredentials')) {
-        //     //   userMessage = 'Invalid Email or Password.\nPlease Try Again.';
-        //     // } else if (state.message.contains('Email is not confirmed') ||
-        //     //     state.message.contains('User.EmailNotConfirmed')) {
-        //     //   userMessage =
-        //     //       'Your Email Is Not Confirmed.\nPlease Check Your Inbox.';
-        //     // } else {
-        //     //   userMessage = 'Something went wrong.\nPlease try again later.';
-        //     // }
-
-        //     if (state.message.contains('Invalid email/password') ||
-        //         state.message.contains('User.InvalidCredentials')) {
-        //       userMessage = 'Invalid Email or Password.\nPlease Try Again.';
-        //     } else if (state.message.contains('Email is not confirmed') ||
-        //         state.message.contains('User.EmailNotConfirmed')) {
-        //       userMessage =
-        //           'Your Email Is Not Confirmed.\nPlease Check Your Inbox.';
-
-        //       // 🧠 نعرض Dialog فيه زرار
-        //       showDialog(
-        //         context: context,
-        //         builder: (context) {
-        //           return AlertDialog(
-        //             title: const Text('Email Not Confirmed'),
-        //             content: const Text(
-        //               'Your email is not confirmed. Would you like to verify it now?',
-        //             ),
-        //             actions: [
-        //               TextButton(
-        //                 onPressed: () {
-        //                   Navigator.pop(context); // يقفل الـ Dialog
-        //                 },
-        //                 child: const Text('Cancel'),
-        //               ),
-        //               ElevatedButton(
-        //                 onPressed: () {
-        //                   Navigator.pop(context);
-        //                   Navigator.push(
-        //                     context,
-        //                     MaterialPageRoute(
-        //                       builder: (context) =>
-        //                           const EmailVerificationScreen(), // 👈 غيّريها باسم صفحة OTP عندك
-        //                     ),
-        //                   );
-        //                 },
-        //                 child: const Text('Verify Now'),
-        //               ),
-        //             ],
-        //           );
-        //         },
-        //       );
-        //     } else {
-        //       userMessage = 'Something went wrong.\nPlease try again later.';
-        //     }
-
-        //     showCustomDialog(
-        //       context,
-        //       title: 'Error',
-        //       message: userMessage,
-        //       color: Colors.red,
-        //       isSuccess: false,
-        //     );
-        //   }
-        // },
+        
         listener: (context, state) {
           if (state is AuthSuccess) {
             showCustomDialog(
@@ -139,10 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
           } else if (state is AuthFailure) {
             final message = state.message;
 
-            // 🟡 حالة الإيميل مش متأكد
             if (message.contains('Email is not confirmed') ||
                 message.contains('User.EmailNotConfirmed')) {
-              // 🧩 نعرض فقط الـ Dialog بدون رسالة خطأ
               showDialog(
                 context: context,
                 builder: (context) {
@@ -154,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     actions: [
                       TextButton(
                         onPressed: () {
-                          Navigator.pop(context); // يقفل الـ Dialog
+                          Navigator.pop(context); 
                         },
                         child: const Text('Cancel'),
                       ),
@@ -165,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  const EmailVerificationScreen(), // 👈 غيّريها باسم صفحة OTP عندك
+                                  const EmailVerificationScreen(), 
                             ),
                           );
                         },
@@ -176,7 +91,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               );
             }
-            // 🔴 باقي الأخطاء العادية
             else {
               String userMessage;
 
@@ -187,7 +101,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 userMessage = 'Something went wrong.\nPlease try again later.';
               }
 
-              // نعرض الـ Dialog العادي للأخطاء الأخرى فقط
               showCustomDialog(
                 context,
                 title: 'Error',
