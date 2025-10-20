@@ -10,6 +10,7 @@ import 'package:gofix/core/utils/validators.dart';
 import 'package:gofix/features/CommonPages/view/custom_dialog.dart';
 import 'package:gofix/features/Login/presentation/widgets/custom_text_form_field.dart';
 import 'package:gofix/features/VerifyOTP/presentation/views/verify_otp_screen.dart';
+import 'package:gofix/features/VerifyOTP/presentation/views/verify_otp_screen_view.dart';
 import 'package:gofix/features/VerifyOTP/presentation/widgets/already_have_an_account.dart';
 import 'package:gofix/features/VerifyOTP/presentation/widgets/sign_up_elevated_button.dart';
 import '../../../Login/presentation/cubit/auth_cubit.dart';
@@ -61,7 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const EmailVerificationScreen(),
+                  builder: (_) => const EmailVerificationView(),
                 ),
               );
             });

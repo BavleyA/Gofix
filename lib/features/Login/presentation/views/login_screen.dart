@@ -12,6 +12,7 @@ import 'package:gofix/features/Login/presentation/widgets/elevated_button.dart';
 import 'package:gofix/features/Login/presentation/widgets/forget_password.dart';
 import 'package:gofix/features/RoleVehicle/persentation/view/role_screen.dart';
 import 'package:gofix/features/VerifyOTP/presentation/views/verify_otp_screen.dart';
+import 'package:gofix/features/VerifyOTP/presentation/views/verify_otp_screen_view.dart';
 import '../widgets/custom_text_form_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -36,7 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: BlocConsumer<AuthCubit, AuthState>(
-        
         listener: (context, state) {
           if (state is AuthSuccess) {
             showCustomDialog(
@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     actions: [
                       TextButton(
                         onPressed: () {
-                          Navigator.pop(context); 
+                          Navigator.pop(context);
                         },
                         child: const Text('Cancel'),
                       ),
@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  const EmailVerificationScreen(), 
+                                  const EmailVerificationView(),
                             ),
                           );
                         },
@@ -90,8 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   );
                 },
               );
-            }
-            else {
+            } else {
               String userMessage;
 
               if (message.contains('Invalid email/password') ||
@@ -174,8 +173,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             dark: dark,
                             text: AppStrings.loginTitle,
-                            phone: '',
-                            password: '',
+                            // email: emailController.text.trim(),
+                            // password: passwordController.text.trim(),
                           ),
                         const SizedBox(height: 10),
                         DontHaveanAccount(dark: dark),

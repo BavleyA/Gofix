@@ -83,6 +83,18 @@ Future<void> login(String email, String password) async {
 }
 
 
+Future<void> confirmEmail(String email, String otp) async {
+  emit(AuthLoading());
+  try {
+    final data = await authService.confirmEmail(email: email, otp: otp);
+    emit(AuthSuccess(data));
+  } catch (e) {
+    print('🚨 Confirm Email Error: $e');
+    emit(AuthFailure(e.toString()));
+  }
+}
+
+
 
 
 }

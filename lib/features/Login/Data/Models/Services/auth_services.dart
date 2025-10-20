@@ -107,5 +107,54 @@ Future<Map<String, dynamic>> login({
     }
 
     throw Exception('Unknown registration error');
+ 
   }
+
+
+
+
+  Future<Map<String, dynamic>> confirmEmail({
+  required String email,
+  required String otp,
+}) async {
+  final url = Uri.parse('http://gofix.runasp.net/Api/Auth/confirm-email');
+
+  print('📩 Confirm Email Data: {email: $email, otp: $otp}');
+
+  try {
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'email': email, 'otp': otp}),
+    );
+
+    print('📡 Confirm Email Response (${response.statusCode}): ${response.body}');
+
+    final responseData = jsonDecode(response.body);
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return responseData;
+    } else {
+      if (responseData['errors'] != null) {
+        final errors = responseData['errors'];
+        if (errors is List) {
+          throw Exception(errors.join('\n'));
+        } else if (errors is Map) {
+          throw Exception(errors.values.join('\n'));
+        }
+      } else if (responseData['message'] != null) {
+        throw Exception(responseData['message']);
+      } else if (responseData['title'] != null) {
+        throw Exception(responseData['title']);
+      }
+      throw Exception('Email confirmation failed.');
+    }
+  } catch (e) {
+    print('⚠️ Exception during confirmEmail: $e');
+    throw Exception('Error confirming email: ${e.toString()}');
+  }
+}
+
+
+
 }
