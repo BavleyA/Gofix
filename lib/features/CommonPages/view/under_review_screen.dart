@@ -22,6 +22,7 @@ class UnderReviewScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(height: 100),
               SizedBox(
                 width: 250,
                 height: 250,

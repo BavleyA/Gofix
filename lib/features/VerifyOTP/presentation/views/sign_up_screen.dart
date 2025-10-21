@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gofix/core/constants/app_colors.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
+import 'package:gofix/core/routes/app_routes.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/core/utils/validators.dart';
 import 'package:gofix/features/CommonPages/view/custom_dialog.dart';
@@ -59,12 +61,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
             );
 
             Future.delayed(const Duration(seconds: 2), () {
-              Navigator.push(
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (_) => const EmailVerificationView(),
+              //   ),
+              // );
+              GoRouter.of(
                 context,
-                MaterialPageRoute(
-                  builder: (_) => const EmailVerificationView(),
-                ),
-              );
+              ).go(Routes.verify, extra: emailController.text.trim());
             });
           } else if (state is AuthFailure) {
             String friendlyMessage = getFriendlyErrorMessage(state.message);
@@ -137,7 +142,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             : Icons.visibility_off,
                         onChanged: (value) {},
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 50),
 
                       // Sign Up Button
                       SignUpElevatedAuthButton(

@@ -6,13 +6,16 @@ import 'package:gofix/features/VerifyOTP/presentation/views/sign_up_screen.dart'
 import 'package:gofix/features/VerifyOTP/presentation/views/verify_otp_screen.dart';
 
 class EmailVerificationView extends StatelessWidget {
-  const EmailVerificationView({super.key});
+  final String email;
+
+  const EmailVerificationView({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => AuthCubit(AuthService()),
-      child: const EmailVerificationScreen(),
+      child: EmailVerificationScreen(email: email),
     );
   }
 }
+

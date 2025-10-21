@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gofix/core/constants/app_colors.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
+import 'package:gofix/core/routes/app_routes.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/core/utils/validators.dart';
 import 'package:gofix/features/CommonPages/view/custom_dialog.dart';
@@ -47,12 +49,14 @@ class _LoginScreenState extends State<LoginScreen> {
               isSuccess: true,
             );
 
-            Future.delayed(const Duration(seconds: 2), () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => const RoleScreen()),
-              );
-            });
+            // Future.delayed(const Duration(seconds: 2), () {
+            //   Navigator.pushReplacement(
+            //     context,
+            //     MaterialPageRoute(builder: (_) => const RoleScreen()),
+            //   );
+            // }
+
+            // );
           } else if (state is AuthFailure) {
             final message = state.message;
 
@@ -76,12 +80,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const EmailVerificationView(),
-                            ),
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) =>
+                          //         const EmailVerificationView(),
+                          //   ),
+                          // );
+                          GoRouter.of(context).push(
+                            Routes.verify,
+                            extra: emailController.text.trim(),
                           );
                         },
                         child: const Text('Verify Now'),

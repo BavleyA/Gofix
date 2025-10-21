@@ -10,6 +10,8 @@ class AuthSuccess extends AuthState {
   final Map<String, dynamic> data;
   AuthSuccess(this.data);
 }
+class AuthResendSuccess extends AuthState {}
+
 
 class AuthFailure extends AuthState {
   final String message;
