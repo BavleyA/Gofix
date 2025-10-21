@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gofix/core/constants/app_colors.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
+import 'package:gofix/core/routes/app_routes.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/core/utils/validators.dart';
 import 'package:gofix/features/CommonPages/view/custom_dialog.dart';
@@ -12,6 +14,7 @@ import 'package:gofix/features/Login/presentation/widgets/elevated_button.dart';
 import 'package:gofix/features/Login/presentation/widgets/forget_password.dart';
 import 'package:gofix/features/RoleVehicle/persentation/view/role_screen.dart';
 import 'package:gofix/features/VerifyOTP/presentation/views/verify_otp_screen.dart';
+import 'package:gofix/features/VerifyOTP/presentation/views/verify_otp_screen_view.dart';
 import '../widgets/custom_text_form_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -36,7 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: BlocConsumer<AuthCubit, AuthState>(
-        
         listener: (context, state) {
           if (state is AuthSuccess) {
             showCustomDialog(
@@ -47,12 +49,14 @@ class _LoginScreenState extends State<LoginScreen> {
               isSuccess: true,
             );
 
-            Future.delayed(const Duration(seconds: 2), () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => const RoleScreen()),
-              );
-            });
+            // Future.delayed(const Duration(seconds: 2), () {
+            //   Navigator.pushReplacement(
+            //     context,
+            //     MaterialPageRoute(builder: (_) => const RoleScreen()),
+            //   );
+            // }
+
+            // );
           } else if (state is AuthFailure) {
             final message = state.message;
 
@@ -69,19 +73,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     actions: [
                       TextButton(
                         onPressed: () {
-                          Navigator.pop(context); 
+                          Navigator.pop(context);
                         },
                         child: const Text('Cancel'),
                       ),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const EmailVerificationScreen(), 
-                            ),
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) =>
+                          //         const EmailVerificationView(),
+                          //   ),
+                          // );
+                          GoRouter.of(context).push(
+                            Routes.verify,
+                            extra: emailController.text.trim(),
                           );
                         },
                         child: const Text('Verify Now'),
@@ -90,8 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   );
                 },
               );
-            }
-            else {
+            } else {
               String userMessage;
 
               if (message.contains('Invalid email/password') ||
@@ -174,8 +181,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                             dark: dark,
                             text: AppStrings.loginTitle,
-                            phone: '',
-                            password: '',
+                            // email: emailController.text.trim(),
+                            // password: passwordController.text.trim(),
                           ),
                         const SizedBox(height: 10),
                         DontHaveanAccount(dark: dark),

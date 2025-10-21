@@ -86,9 +86,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           messenger.showSnackBar(
                             const SnackBar(
                               content: Text('Password reset successfully!'),
-                              duration: Duration(
-                                seconds: 1,
-                              ),
+                              duration: Duration(seconds: 1),
                             ),
                           );
                           await Future.delayed(const Duration(seconds: 2));
@@ -97,8 +95,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       },
                       dark: dark,
                       text: "Reset Password",
-                      phone: '',
-                      password: '',
+                    
                     ),
                   ],
                 ),
