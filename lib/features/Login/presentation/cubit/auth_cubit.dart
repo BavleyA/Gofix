@@ -9,21 +9,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit(this.authService) : super(AuthInitial());
 
-  // Future<void> login(String email, String password) async {
-  //   emit(AuthLoading());
-  //   try {
-  //     final data = await authService.login(email: email, password: password);
-
-  //     final token = data['token'] ?? data['accessToken'];
-  //     if (token != null) {
-  //       await LocalStorageService.saveToken(token);
-  //     }
-
-  //     emit(AuthSuccess(data));
-  //   } catch (e) {
-  //     emit(AuthFailure(e.toString()));
-  //   }
-  // }
+  
 
   Future<void> login(String email, String password) async {
     emit(AuthLoading());
@@ -80,16 +66,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  // Future<void> confirmEmail(String email, String otp) async {
-  //   emit(AuthLoading());
-  //   try {
-  //     final data = await authService.confirmEmail(email: email, otp: otp);
-  //     emit(AuthSuccess(data));
-  //   } catch (e) {
-  //     print('🚨 Confirm Email Error: $e');
-  //     emit(AuthFailure(e.toString()));
-  //   }
-  // }
+  
 void confirmEmail(String email, String otp) async {
   emit(AuthLoading());
   try {
@@ -102,22 +79,13 @@ void confirmEmail(String email, String otp) async {
 
 
 
-// Future<void> resendConfirmEmail(String email) async {
-//   emit(AuthLoading());
-//   try {
-//     final data = await authService.resendConfirmEmail(email);
-//     emit(AuthSuccess(data));
-//   } catch (e) {
-//     emit(AuthFailure(e.toString()));
-//   }
-// }
+
 
 Future<void> resendConfirmEmail(String email) async {
   emit(AuthLoading());
   try {
     await authService.resendConfirmEmail(email);
 
-    // بدل AuthSuccess نستعمل AuthResendSuccess
     emit(AuthResendSuccess());
   } catch (e) {
     emit(AuthFailure(e.toString()));

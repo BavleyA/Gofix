@@ -4,29 +4,7 @@ import 'package:http/http.dart' as http;
 class AuthService {
   final String baseUrl = "http://gofix.runasp.net/Api/Auth";
 
-  // Future<Map<String, dynamic>> login({
-  //   required String email,
-  //   required String password,
-  // }) async {
-  //   final url = Uri.parse('$baseUrl/login');
 
-  //   try {
-  //     final response = await http.post(
-  //       url,
-  //       headers: {'Content-Type': 'application/json'},
-  //       body: jsonEncode({'email': email, 'password': password}),
-  //     );
-
-  //     if (response.statusCode == 200) {
-  //       return jsonDecode(response.body);
-  //     } else {
-  //       final error = jsonDecode(response.body);
-  //       throw Exception(error['message'] ?? 'Login failed');
-  //     }
-  //   } catch (e) {
-  //     throw Exception('Error during login: $e');
-  //   }
-  // }
 
   Future<Map<String, dynamic>> login({
     required String email,
@@ -105,90 +83,6 @@ class AuthService {
     throw Exception('Unknown registration error');
   }
 
-  //   Future<Map<String, dynamic>> confirmEmail({
-  //   required String email,
-  //   required String otp,
-  // }) async {
-  //   final url = Uri.parse('http://gofix.runasp.net/Api/Auth/confirm-email');
-
-  //   print('📩 Confirm Email Data: {email: $email, otp: $otp}');
-
-  //   try {
-  //     final response = await http.post(
-  //       url,
-  //       headers: {'Content-Type': 'application/json'},
-  //       body: jsonEncode({'email': email, 'otp': otp}),
-  //     );
-
-  //     print('📡 Confirm Email Response (${response.statusCode}): ${response.body}');
-
-  //     final responseData = jsonDecode(response.body);
-
-  //     if (response.statusCode == 200 || response.statusCode == 201) {
-  //       return responseData;
-  //     } else {
-  //       if (responseData['errors'] != null) {
-  //         final errors = responseData['errors'];
-  //         if (errors is List) {
-  //           throw Exception(errors.join('\n'));
-  //         } else if (errors is Map) {
-  //           throw Exception(errors.values.join('\n'));
-  //         }
-  //       } else if (responseData['message'] != null) {
-  //         throw Exception(responseData['message']);
-  //       } else if (responseData['title'] != null) {
-  //         throw Exception(responseData['title']);
-  //       }
-  //       throw Exception('Email confirmation failed.');
-  //     }
-  //   } catch (e) {
-  //     print('⚠️ Exception during confirmEmail: $e');
-  //     throw Exception('Error confirming email: ${e.toString()}');
-  //   }
-  // }
-
-  // Future<void> confirmEmail(String email, String otp) async {
-  //     final url = Uri.parse('$baseUrl/confirm-email');
-
-  //   final body = {
-  //     'email': email,
-  //     'otp': otp,
-  //   };
-
-  //   final response = await http.post(
-  //     url,
-  //     headers: {'Content-Type': 'application/json'},
-  //     body: jsonEncode(body),
-  //   );
-
-  //   if (response.statusCode == 200) {
-  //     return;
-  //   } else {
-  //     final data = jsonDecode(response.body);
-  //     throw Exception(data['message'] ?? 'Failed to verify email');
-  //   }
-  // }
-
-  // Future<dynamic> confirmEmail(String email, String otp) async {
-  //   final url = Uri.parse('$baseUrl/api/Auth/confirm-email');
-  //   print('📤 Sending OTP verification request...');
-  //   print('📧 Email: $email | 🔢 OTP: $otp');
-
-  //   final response = await http.post(url, body: {'email': email, 'otp': otp});
-
-  //   print('📥 Status Code: ${response.statusCode}');
-  //   print('📩 Raw Response: ${response.body}');
-
-  //   // ✅ لو كل شيء تمام
-  //   if (response.statusCode == 200) {
-  //     final decoded = jsonDecode(response.body);
-  //     print('✅ Decoded Response: $decoded');
-  //     return decoded;
-  //   } else {
-  //     print('❌ Error Response: ${response.body}');
-  //     throw Exception(response.body);
-  //   }
-  // }
 
   Future<Map<String, dynamic>> confirmEmail(String email, String otp) async {
     final url = Uri.parse('$baseUrl/confirm-email');
@@ -210,11 +104,9 @@ class AuthService {
         responseData = jsonDecode(response.body);
       }
 
-      // ✅ نجاح
       if (response.statusCode == 200) {
         return responseData;
       }
-      // ❌ في حالة الخطأ
       else {
         if (responseData['errors'] != null) {
           final errors = responseData['errors'];
@@ -251,7 +143,7 @@ Future<Map<String, dynamic>> resendConfirmEmail(String email) async {
     print('📡 Resend Email Response (${response.statusCode}): ${response.body}');
 
     if (response.statusCode == 200) {
-      return {}; // حتى لو body فاضي
+      return {}; 
     } else {
       Map<String, dynamic> errorData = {};
       if (response.body.isNotEmpty) errorData = jsonDecode(response.body);

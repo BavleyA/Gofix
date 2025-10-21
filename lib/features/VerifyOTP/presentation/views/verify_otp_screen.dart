@@ -1,7 +1,3 @@
-// // and here is my last line of the code i wrote before leaving , written with love <3
-// //i had the honor to participate in this
-// // will be back soon <3
-// // with all sorrow and sadness , i must bye bye just for now :(
 
 
 import 'dart:async';
@@ -67,7 +63,6 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
       appBar: AppBar(),
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) async {
-          // إغلاق أي dialog مفتوح قبل التعامل مع الحالة الجديدة
           if (Navigator.canPop(context)) Navigator.pop(context);
 
           if (state is AuthLoading) {
@@ -350,3 +345,10 @@ class _ResendLineState extends State<ResendLine> {
     );
   }
 }
+
+
+
+// // and here is my last line of the code i wrote before leaving , written with love <3
+// //i had the honor to participate in this
+// // will be back soon <3
+// // with all sorrow and sadness , i must bye bye just for now :(
