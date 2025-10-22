@@ -7,6 +7,7 @@ import 'package:gofix/core/constants/app_text_style.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/features/CommonPages/view/custom_dialog.dart';
 import 'package:gofix/features/Login/presentation/cubit/auth_cubit.dart';
+import 'package:gofix/features/Login/presentation/views/new_password_screen_view.dart';
 
 class VResetPasswordScreen extends StatefulWidget {
   const VResetPasswordScreen({super.key, required this.email});
@@ -91,7 +92,22 @@ class _VResetPasswordScreenState extends State<VResetPasswordScreen> {
             });
 
             await Future.delayed(const Duration(seconds: 2));
-            if (context.mounted) Navigator.pop(context);
+            if (context.mounted) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => NewPasswordScreenView(email: widget.email),
+                ),
+              );
+            }
+            if (context.mounted) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => NewPasswordScreenView(email: widget.email),
+                ),
+              );
+            }
           } else if (state is AuthFailure) {
             final friendlyMessage = getFriendlyOtpError(state.message);
             WidgetsBinding.instance.addPostFrameCallback((_) {

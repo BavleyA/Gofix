@@ -224,4 +224,47 @@ class AuthService {
       throw Exception('Error verifying OTP: ${e.toString()}');
     }
   }
+
+
+
+Future<void> resetPassword({
+  required String email,
+  required String newPassword,
+}) async {
+      final url = Uri.parse('$baseUrl/reset-password');
+
+  print('📩 Reset Password Request: $email - $newPassword');
+
+  try {
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'email': email,
+        'newPassword': newPassword,
+      }),
+    );
+
+    print('📡 Reset Password Response (${response.statusCode}): ${response.body}');
+
+    if (response.statusCode == 200) {
+      print('✅ Password reset successfully for $email');
+    } else {
+      Map<String, dynamic> errorData = {};
+      if (response.body.isNotEmpty) errorData = jsonDecode(response.body);
+      throw Exception(
+        errorData['message'] ??
+        errorData['title'] ??
+        'Failed to reset password',
+      );
+    }
+  } catch (e) {
+    print('⚠️ Error in resetPassword: $e');
+    throw Exception('Error resetting password: ${e.toString()}');
+  }
+}
+
+
+
+
 }

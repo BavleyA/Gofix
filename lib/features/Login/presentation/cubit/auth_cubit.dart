@@ -112,5 +112,22 @@ Future<void> verifyOtpForNewPassword(String email, String otp) async {
 
 
 
+Future<void> resetPassword({
+  required String email,
+  required String newPassword,
+}) async {
+  emit(AuthLoading());
+  try {
+    await authService.resetPassword(
+      email: email,
+      newPassword: newPassword,
+    );
+    emit(AuthSuccess({'message': 'Password reset successfully!'}));
+  } catch (e) {
+    emit(AuthFailure(e.toString()));
+  }
+}
+
+
 
 }
