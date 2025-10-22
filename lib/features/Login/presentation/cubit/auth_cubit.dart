@@ -100,6 +100,16 @@ Future<void> forgetPassword(String email) async {
 
 
 
+Future<void> verifyOtpForNewPassword(String email, String otp) async {
+  emit(AuthLoading());
+  try {
+    await authService.verifyOtpForNewPassword(email: email, otp: otp);
+    emit(AuthSuccess({'message': 'OTP verified successfully'}));
+  } catch (e) {
+    emit(AuthFailure(e.toString()));
+  }
+}
+
 
 
 

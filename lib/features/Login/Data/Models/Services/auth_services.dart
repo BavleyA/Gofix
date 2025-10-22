@@ -1,10 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 class AuthService {
   final String baseUrl = "http://gofix.runasp.net/Api/Auth";
-
-
 
   Future<Map<String, dynamic>> login({
     required String email,
@@ -105,8 +104,7 @@ class AuthService {
 
       if (response.statusCode == 200) {
         return responseData;
-      }
-      else {
+      } else {
         if (responseData['errors'] != null) {
           final errors = responseData['errors'];
           if (errors is Map) {
@@ -126,68 +124,104 @@ class AuthService {
     throw Exception('Unknown confirmation error');
   }
 
-Future<Map<String, dynamic>> resendConfirmEmail(String email) async {
-  final url = Uri.parse('$baseUrl/resend-Confirm-email');
-  print('📩 Resend Email Request: $email');
+  Future<Map<String, dynamic>> resendConfirmEmail(String email) async {
+    final url = Uri.parse('$baseUrl/resend-Confirm-email');
+    print('📩 Resend Email Request: $email');
 
-  try {
-    final response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'email': email}),
-    );
-
-    print('📡 Resend Email Response (${response.statusCode}): ${response.body}');
-
-    if (response.statusCode == 200) {
-      return {}; 
-    } else {
-      Map<String, dynamic> errorData = {};
-      if (response.body.isNotEmpty) errorData = jsonDecode(response.body);
-      throw Exception(
-        errorData['message'] ??
-        errorData['title'] ??
-        'Failed to resend verification email',
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': email}),
       );
-    }
-  } catch (e) {
-    print('⚠️ Error in resendConfirmEmail: $e');
-    throw Exception('Error resending email: ${e.toString()}');
-  }
-}
 
-
-Future<void> forgetPassword(String email) async {
-  final url = Uri.parse('$baseUrl/forget-password');
-  print('📩 Forget Password Request: $email');
-
-  try {
-    final response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'email': email}),
-    );
-
-    print('📡 Forget Password Response (${response.statusCode}): ${response.body}');
-
-    if (response.statusCode == 200) {
-      print('✅ [200 OK] OTP sent successfully to: $email');
-    } else {
-      Map<String, dynamic> errorData = {};
-      if (response.body.isNotEmpty) errorData = jsonDecode(response.body);
-      throw Exception(
-        errorData['message'] ??
-        errorData['title'] ??
-        'Failed to send OTP to email',
+      print(
+        '📡 Resend Email Response (${response.statusCode}): ${response.body}',
       );
+
+      if (response.statusCode == 200) {
+        return {};
+      } else {
+        Map<String, dynamic> errorData = {};
+        if (response.body.isNotEmpty) errorData = jsonDecode(response.body);
+        throw Exception(
+          errorData['message'] ??
+              errorData['title'] ??
+              'Failed to resend verification email',
+        );
+      }
+    } catch (e) {
+      print('⚠️ Error in resendConfirmEmail: $e');
+      throw Exception('Error resending email: ${e.toString()}');
     }
-  } catch (e) {
-    print('⚠️ Error in forgetPassword: $e');
-    throw Exception('Error sending OTP: ${e.toString()}');
   }
-}
 
+  Future<void> forgetPassword(String email) async {
+    final url = Uri.parse('$baseUrl/forget-password');
+    print('📩 Forget Password Request: $email');
 
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': email}),
+      );
 
+      print(
+        '📡 Forget Password Response (${response.statusCode}): ${response.body}',
+      );
 
+      if (response.statusCode == 200) {
+        print('✅ [200 OK] OTP sent successfully to: $email');
+      } else {
+        Map<String, dynamic> errorData = {};
+        if (response.body.isNotEmpty) errorData = jsonDecode(response.body);
+        throw Exception(
+          errorData['message'] ??
+              errorData['title'] ??
+              'Failed to send OTP to email',
+        );
+      }
+    } catch (e) {
+      print('⚠️ Error in forgetPassword: $e');
+      throw Exception('Error sending OTP: ${e.toString()}');
+    }
+  }
+
+  Future<void> verifyOtpForNewPassword({
+    required String email,
+    required String otp,
+  }) async {
+    final url = Uri.parse('$baseUrl/register-otp-for-new-password');
+    print('📩 Verify OTP for New Password Request: Email=$email, OTP=$otp');
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': email, 'otp': otp}),
+      );
+      log('🔹 Status Code: ${response.statusCode}');
+      log('🔹 Response Body: ${response.body}');
+
+      print(
+        '📡 Verify OTP Response (${response.statusCode}): ${response.body}',
+      );
+
+      if (response.statusCode == 200) {
+        print('✅ [200 OK] OTP verified successfully for $email');
+      } else {
+        Map<String, dynamic> errorData = {};
+        if (response.body.isNotEmpty) errorData = jsonDecode(response.body);
+        throw Exception(
+          errorData['message'] ??
+              errorData['title'] ??
+              'Failed to verify OTP for new password',
+        );
+      }
+    } catch (e) {
+      print('⚠️ Error in verifyOtpForNewPassword: $e');
+      throw Exception('Error verifying OTP: ${e.toString()}');
+    }
+  }
 }
