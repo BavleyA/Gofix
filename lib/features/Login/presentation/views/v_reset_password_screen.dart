@@ -100,14 +100,6 @@ class _VResetPasswordScreenState extends State<VResetPasswordScreen> {
                 ),
               );
             }
-            if (context.mounted) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => NewPasswordScreenView(email: widget.email),
-                ),
-              );
-            }
           } else if (state is AuthFailure) {
             final friendlyMessage = getFriendlyOtpError(state.message);
             WidgetsBinding.instance.addPostFrameCallback((_) {

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gofix/core/constants/app_colors.dart';
 import 'package:gofix/core/constants/app_strings.dart';
 import 'package:gofix/core/constants/app_text_style.dart';
+import 'package:gofix/core/routes/app_routes.dart';
 import 'package:gofix/core/utils/helper.dart';
 import 'package:gofix/core/utils/validators.dart';
 import 'package:gofix/features/CommonPages/view/custom_dialog.dart';
@@ -56,19 +58,22 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: BlocConsumer<AuthCubit, AuthState>(
-        listener: (context, state) {
+        listener: (context, state) async {
+          // if (state is AuthSuccess) {
+          // await resetShowCustomDialogFuture(
+          //   context,
+          //   title: 'Success',
+          //   message: 'Password reset successfully!',
+          //   color: Colors.green,
+          //   isSuccess: true,
+          // );
+
           if (state is AuthSuccess) {
-            showCustomDialog(
-              context,
-              title: 'Success',
-              message: 'Password reset successfully!',
-              color: Colors.green,
-              isSuccess: true,
-            );
-            Future.delayed(const Duration(milliseconds: 1500), () {
-              Navigator.pushReplacement(
+            Future.delayed(const Duration(milliseconds: 1000), () {
+              if (!mounted) return;
+              Navigator.push(
                 context,
-                MaterialPageRoute(builder: (_) => LoginView()),
+                MaterialPageRoute(builder: (_) => const LoginView()),
               );
             });
           } else if (state is AuthFailure) {
@@ -220,6 +225,53 @@ Widget _buildPasswordCondition(String text, bool conditionMet) {
           ),
         ),
       ],
+    ),
+  );
+}
+
+Future<void> resetShowCustomDialogFuture(
+  BuildContext context, {
+  required String title,
+  required String message,
+  required Color color,
+  bool isSuccess = false,
+}) {
+  return showDialog(
+    context: context,
+    barrierDismissible: false, // عشان المستخدم لازم يضغط OK
+    builder: (_) => Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AnimatedIconWidget(isSuccess: isSuccess, color: color),
+            const SizedBox(height: 16),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 20,
+                color: color,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(message, textAlign: TextAlign.center),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context), // إغلاق الـ dialog
+              style: ElevatedButton.styleFrom(
+                backgroundColor: color,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      ),
     ),
   );
 }

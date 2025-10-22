@@ -58,57 +58,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: BlocConsumer<AuthCubit, AuthState>(
-        // listener: (context, state) async {
-        //   // if (Navigator.canPop(context)) Navigator.pop(context);
-
-        //   if (state is AuthLoading) {
-        //     showDialog(
-        //       context: context,
-        //       barrierDismissible: false,
-        //       builder: (_) => const
-        //       Center(
-        //         child: CircularProgressIndicator()
-        //         ),
-        //     );
-        //   } else if (state is AuthResendSuccess) {
-        //     WidgetsBinding.instance.addPostFrameCallback((_) {
-        //       showCustomDialog(
-        //         context,
-        //         title: 'Email Resent',
-        //         message: 'Verification email has been resent successfully!',
-        //         color: AppColors.buttonPrimary,
-        //         isSuccess: true,
-        //       );
-        //     });
-        //   } else if (state is AuthSuccess) {
-        //     WidgetsBinding.instance.addPostFrameCallback((_) {
-        //       showCustomDialog(
-        //         context,
-        //         title: 'Verified',
-        //         message: 'Your email has been successfully verified!',
-        //         color: Colors.green,
-        //         isSuccess: true,
-        //       );
-        //     });
-
-        //     Future.delayed(const Duration(seconds: 2), () {
-        //       if (context.mounted) {
-        //         GoRouter.of(context).go(Routes.underReview);
-        //       }
-        //     });
-        //   } else if (state is AuthFailure) {
-        //     final friendlyMessage = getFriendlyOtpError(state.message);
-        //     WidgetsBinding.instance.addPostFrameCallback((_) {
-        //       showCustomDialog(
-        //         context,
-        //         title: 'Error',
-        //         message: friendlyMessage,
-        //         color: Colors.red,
-        //         isSuccess: false,
-        //       );
-        //     });
-        //   }
-        // },
+        
         listener: (context, state) async {
           if (state is AuthLoading) {
             showDialog(
