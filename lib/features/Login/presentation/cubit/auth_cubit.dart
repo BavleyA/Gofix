@@ -66,7 +66,6 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  
 void confirmEmail(String email, String otp) async {
   emit(AuthLoading());
   try {
@@ -76,10 +75,6 @@ void confirmEmail(String email, String otp) async {
     emit(AuthFailure(e.toString()));
   }
 }
-
-
-
-
 
 Future<void> resendConfirmEmail(String email) async {
   emit(AuthLoading());
@@ -91,6 +86,19 @@ Future<void> resendConfirmEmail(String email) async {
     emit(AuthFailure(e.toString()));
   }
 }
+
+
+Future<void> forgetPassword(String email) async {
+  emit(AuthLoading());
+  try {
+    await authService.forgetPassword(email);
+    emit(AuthSuccess({'message': 'OTP sent successfully'}));
+  } catch (e) {
+    emit(AuthFailure(e.toString()));
+  }
+}
+
+
 
 
 

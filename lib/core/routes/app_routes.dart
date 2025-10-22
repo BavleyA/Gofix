@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gofix/features/CommonPages/view/under_review_screen.dart';
+import 'package:gofix/features/Login/presentation/views/forgot_password_screen_view.dart';
 import 'package:gofix/features/Login/presentation/views/login_screen_view.dart';
 import 'package:gofix/features/VerifyOTP/presentation/views/sign_up_screen_view.dart';
 import 'package:gofix/features/VerifyOTP/presentation/views/verify_otp_screen_view.dart';
@@ -11,6 +12,7 @@ class Routes {
   static const String signup = '/signup';
   static const String verify = '/verify';
   static const String underReview = '/under-review';
+  static const String forgotPassword = '/forgot-password';
 
 
 }
@@ -35,6 +37,11 @@ final appRouter = GoRouter(
       pageBuilder: (context, state) =>
           MaterialPage(key: state.pageKey, child: const UnderReviewScreen()),
     ),
+    GoRoute(
+      path: Routes.forgotPassword,
+      pageBuilder: (context, state) =>
+          MaterialPage(key: state.pageKey, child: const ForgotPasswordScreenView()),
+    ),
 
     GoRoute(
       path: Routes.verify,
@@ -46,5 +53,7 @@ final appRouter = GoRouter(
         );
       },
     ),
+    
+    
   ],
 );

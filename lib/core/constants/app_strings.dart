@@ -3,6 +3,7 @@ class AppStrings {
   static const String loginTitle = 'Log In';
   static const String alreadyHaveAccountText = 'Already have an account?';
   static const String dontHaveAccountText = "Don't have an account?";
+  static const String forgotPasswordText= "Forgot your password?";
   static const String enterPhoneNumber = 'Enter your phone number';
   static const String phoneNumberHint = 'Phone Number';
   static const String continueText = 'Continue';

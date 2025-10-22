@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gofix/features/Login/presentation/views/reset_password_screen.dart';
+import 'package:gofix/features/Login/presentation/views/forgot_password_screen.dart';
+import 'package:gofix/features/Login/presentation/views/forgot_password_screen_view.dart';
 import '../../../../core/constants/app_text_style.dart';
 
-class ForgetPass extends StatelessWidget {
-  const ForgetPass({super.key, required this.dark});
+class ForgetPassWord extends StatelessWidget {
+  const ForgetPassWord({super.key, required this.dark});
 
   final bool dark;
 
@@ -32,11 +33,10 @@ class ForgetPass extends StatelessWidget {
               ),
             ),
             onPressed: () {
-
               Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => ResetPasswordScreen()),
-                    );
+                context,
+                MaterialPageRoute(builder: (_) => ForgotPasswordScreenView()),
+              );
             },
           ),
         ),

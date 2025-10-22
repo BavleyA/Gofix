@@ -11,7 +11,7 @@ import 'package:gofix/features/CommonPages/view/custom_dialog.dart';
 import 'package:gofix/features/Login/presentation/cubit/auth_cubit.dart';
 import 'package:gofix/features/Login/presentation/widgets/do_not_have_an_account.dart';
 import 'package:gofix/features/Login/presentation/widgets/elevated_button.dart';
-import 'package:gofix/features/Login/presentation/widgets/forget_password.dart';
+import 'package:gofix/features/Login/presentation/widgets/forget_password_word.dart';
 import 'package:gofix/features/RoleVehicle/persentation/view/role_screen.dart';
 import 'package:gofix/features/VerifyOTP/presentation/views/verify_otp_screen.dart';
 import 'package:gofix/features/VerifyOTP/presentation/views/verify_otp_screen_view.dart';
@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               : Icons.visibility_off,
                         ),
                         const SizedBox(height: 4),
-                        ForgetPass(dark: dark),
+                        ForgetPassWord(dark: dark),
                         const SizedBox(height: 20),
                         if (state is AuthLoading)
                           const CircularProgressIndicator()
