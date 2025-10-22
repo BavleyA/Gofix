@@ -223,6 +223,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
             if (index < 3) SizedBox(width: spacing),
           ],
         );
+      
       }),
     );
   }

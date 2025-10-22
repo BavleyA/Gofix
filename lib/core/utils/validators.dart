@@ -1,10 +1,11 @@
-class Validator{
-
+class Validator {
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email cannot be empty';
     }
-    final emailRegex = RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+    final emailRegex = RegExp(
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+    );
     if (!emailRegex.hasMatch(value)) {
       return 'Invalid email format';
     }
@@ -15,8 +16,8 @@ class Validator{
     if (value == null || value.isEmpty) {
       return 'Password cannot be empty';
     }
-    if (value.length < 6) {
-      return 'Password must be at least 6 characters long';
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long';
     }
     return null;
   }

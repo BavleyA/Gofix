@@ -10,6 +10,8 @@ import 'package:gofix/core/utils/validators.dart';
 import 'package:gofix/features/CommonPages/view/custom_dialog.dart';
 import 'package:gofix/features/Login/Data/Models/Services/auth_services.dart';
 import 'package:gofix/features/Login/presentation/cubit/auth_cubit.dart';
+import 'package:gofix/features/Login/presentation/views/v_reset_password_screen.dart';
+import 'package:gofix/features/Login/presentation/views/v_reset_password_screen_view.dart';
 import '../widgets/custom_text_form_field.dart';
 import '../widgets/elevated_button.dart';
 
@@ -56,13 +58,23 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               color: Colors.green,
               isSuccess: true,
             );
+            Future.delayed(const Duration(milliseconds: 3000), () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => VResetPasswordScreenView(
+                    email: emailController.text.trim(),
+                  ),
+                ),
+              );
+            });
           } else if (state is AuthFailure) {
             log('Error: ${state.message}');
             showCustomDialog(
               context,
               title: 'Error',
               message:
-                  'Something went wrong, please try again later or check your internet connection.',
+                  'Something went wrong\nPlease try again later or check your internet connection.',
               color: Colors.red,
               isSuccess: false,
             );
