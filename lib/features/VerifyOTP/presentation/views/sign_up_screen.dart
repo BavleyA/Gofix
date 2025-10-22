@@ -32,6 +32,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController passwordController = TextEditingController();
 
   bool isPassword = true;
+  bool hasUppercase = false;
+  bool hasNumber = false;
+  bool hasSpecialChar = false;
+
+  void validatePasswordRules(String value) {
+    setState(() {
+      hasUppercase = RegExp(r'[A-Z]').hasMatch(value);
+      hasNumber = RegExp(r'[0-9]').hasMatch(value);
+      hasSpecialChar = RegExp(r'[!@#\$%^&*(),.?":{}|<>]').hasMatch(value);
+    });
+  }
 
   String getFriendlyErrorMessage(String rawMessage) {
     if (rawMessage.contains(
@@ -129,18 +140,47 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const SizedBox(height: 16),
 
                       // Password
+                      // CustomTextFormField(
+                      //   dark: dark,
+                      //   labelText: AppStrings.passwordHint,
+                      //   controller: passwordController,
+                      //   keyboardType: TextInputType.text,
+                      //   validator: (value) => Validator.validatePassword(value),
+                      //   icon: Icons.lock,
+                      //   obscureText: isPassword,
+                      //   suffixIcon: isPassword
+                      //       ? Icons.visibility
+                      //       : Icons.visibility_off,
+                      //   onChanged: (value) {},
+                      // ),
                       CustomTextFormField(
                         dark: dark,
-                        labelText: AppStrings.passwordHint,
+                        labelText: 'Password',
                         controller: passwordController,
                         keyboardType: TextInputType.text,
                         validator: (value) => Validator.validatePassword(value),
                         icon: Icons.lock,
-                        obscureText: isPassword,
+                        obscureText: true,
                         suffixIcon: isPassword
                             ? Icons.visibility
                             : Icons.visibility_off,
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          validatePasswordRules(value);
+                        },
+                      ),
+                      const SizedBox(height: 16),
+
+                      _buildPasswordCondition(
+                        'Contains at least one uppercase letter',
+                        hasUppercase,
+                      ),
+                      _buildPasswordCondition(
+                        'Contains at least one number',
+                        hasNumber,
+                      ),
+                      _buildPasswordCondition(
+                        'Contains at least one special character (@, #, !, ...)',
+                        hasSpecialChar,
                       ),
                       const SizedBox(height: 50),
 
@@ -170,4 +210,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
       ),
     );
   }
+}
+
+Widget _buildPasswordCondition(String text, bool conditionMet) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 4),
+    child: Row(
+      children: [
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          transitionBuilder: (child, animation) =>
+              ScaleTransition(scale: animation, child: child),
+          child: Icon(
+            conditionMet ? Icons.check_circle : Icons.circle,
+            key: ValueKey(conditionMet),
+            color: conditionMet ? Colors.green : Colors.grey,
+            size: 18,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Text(
+          text,
+          style: TextStyle(
+            decoration: conditionMet
+                ? TextDecoration.lineThrough
+                : TextDecoration.none,
+            color: conditionMet ? Colors.green : Colors.grey,
+            fontSize: 14,
+          ),
+        ),
+      ],
+    ),
+  );
 }
