@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,8 +8,6 @@ import 'package:gofix/core/routes/app_routes.dart';
 import 'package:gofix/features/CommonPages/view/custom_dialog.dart';
 import 'package:gofix/features/Login/presentation/cubit/auth_cubit.dart';
 import 'package:gofix/core/utils/helper.dart';
-
-
 
 class EmailVerificationScreen extends StatefulWidget {
   final String email;
@@ -62,16 +58,19 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: BlocConsumer<AuthCubit, AuthState>(
+        
         listener: (context, state) async {
-          if (Navigator.canPop(context)) Navigator.pop(context);
-
           if (state is AuthLoading) {
             showDialog(
               context: context,
               barrierDismissible: false,
               builder: (_) => const Center(child: CircularProgressIndicator()),
             );
-          } else if (state is AuthResendSuccess) {
+          } else {
+            if (Navigator.canPop(context)) Navigator.pop(context);
+          }
+
+          if (state is AuthResendSuccess) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               showCustomDialog(
                 context,
@@ -110,6 +109,7 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
             });
           }
         },
+
         builder: (context, state) {
           return _buildVerificationBody(context);
         },
@@ -270,7 +270,7 @@ class _ResendLineState extends State<ResendLine> {
   void _startTimer() {
     setState(() {
       _canResend = false;
-      _secondsRemaining = 60; 
+      _secondsRemaining = 60;
     });
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -345,8 +345,6 @@ class _ResendLineState extends State<ResendLine> {
     );
   }
 }
-
-
 
 // // and here is my last line of the code i wrote before leaving , written with love <3
 // //i had the honor to participate in this

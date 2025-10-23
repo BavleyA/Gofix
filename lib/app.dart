@@ -3,7 +3,6 @@ import 'package:gofix/core/constants/app_elevated_button.dart';
 import 'package:gofix/core/constants/app_text_form_field_theme.dart';
 import 'package:gofix/core/routes/app_routes.dart';
 
-
 import 'SharedConfig/theme/theme.dart';
 
 class App extends StatelessWidget {

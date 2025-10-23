@@ -66,7 +66,6 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  
 void confirmEmail(String email, String otp) async {
   emit(AuthLoading());
   try {
@@ -76,10 +75,6 @@ void confirmEmail(String email, String otp) async {
     emit(AuthFailure(e.toString()));
   }
 }
-
-
-
-
 
 Future<void> resendConfirmEmail(String email) async {
   emit(AuthLoading());
@@ -91,6 +86,48 @@ Future<void> resendConfirmEmail(String email) async {
     emit(AuthFailure(e.toString()));
   }
 }
+
+
+Future<void> forgetPassword(String email) async {
+  emit(AuthLoading());
+  try {
+    await authService.forgetPassword(email);
+    emit(AuthSuccess({'message': 'OTP sent successfully'}));
+  } catch (e) {
+    emit(AuthFailure(e.toString()));
+  }
+}
+
+
+
+Future<void> verifyOtpForNewPassword(String email, String otp) async {
+  emit(AuthLoading());
+  try {
+    await authService.verifyOtpForNewPassword(email: email, otp: otp);
+    emit(AuthSuccess({'message': 'OTP verified successfully'}));
+  } catch (e) {
+    emit(AuthFailure(e.toString()));
+  }
+}
+
+
+
+Future<void> resetPassword({
+  required String email,
+  required String newPassword,
+}) async {
+  emit(AuthLoading());
+  try {
+    await authService.resetPassword(
+      email: email,
+      newPassword: newPassword,
+    );
+    emit(AuthSuccess({'message': 'Password reset successfully!'}));
+  } catch (e) {
+    emit(AuthFailure(e.toString()));
+  }
+}
+
 
 
 }
